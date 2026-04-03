@@ -80,14 +80,14 @@ export default function CheckoutPage() {
         setServerError(result.error || "Lỗi không xác định.");
       }
     } catch (_e) {
-      setServerError("Lỗi mạng. Vui lòng kiểm tra connection.");
+      setServerError("Lỗi mạng. Vui lòng kiểm tra connection." + _e);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-5xl">
+    <div className="container mx-auto px-4 py-12">
       <div className="mb-8">
         <Link
           href="/cart"
@@ -101,7 +101,6 @@ export default function CheckoutPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
         <form
           id="checkout-form"
           onSubmit={handleSubmit(onSubmit)}
@@ -287,8 +286,8 @@ export default function CheckoutPage() {
                     </span>
                   </div>
                   <span className="text-sm text-slate-500 mt-1">
-                    Xác nhận đơn ngay lập tức qua tích hợp SePay tự động (Khuyên
-                    dùng).
+                    Xác nhận thanh toán qua chuyển khoản ngân hàng tự động
+                    (Khuyên dùng).
                   </span>
                 </div>
                 {paymentMethod === "BANK_TRANSFER" && (
@@ -319,11 +318,11 @@ export default function CheckoutPage() {
                     <span
                       className={`font-bold ${paymentMethod === "COD" ? "text-emerald-900" : "text-slate-700"}`}
                     >
-                      Tiền Mặt (COD)
+                      Thanh toán khi nhận hàng (COD)
                     </span>
                   </div>
                   <span className="text-sm text-slate-500 mt-1">
-                    Thanh toán bằng tiền mặt khi shipper giao tới tận tay.
+                    Thanh toán bằng tiền mặt khi nhận hàng.
                   </span>
                 </div>
                 {paymentMethod === "COD" && (

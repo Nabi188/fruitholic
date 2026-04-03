@@ -58,6 +58,8 @@ export type ProductDetail = {
     description: string | null;
     short_description: string | null;
     category_id: string | null;
+    category_name: string | null;
+    category_slug: string | null;
     is_active: boolean;
   };
   images: ProductImage[];

@@ -1,47 +1,88 @@
-'use client'
+"use client";
 
-import { ShoppingBag } from 'lucide-react'
-import Link from 'next/link'
-import { useCartStore } from '@/stores/cartStore'
-import { useEffect, useState } from 'react'
-import { formatVND } from '@/lib/formatters'
+import { ShoppingBasket } from "lucide-react";
+import { useCartStore } from "@/stores/cartStore";
+import { useEffect, useState } from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetHeader,
+} from "@/components/ui/sheet";
+import { CartQuickView } from "./CartQuickView";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export function HeaderCartButton() {
-  const { totalItems, totalAmount } = useCartStore()
-  
-  const [mounted, setMounted] = useState(false)
+  const { totalItems } = useCartStore();
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [open, setOpen] = useState(false);
+
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 0)
-    return () => clearTimeout(t)
-  }, [])
+    const t = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   if (!mounted) {
     return (
-      <div className="flex items-center gap-2 p-2">
-        <ShoppingBag className="h-5 w-5 text-slate-400" />
+      <div className="p-2 scale-95 transition-transform text-primary-dim/50 cursor-pointer rounded-full">
+        <ShoppingBasket strokeWidth={1.5} className="w-6 h-6" />
       </div>
-    )
+    );
+  }
+
+  const trigger = (
+    <button
+      type="button"
+      className="p-2 scale-95 active:scale-90 transition-transform relative hover:bg-primary/10 rounded-full group cursor-pointer"
+    >
+      <ShoppingBasket
+        strokeWidth={1.5}
+        className="w-6 h-6 group-hover:text-primary transition-colors"
+      />
+      {totalItems() > 0 && (
+        <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[9px] font-bold text-on-error shadow-sm animate-in zoom-in duration-300">
+          {totalItems()}
+        </span>
+      )}
+    </button>
+  );
+
+  if (isDesktop) {
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger render={trigger} />
+        <PopoverContent
+          align="end"
+          className="w-[360px] p-0 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-surface-container-highest overflow-hidden bg-surface-container-lowest"
+        >
+          <CartQuickView close={() => setOpen(false)} />
+        </PopoverContent>
+      </Popover>
+    );
   }
 
   return (
-    <Link href="/cart" className="flex items-center gap-3 p-2 group transition-colors">
-      <div className="relative">
-        <ShoppingBag className="h-6 w-6 text-slate-700 group-hover:text-emerald-600 transition-colors" />
-        {totalItems() > 0 && (
-          <span className="absolute -top-1 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white">
-            {totalItems()}
-          </span>
-        )}
-      </div>
-
-      <div className="hidden lg:flex flex-col items-start leading-none ml-2">
-        <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">
-          Giỏ hàng
-        </span>
-        <span className="text-sm font-bold text-slate-800">
-          {totalItems() > 0 ? formatVND(totalAmount()) : '0 ₫'}
-        </span>
-      </div>
-    </Link>
-  )
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger render={trigger} />
+      <SheetContent
+        side="bottom"
+        className="h-[80vh] rounded-t-[1.5rem] p-0 overflow-hidden bg-surface-container-lowest border-none shadow-[0_-10px_40px_rgba(0,0,0,0.1)]"
+      >
+        <SheetHeader className="sr-only">
+          <SheetTitle>Giỏ hàng</SheetTitle>
+        </SheetHeader>
+        <div className="pt-2">
+          <div className="w-12 h-1.5 bg-outline-variant/30 rounded-full mx-auto mb-2" />
+          <CartQuickView close={() => setOpen(false)} />
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
 }

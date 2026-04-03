@@ -5,7 +5,6 @@ const envSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z
     .string()
     .min(1, "Missing SUPABASE_SERVICE_ROLE_KEY"),
-  SEPAY_API_KEY: z.string().min(1, "Missing SEPAY_API_KEY"),
   CLOUDINARY_CLOUD_NAME: z.string().min(1, "Missing CLOUDINARY_CLOUD_NAME"),
   CLOUDINARY_API_KEY: z.string().min(1, "Missing CLOUDINARY_API_KEY"),
   CLOUDINARY_API_SECRET: z.string().min(1, "Missing CLOUDINARY_API_SECRET"),
@@ -15,9 +14,11 @@ const envSchema = z.object({
   SMTP_PASS: z.string().min(1, "Missing SMTP_PASS"),
   SMTP_FROM: z.string().min(1, "Missing SMTP_FROM"),
   NOTIFICATION_EMAIL: z.string().min(1, "Missing NOTIFICATION_EMAIL"),
-  BANK_ID: z.string().min(1, "Missing BANK_ID"),
-  BANK_ACCOUNT_NO: z.coerce.number().min(1, "Missing BANK_ACCOUNT_NO"),
-  BANK_ACCOUNT_NAME: z.string().min(1, "Missing BANK_ACCOUNT_NAME"),
+  NEXT_PUBLIC_BANK_ID: z.string().min(1, "Missing BANK_ID"),
+  NEXT_PUBLIC_BANK_ACCOUNT_NO: z.coerce
+    .number()
+    .min(1, "Missing BANK_ACCOUNT_NO"),
+  NEXT_PUBLIC_BANK_ACCOUNT_NAME: z.string().min(1, "Missing BANK_ACCOUNT_NAME"),
 });
 
 type EnvConfig = z.infer<typeof envSchema>;

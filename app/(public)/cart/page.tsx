@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useCartStore } from "@/stores/cartStore";
 import { formatVND } from "@/lib/formatters";
 import Link from "next/link";
-import { ShoppingBag, X, Plus, Minus, ArrowRight } from "lucide-react";
-
+import { ArrowLeft, Minus, Plus, Trash2, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function CartPage() {
@@ -18,126 +16,150 @@ export default function CartPage() {
     return () => clearTimeout(t);
   }, []);
 
-  if (!mounted) return null; //Thêm skeleton loading ở đây
+  if (!mounted) return null;
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-24 flex flex-col items-center text-center max-w-md">
-        <div className="h-24 w-24 rounded-full bg-slate-50 flex items-center justify-center mb-6">
-          <ShoppingBag className="h-10 w-10 text-slate-300" />
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-24 flex flex-col items-center">
+        {/* Empty State Suggestion (Editorial Feel) */}
+        <div className="bg-primary/5 rounded-2xl border-2 border-dashed border-primary/20 p-12 flex flex-col items-center justify-center text-center max-w-lg w-full">
+          <Trash2
+            className="text-primary w-12 h-12 mb-6 opacity-50"
+            strokeWidth={1.5}
+          />
+          <p className="font-headline font-extrabold text-2xl text-primary mb-2 tracking-tight">
+            Giỏ hàng trống
+          </p>
+          <p className="text-on-surface-variant font-body mb-8 leading-relaxed">
+            Bạn chưa chọn sản phẩm nào. Hãy khám phá thực đơn hữu cơ tươi mát
+            của hôm nay nhé.
+          </p>
+          <Link
+            href="/"
+            className="px-8 py-4 bg-primary text-on-primary rounded-full font-headline font-bold shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
+          >
+            Tiếp tục mua sắm
+          </Link>
         </div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-3">
-          Giỏ hàng trống
-        </h2>
-        <p className="text-slate-500 mb-8">
-          Bạn chưa chọn sản phẩm nào. Hãy khám phá menu hấp dẫn của Fruitholic
-          nhé!
-        </p>
-        <Link
-          href="/"
-          className="w-full rounded-2xl bg-emerald-600 px-6 py-4 font-bold text-white shadow-lg transition-colors hover:bg-emerald-700"
-        >
-          Tiếp tục mua sắm
-        </Link>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-8">
-        Giỏ Hàng Của Bạn{" "}
-        <span className="text-slate-400 font-normal ml-2">
-          ({totalItems()})
-        </span>
-      </h1>
+    <div className="max-w-7xl mx-auto px-4 md:px-12 py-12">
+      {/* Back Action */}
+      <div className="mb-8 flex items-center gap-2 group">
+        <ArrowLeft
+          className="text-primary w-5 h-5 group-hover:-translate-x-1 transition-transform"
+          strokeWidth={2.5}
+        />
+        <Link
+          href="/"
+          className="font-headline font-bold text-lg text-primary tracking-tight group-hover:underline overflow-hidden"
+        >
+          Tiếp tục mua sắm
+        </Link>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
+        {/* Cart Items Section */}
         <div className="lg:col-span-8 flex flex-col gap-6">
+          <h1 className="text-4xl font-headline font-extrabold text-on-background mb-4 tracking-tighter">
+            Giỏ hàng của bạn{" "}
+            <span className="text-on-surface-variant/50 text-2xl font-medium">
+              ({totalItems()})
+            </span>
+          </h1>
+
           {items.map((item) => (
             <div
               key={item.cartKey}
-              className="flex gap-6 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm relative group"
+              className="bg-surface-container-lowest rounded-2xl p-6 shadow-[0px_20px_40px_rgba(43,48,45,0.04)] flex flex-col md:flex-row gap-6 relative overflow-hidden border border-outline-variant/10 transition-all hover:border-primary/20"
             >
-              
-              <Link
-                href={`/products/${item.productSlug}`}
-                className="h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl bg-slate-50"
-              >
-                <img
-                  src={item.imageUrl}
-                  alt={item.productName}
-                  className="h-full w-full object-cover"
-                />
-              </Link>
+              <div className="w-full md:w-32 h-32 flex-shrink-0 bg-surface rounded-xl overflow-hidden group">
+                <Link href={`/products/${item.productSlug}`}>
+                  <img
+                    src={item.imageUrl}
+                    alt={item.productName}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </Link>
+              </div>
 
-              <div className="flex flex-1 flex-col justify-between">
+              <div className="flex-grow flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start gap-4">
-                    <Link
-                      href={`/products/${item.productSlug}`}
-                      className="hover:text-emerald-600 transition-colors"
-                    >
-                      <h3 className="font-bold text-lg text-slate-900 mb-1">
+                    <Link href={`/products/${item.productSlug}`}>
+                      <h3 className="font-headline font-bold text-xl text-on-surface hover:text-primary transition-colors">
                         {item.productName}
                       </h3>
                     </Link>
-                    <button
-                      onClick={() => removeItem(item.cartKey)}
-                      className="text-slate-400 hover:text-red-500 transition-colors p-1"
-                      aria-label="Xóa"
-                    >
-                      <X className="h-5 w-5" />
-                    </button>
+                    <span className="font-headline font-bold text-lg text-primary-dim whitespace-nowrap">
+                      {formatVND(
+                        item.variantPrice +
+                          item.options.reduce((s, o) => s + o.price, 0),
+                      )}
+                    </span>
                   </div>
 
-                  <div className="text-sm text-slate-500 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <span className="font-medium text-emerald-700 bg-emerald-50 px-2 flex items-center justify-center rounded uppercase text-[10px] tracking-wide h-5">
+                  {/* Variant & Options */}
+                  <div className="text-sm text-on-surface-variant font-body mt-1 flex flex-wrap gap-2">
+                    <span className="font-bold text-primary-dim">
                       {item.variantName}
                     </span>
                     {item.options.map((opt) => (
                       <span
                         key={opt.optionValueId}
-                        className="after:content-[',_'] last:after:content-['']"
+                        className="flex items-center"
                       >
+                        <span className="mx-1 opacity-50">•</span>{" "}
                         {opt.optionValueName}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-end justify-between mt-4">
-                  <div className="flex h-10 items-center rounded-xl border border-slate-200 bg-slate-50 p-1">
+                <div className="flex items-center justify-between mt-6">
+                  {/* Quantity Control */}
+                  <div className="flex items-center bg-surface-container-high rounded-full px-4 py-2 gap-4">
                     <button
                       onClick={() =>
                         updateQuantity(item.cartKey, item.quantity - 1)
                       }
-                      className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-600 shadow-sm hover:bg-slate-100"
+                      className="hover:text-primary transition-colors p-1"
+                      aria-label="Giảm số lượng"
                     >
-                      <Minus className="h-3 w-3" />
+                      <Minus className="w-4 h-4" strokeWidth={2.5} />
                     </button>
-                    <span className="w-10 text-center text-sm font-bold text-slate-900">
+                    <span className="font-headline font-bold w-6 text-center text-on-surface select-none">
                       {item.quantity}
                     </span>
                     <button
                       onClick={() =>
                         updateQuantity(item.cartKey, item.quantity + 1)
                       }
-                      className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-slate-600 shadow-sm hover:bg-slate-100"
+                      className="hover:text-primary transition-colors p-1"
+                      aria-label="Tăng số lượng"
                     >
-                      <Plus className="h-3 w-3" />
+                      <Plus className="w-4 h-4" strokeWidth={2.5} />
                     </button>
                   </div>
 
-                  <div className="text-right">
-                    <div className="text-lg font-extrabold text-emerald-600">
+                  <div className="flex items-center gap-6">
+                    <span className="font-headline font-extrabold text-xl text-on-background">
                       {formatVND(
                         (item.variantPrice +
                           item.options.reduce((s, o) => s + o.price, 0)) *
                           item.quantity,
                       )}
-                    </div>
+                    </span>
+                    <button
+                      onClick={() => removeItem(item.cartKey)}
+                      className="text-error-dim bg-error/5 hover:bg-error-container/40 p-2.5 rounded-full transition-all"
+                      aria-label="Xóa"
+                    >
+                      <Trash2 className="w-5 h-5" strokeWidth={2} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -145,28 +167,43 @@ export default function CartPage() {
           ))}
         </div>
 
-        <div className="lg:col-span-4 sticky top-24">
-          <div className="bg-white rounded-3xl border border-slate-100 p-8 shadow-sm flex flex-col gap-6">
-            <h3 className="text-xl font-bold text-slate-900">
+        {/* Summary & Payment Section */}
+        <aside className="lg:col-span-4 sticky top-32 space-y-6">
+          <div className="bg-surface-container-lowest border border-outline-variant/10 rounded-2xl p-8 shadow-[0px_20px_40px_rgba(43,48,45,0.04)]">
+            <h2 className="text-2xl font-headline font-extrabold text-on-background mb-8 tracking-tight">
               Tóm tắt đơn hàng
-            </h3>
-
-            <div className="flex flex-col gap-4 text-slate-600 text-sm">
-              <div className="flex justify-between">
+            </h2>
+            <div className="space-y-4 mb-8">
+              <div className="flex justify-between text-on-surface-variant font-body">
                 <span>Tạm tính</span>
-                <span className="font-medium text-slate-900">
+                <span className="font-headline font-bold text-on-surface">
                   {formatVND(totalAmount())}
                 </span>
               </div>
-              <div className="flex justify-between border-b border-dashed border-slate-200 pb-4">
+              <div className="flex justify-between text-on-surface-variant font-body">
                 <span>Phí vận chuyển</span>
-                <span className="text-slate-400 italic">
-                  Tính ở bước thanh toán
-                </span>
+                <span className="italic text-sm">Tính ở bước thanh toán</span>
               </div>
-              <div className="flex justify-between items-end pt-2">
-                <span className="font-bold text-slate-900">Tổng cộng</span>
-                <span className="text-2xl font-extrabold text-emerald-600">
+              <div className="mb-6 pt-6 border-t border-outline-variant/20">
+                <p className="font-headline font-bold text-xs text-on-surface-variant mb-3 uppercase tracking-widest">
+                  Mã giảm giá
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Nhập mã của bạn..."
+                    className="flex-grow bg-surface-container border border-outline-variant/20 rounded-full px-5 py-3 text-sm font-body focus:ring-2 focus:ring-primary/20 focus:border-primary/50 outline-none transition-all placeholder:text-outline"
+                  />
+                  <button className="px-6 py-3 bg-on-surface text-surface-container-lowest rounded-full text-sm font-bold hover:bg-on-surface-variant transition-colors whitespace-nowrap">
+                    Áp dụng
+                  </button>
+                </div>
+              </div>
+              <div className="pt-6 border-t border-outline-variant/20 flex justify-between items-end">
+                <span className="font-headline font-bold text-lg text-on-surface">
+                  Tổng cộng
+                </span>
+                <span className="text-3xl font-headline font-extrabold text-primary-dim tracking-tight">
                   {formatVND(totalAmount())}
                 </span>
               </div>
@@ -174,17 +211,38 @@ export default function CartPage() {
 
             <Link
               href="/checkout"
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-600 px-6 py-4 font-bold text-white shadow-xl shadow-emerald-600/20 transition-all hover:bg-emerald-700"
+              className="w-full py-4 bg-primary text-on-primary rounded-full font-headline font-bold text-lg shadow-[0px_10px_20px_rgba(0,107,27,0.2)] hover:shadow-[0px_15px_30px_rgba(0,107,27,0.3)] hover:-translate-y-1 active:translate-y-0 transition-all flex items-center justify-center gap-2"
             >
-              Tiến Hành Thanh Toán <ArrowRight className="h-5 w-5" />
+              Tiến hành thanh toán
+              <ArrowRight className="w-5 h-5" strokeWidth={2.5} />
             </Link>
 
-            <p className="text-xs text-center text-slate-400 leading-relaxed">
-              Bạn có thể áp dụng mã ưu đãi (nếu có) và theo dõi phí ship chi
-              tiết tại bước tiếp theo.
+            <p className="text-center text-xs text-on-surface-variant mt-6 font-body leading-relaxed max-w-xs mx-auto">
+              Bằng cách thanh toán, bạn đồng ý với{" "}
+              <Link
+                href="/policies"
+                className="underline hover:text-primary transition-colors"
+              >
+                Điều khoản & Chính sách
+              </Link>{" "}
+              của chúng tôi.
             </p>
           </div>
-        </div>
+
+          {/* Promotional Banner */}
+          <div className="bg-secondary-container text-on-secondary-container p-6 rounded-2xl relative overflow-hidden group shadow-sm">
+            <div className="relative z-10">
+              <h4 className="font-headline font-bold text-lg mb-1 tracking-tight">
+                Giao hàng siêu tốc
+              </h4>
+              <p className="text-sm opacity-90 font-body leading-relaxed pr-8">
+                Fruitholic cam kết giao trái cây tươi ngon trong vòng 2h tại nội
+                thành Hà Nội.
+              </p>
+            </div>
+            <div className="absolute -right-4 -bottom-4 bg-white/20 w-24 h-24 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700"></div>
+          </div>
+        </aside>
       </div>
     </div>
   );

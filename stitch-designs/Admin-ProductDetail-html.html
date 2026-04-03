@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Product Detail Management | Verdant Squeeze</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f3f7f3;
+        }
+        .headline-font {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(243, 247, 243, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#12661e",
+                        "tertiary-fixed-dim": "#90e28a",
+                        "primary-container": "#9bfc96",
+                        "on-background": "#2b302d",
+                        "secondary-fixed": "#ffc69c",
+                        "on-tertiary-container": "#005c15",
+                        "on-error": "#ffefec",
+                        "surface-container": "#e4e9e5",
+                        "surface-container-highest": "#d8deda",
+                        "on-secondary-container": "#6f3900",
+                        "on-tertiary": "#d1ffc8",
+                        "primary-fixed-dim": "#8ded89",
+                        "surface-container-low": "#edf2ee",
+                        "tertiary-dim": "#025d16",
+                        "surface-dim": "#cfd6d1",
+                        "secondary": "#8d4a00",
+                        "tertiary-fixed": "#9df197",
+                        "on-primary-container": "#006218",
+                        "on-primary": "#d1ffc8",
+                        "secondary-fixed-dim": "#ffb377",
+                        "secondary-container": "#ffc69c",
+                        "on-secondary-fixed": "#532900",
+                        "primary-fixed": "#9bfc96",
+                        "outline-variant": "#aaaeab",
+                        "on-surface-variant": "#585d5a",
+                        "error-container": "#f95630",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#9bfc96",
+                        "error": "#b02500",
+                        "on-error-container": "#520c00",
+                        "on-secondary": "#fff0e7",
+                        "tertiary-container": "#9df197",
+                        "surface": "#f3f7f3",
+                        "tertiary": "#176a21",
+                        "on-primary-fixed-variant": "#006d1c",
+                        "outline": "#737875",
+                        "inverse-on-surface": "#999e9b",
+                        "primary-dim": "#005d16",
+                        "surface-variant": "#d8deda",
+                        "inverse-surface": "#0b0f0d",
+                        "surface-bright": "#f3f7f3",
+                        "on-surface": "#2b302d",
+                        "on-primary-fixed": "#004d11",
+                        "primary": "#006b1b",
+                        "surface-container-high": "#dee4df",
+                        "error-dim": "#b92902",
+                        "secondary-dim": "#7c4000",
+                        "background": "#f3f7f3",
+                        "on-secondary-fixed-variant": "#7d4100",
+                        "on-tertiary-fixed": "#00460e",
+                        "surface-tint": "#006b1b"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Be Vietnam Pro"],
+                        "label": ["Be Vietnam Pro"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="text-on-background bg-background selection:bg-primary-container">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#f3f7f3] dark:bg-stone-950 flex flex-col gap-2 p-4 border-r border-[#006b1b]/10 bg-gradient-to-r from-transparent to-[#006b1b]/5">
+<div class="mb-8 px-4 py-2">
+<span class="text-lg font-extrabold text-[#006b1b] tracking-tighter dark:text-green-400 font-headline">Verdant Squeeze</span>
+<p class="text-xs font-['Plus_Jakarta_Sans'] text-[#006b1b]/60 uppercase tracking-widest mt-1">Management Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+                Categories
+            </a>
+<a class="text-[#006b1b] dark:text-green-400 font-bold bg-[#006b1b]/10 rounded-full relative after:content-[''] after:absolute after:left-2 after:w-1.5 after:h-1.5 after:bg-[#8d4a00] after:rounded-full px-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Products
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                Coupons
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                Orders
+            </a>
+</nav>
+<div class="mt-auto p-4 flex items-center gap-3 bg-surface-container-low rounded-xl">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-background">Admin User</p>
+<p class="text-[10px] text-outline">Super Admin</p>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 bg-[#f3f7f3]/80 backdrop-blur-lg dark:bg-stone-950/80 shadow-[0px_10px_30px_rgba(0,0,0,0.02)] flex justify-between items-center px-8 py-4">
+<div class="flex items-center flex-1">
+<div class="relative w-96 group focus-within:ring-2 focus-within:ring-[#006b1b]/20 rounded-full transition-all">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-primary/20" placeholder="Search catalog..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#006b1b]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#006b1b]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-headline text-sm font-semibold flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg" data-icon="save">save</span>
+                Save Changes
+            </button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 pt-24 pb-16 px-8 min-h-screen">
+<!-- Editorial Header Section -->
+<section class="grid grid-cols-12 gap-8 mb-12 items-end">
+<div class="col-span-8">
+<nav class="flex items-center gap-2 mb-4 text-sm text-outline font-medium">
+<a class="hover:text-primary transition-colors" href="#">Products</a>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<span class="text-on-background">Edit Product</span>
+</nav>
+<div class="flex items-center gap-4 mb-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold font-headline uppercase tracking-wider">Seasonal Best</span>
+<span class="text-outline text-sm">SKU: VS-ORG-001</span>
+</div>
+<h1 class="text-5xl font-extrabold font-headline text-on-background tracking-tight">Sunset Citrus Splash</h1>
+</div>
+<div class="col-span-4 flex justify-end">
+<div class="flex items-center gap-4 bg-surface-container-low p-2 rounded-full">
+<button class="px-6 py-2 rounded-full text-sm font-semibold text-outline hover:text-on-background transition-colors">Discard</button>
+<button class="bg-on-background text-surface px-6 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity">Preview Live</button>
+</div>
+</div>
+</section>
+<!-- Product Hero & Gallery Bento -->
+<section class="grid grid-cols-12 gap-6 mb-12">
+<!-- Hero Image Container -->
+<div class="col-span-7 relative group">
+<div class="absolute inset-0 bg-primary/10 rounded-lg blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+<div class="relative h-[500px] w-full bg-surface-container-lowest rounded-lg overflow-hidden shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex items-center justify-center p-12">
+<img class="h-full object-contain transform group-hover:scale-105 transition-transform duration-700" data-alt="high-key professional product photography of a glass bottle of vibrant orange citrus juice surrounded by floating fresh orange slices and mint leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa3h22ls441kzcEsgpXJ-HnH__B7UnxwaOjAgF0QF47eKYzLHzaiwD91dVDTGMN9MnXVyirOm99Arda1rKmXaF1B3pobJBMLL-oZlqdyvZYHLZ4N6MwwJEqFj7WFfvpwojCuo9Zv-ErXvizOqG8jKllxmJn-k0iSsbfLqT6IxNVGsOVthbUq1bdR0ZZwwpN85kX8V5pHuKpMq7tVjr3imfqYvQ-5mu7so0-SujDj8FXj0zwLrBlbvhwQ4S5XS_7gFt83U52fEAcC8"/>
+<button class="absolute bottom-6 right-6 bg-surface-container-lowest shadow-lg w-12 h-12 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+<!-- Carousel Gallery Column -->
+<div class="col-span-5 grid grid-rows-3 gap-6">
+<div class="row-span-1 bg-surface-container-lowest rounded-lg p-4 shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex gap-4 items-center">
+<div class="w-24 h-24 rounded-md bg-surface flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up of sliced oranges and lemons on a clean white surface with natural soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgkR9wGlnYYs49x-z5GCYSKZ6niGxn-b6wy50d_-vDsQdisf6AEm-3U8uqy_Fs-EBmXHZRwnZ3eUR91ZMmlmW9o1HEDaSsGl6ZOBDyRlTGQ5JF27ETXtp_SCMEoqDXYb6ZWqWw2bH6zqiJrBURKkwFHDBOWKgwSdIqd-oTP66l0Xb7jeDnQh-BSi3dVT780coYP3Qp2w-aOtGu3EXiXvXbKG4C_QZcgvNnZdBdjPTy6m357mca8GZWRdm1ajQ5jjr6Ax3mslGIbFo"/>
+</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-on-background text-sm">Ingredient Shot</h4>
+<p class="text-outline text-xs mt-1">Focus on freshness</p>
+</div>
+<button class="text-outline hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
+</div>
+<div class="row-span-1 bg-surface-container-lowest rounded-lg p-4 shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex gap-4 items-center">
+<div class="w-24 h-24 rounded-md bg-surface flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="lifestyle shot of a person holding a fresh cold pressed juice bottle in a sunlit garden setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4gwZvCALyAorLgS9aUJNpsTKxXniJQyeWZ4gv4SsI0OijXSTiGgA9_trRZl5tnZhMVT8HK-bR0Gp6nQGLb_4-QU_9mV2bIvmA5Jok7k2kV4vxPotqEDhEkQVbFELDQ1POQQXL0jnFyTmaNCjjr9Q86Lhs5weI6dFvCstzAQEnBsFixcUDJTQL-vCFI-7I5CQANQv1S7ip2ljZi2ax1ablC7cpK1BrE2V42UPGC8ZT3batLUPtpib1dAl3ZIArUpsft10S-XBKPYY"/>
+</div>
+<div class="flex-1">
+<h4 class="font-headline font-bold text-on-background text-sm">Lifestyle View</h4>
+<p class="text-outline text-xs mt-1">Consumer interaction</p>
+</div>
+<button class="text-outline hover:text-error transition-colors"><span class="material-symbols-outlined" data-icon="delete">delete</span></button>
+</div>
+<div class="row-span-1 bg-primary/5 border-2 border-dashed border-primary/20 rounded-lg flex flex-col items-center justify-center gap-2 group cursor-pointer hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="add_a_photo">add_a_photo</span>
+<span class="text-sm font-bold text-primary font-headline">Add Media</span>
+</div>
+</div>
+</section>
+<!-- Product Info & Meta Section -->
+<section class="grid grid-cols-12 gap-8 mb-12">
+<div class="col-span-8 flex flex-col gap-8">
+<!-- Description Card -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold font-headline text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+                            Description &amp; Story
+                        </h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-bold text-outline uppercase tracking-widest mb-2">Internal Product Name</label>
+<input class="w-full border-none bg-surface-container-low rounded-lg p-4 font-headline text-lg focus:ring-2 focus:ring-primary/20" type="text" value="Sunset Citrus Splash"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-outline uppercase tracking-widest mb-2">Editorial Description</label>
+<textarea class="w-full border-none bg-surface-container-low rounded-lg p-4 text-sm focus:ring-2 focus:ring-primary/20 leading-relaxed" rows="4">A revitalizing blend of blood orange, cold-pressed ginger, and a hint of organic agave. Harvested at the peak of ripeness from local California groves, this vibrant tonic is designed to provide a natural vitamin C boost with a sophisticated, slightly spicy finish.</textarea>
+</div>
+</div>
+</div>
+<!-- Variants Table Section (CRITICAL) -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-xl font-bold font-headline text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="layers">layers</span>
+                            Product Variants
+                        </h3>
+<button class="bg-primary/10 text-primary px-4 py-2 rounded-full text-xs font-bold font-headline flex items-center gap-2 hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                            Add Variant
+                        </button>
+</div>
+<div class="overflow-hidden">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/15 text-[10px] font-bold text-outline uppercase tracking-widest">
+<th class="pb-4 font-bold">Variant Name</th>
+<th class="pb-4 font-bold">Description</th>
+<th class="pb-4 font-bold">Price ($)</th>
+<th class="pb-4 font-bold">Stock</th>
+<th class="pb-4 text-right font-bold">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="group hover:bg-surface/50 transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-bold text-sm">330ml Regular</span>
+</div>
+</td>
+<td class="py-4 text-xs text-outline">Standard single serving bottle</td>
+<td class="py-4">
+<input class="w-16 bg-surface-container-low border-none rounded-md px-2 py-1 text-sm font-bold" type="text" value="6.50"/>
+</td>
+<td class="py-4">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded text-[10px] font-bold">84 IN STOCK</span>
+</td>
+<td class="py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full text-outline hover:bg-white hover:text-primary transition-all shadow-sm"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full text-outline hover:bg-white hover:text-error transition-all shadow-sm"><span class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="group hover:bg-surface/50 transition-colors">
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-bold text-sm">500ml Large</span>
+</div>
+</td>
+<td class="py-4 text-xs text-outline">Eco-friendly glass decanter</td>
+<td class="py-4">
+<input class="w-16 bg-surface-container-low border-none rounded-md px-2 py-1 text-sm font-bold" type="text" value="9.75"/>
+</td>
+<td class="py-4">
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded text-[10px] font-bold">12 LOW STOCK</span>
+</td>
+<td class="py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full text-outline hover:bg-white hover:text-primary transition-all shadow-sm"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full text-outline hover:bg-white hover:text-error transition-all shadow-sm"><span class="material-symbols-outlined text-lg" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="col-span-4 flex flex-col gap-8">
+<!-- Category & Attributes -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
+<h3 class="text-lg font-bold font-headline text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="label">label</span>
+                        Classification
+                    </h3>
+<div class="space-y-6">
+<div>
+<label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Category</label>
+<select class="w-full border-none bg-surface-container-low rounded-lg p-3 text-sm focus:ring-2 focus:ring-primary/20">
+<option>Cold Pressed Juices</option>
+<option>Functional Tonics</option>
+<option>Seasonal Specials</option>
+<option>Smoothie Bases</option>
+</select>
+</div>
+<div>
+<label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Tags</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-xs flex items-center gap-1">
+                                    Organic <span class="material-symbols-outlined text-xs" data-icon="close">close</span>
+</span>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-xs flex items-center gap-1">
+                                    No Added Sugar <span class="material-symbols-outlined text-xs" data-icon="close">close</span>
+</span>
+<button class="text-primary text-xs font-bold px-3 py-1 border border-primary/20 border-dashed rounded-full">+ Add Tag</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Toppings/Add-ons Section -->
+<div class="bg-surface-container-lowest rounded-lg p-8 shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
+<h3 class="text-lg font-bold font-headline text-on-background mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="add_circle">add_circle</span>
+                        Options &amp; Add-ons
+                    </h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-sm font-medium">Extra Chia Seeds</span>
+</div>
+<span class="text-xs font-bold text-primary">+$0.50</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="drag_indicator">drag_indicator</span>
+<span class="text-sm font-medium">Bee Pollen Shot</span>
+</div>
+<span class="text-xs font-bold text-primary">+$1.25</span>
+</div>
+<button class="w-full py-3 border-2 border-dashed border-outline-variant/30 rounded-lg text-xs font-bold text-outline hover:border-primary/40 hover:text-primary transition-all uppercase tracking-widest">
+                            Configure Add-ons
+                        </button>
+</div>
+</div>
+<!-- Visibility Status -->
+<div class="bg-primary-container/20 rounded-lg p-6 border border-primary/10">
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm font-bold text-on-primary-fixed-variant">Store Visibility</span>
+<div class="w-12 h-6 bg-primary rounded-full relative">
+<div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<p class="text-xs text-on-primary-fixed-variant/70 leading-relaxed">
+                        This product is currently <strong>Live</strong> and visible to customers on the storefront.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+</body></html>

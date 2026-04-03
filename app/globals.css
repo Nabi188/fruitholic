@@ -46,6 +46,61 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-tertiary-fixed-dim: #90e28a;
+  --color-surface: #f3f7f3;
+  --color-on-primary-fixed-variant: #006d1c;
+  --color-on-primary-container: #006218;
+  --color-surface-dim: #cfd6d1;
+  --color-tertiary: #176a21;
+  --color-on-primary: #d1ffc8;
+  --color-secondary: #8d4a00;
+  --color-on-surface-variant: #585d5a;
+  --color-background: #f3f7f3;
+  --color-on-tertiary-fixed-variant: #12661e;
+  --color-inverse-primary: #9bfc96;
+  --color-error-dim: #b92902;
+  --color-on-error: #ffefec;
+  --color-on-background: #2b302d;
+  --color-error: #b02500;
+  --color-on-surface: #2b302d;
+  --color-surface-container-lowest: #ffffff;
+  --color-inverse-on-surface: #999e9b;
+  --color-on-tertiary: #d1ffc8;
+  --color-on-tertiary-fixed: #00460e;
+  --color-secondary-fixed-dim: #ffb377;
+  --color-inverse-surface: #0b0f0d;
+  --color-secondary-dim: #7c4000;
+  --color-tertiary-fixed: #9df197;
+  --color-tertiary-dim: #025d16;
+  --color-surface-container-highest: #d8deda;
+  --color-outline: #737875;
+  --color-surface-bright: #f3f7f3;
+  --color-on-error-container: #520c00;
+  --color-tertiary-container: #9df197;
+  --color-secondary-container: #ffc69c;
+  --color-primary-fixed-dim: #8ded89;
+  --color-surface-tint: #006b1b;
+  --color-surface-container-low: #edf2ee;
+  --color-surface-container-high: #dee4df;
+  --color-on-secondary: #fff0e7;
+  --color-primary-container: #9bfc96;
+  --color-outline-variant: #aaaeab;
+  --color-primary: #006b1b;
+  --color-error-container: #f95630;
+  --color-secondary-fixed: #ffc69c;
+  --color-primary-fixed: #9bfc96;
+  --color-on-secondary-container: #6f3900;
+  --color-on-tertiary-container: #005c15;
+  --color-primary-dim: #005d16;
+  --color-surface-variant: #d8deda;
+  --color-on-primary-fixed: #004d11;
+  --color-surface-container: #e4e9e5;
+  --color-on-secondary-fixed: #532900;
+  --color-on-secondary-fixed-variant: #7d4100;
+
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Be Vietnam Pro", sans-serif;
 }
 
 :root {

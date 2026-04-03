@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Category Management | Verdant Squeeze</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#12661e",
+              "tertiary-fixed-dim": "#90e28a",
+              "primary-container": "#9bfc96",
+              "on-background": "#2b302d",
+              "secondary-fixed": "#ffc69c",
+              "on-tertiary-container": "#005c15",
+              "on-error": "#ffefec",
+              "surface-container": "#e4e9e5",
+              "surface-container-highest": "#d8deda",
+              "on-secondary-container": "#6f3900",
+              "on-tertiary": "#d1ffc8",
+              "primary-fixed-dim": "#8ded89",
+              "surface-container-low": "#edf2ee",
+              "tertiary-dim": "#025d16",
+              "surface-dim": "#cfd6d1",
+              "secondary": "#8d4a00",
+              "tertiary-fixed": "#9df197",
+              "on-primary-container": "#006218",
+              "on-primary": "#d1ffc8",
+              "secondary-fixed-dim": "#ffb377",
+              "secondary-container": "#ffc69c",
+              "on-secondary-fixed": "#532900",
+              "primary-fixed": "#9bfc96",
+              "outline-variant": "#aaaeab",
+              "on-surface-variant": "#585d5a",
+              "error-container": "#f95630",
+              "surface-container-lowest": "#ffffff",
+              "inverse-primary": "#9bfc96",
+              "error": "#b02500",
+              "on-error-container": "#520c00",
+              "on-secondary": "#fff0e7",
+              "tertiary-container": "#9df197",
+              "surface": "#f3f7f3",
+              "tertiary": "#176a21",
+              "on-primary-fixed-variant": "#006d1c",
+              "outline": "#737875",
+              "inverse-on-surface": "#999e9b",
+              "primary-dim": "#005d16",
+              "surface-variant": "#d8deda",
+              "inverse-surface": "#0b0f0d",
+              "surface-bright": "#f3f7f3",
+              "on-surface": "#2b302d",
+              "on-primary-fixed": "#004d11",
+              "primary": "#006b1b",
+              "surface-container-high": "#dee4df",
+              "error-dim": "#b92902",
+              "secondary-dim": "#7c4000",
+              "background": "#f3f7f3",
+              "on-secondary-fixed-variant": "#7d4100",
+              "on-tertiary-fixed": "#00460e",
+              "surface-tint": "#006b1b"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Be Vietnam Pro', sans-serif;
+        background-color: #f3f7f3;
+      }
+      .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-background min-h-screen">
+<!-- SideNavBar (The Blueprint) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#f3f7f3] dark:bg-stone-950 flex flex-col gap-2 p-4 border-r border-[#006b1b]/10 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide">
+<div class="mb-8 px-4 py-2">
+<h1 class="text-lg font-extrabold text-[#006b1b] tracking-tighter dark:text-green-400">Verdant Squeeze</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant opacity-60">Management Portal</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-[#006b1b] dark:text-green-400 font-bold bg-[#006b1b]/10 rounded-full relative after:content-[''] after:absolute after:left-2 after:w-1.5 after:h-1.5 after:bg-[#8d4a00] after:rounded-full px-6 py-3 transition-all duration-300 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="category">category</span>
+                Categories
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory_2">inventory_2</span>
+                Products
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="confirmation_number">confirmation_number</span>
+                Coupons
+            </a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 dark:hover:bg-stone-800 transition-all duration-300 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                Orders
+            </a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-lg flex items-center gap-3">
+<img alt="Verdant Squeeze Admin" class="w-8 h-8 rounded-full bg-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPLXF_5DB9jWQVi_5o4bmC1FJXzpxvflPOZWAH0TthpF4EyaL6wo7nTZAdxtFjXrf1mhfWCiUk6rFABg3iBJes0fEfb92_ZajuQnPxvy6NTLYTHAY5LCrB5uoJDS_f6ny8M2WHwmiRClBsOZ-6131lFt2it2CKwtrntDBza0a7DHmwSeOJCcWzjJ1QdegEk9pozYCqLqlGxwfjohFxowhSAj3cJlGXl_KFXqlo7jHlum9Ux90YYLpoWaaxlisnd1sVIntMblC_mkc"/>
+<div>
+<p class="text-xs font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">System Manager</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (The Blueprint) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 bg-[#f3f7f3]/80 backdrop-blur-lg dark:bg-stone-950/80 flex justify-between items-center px-8 py-4 shadow-[0px_10px_30px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-[#006b1b]/20 rounded-full transition-all">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 text-sm focus:ring-0" placeholder="Search categories..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#006b1b]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#2b302d] dark:text-stone-400">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-px h-6 bg-outline-variant/30 mx-2"></div>
+<img alt="Admin Avatar" class="w-8 h-8 rounded-full border-2 border-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU6yS09lD6WErYNTBWKAxecgWELzuAYUkDYxzTKJvah0CeUHFmzoKMwsBUAWXTHCyhsUjVCHsc5NpUmoBfYkhPvkY7WlttmXPwmiB-ouH4DKXfF-010xismhb8_sq_FoM91O2iShECliRMc6IQip8GtXeY8amQkqJpEpBGd1Vzzn7AUeXU9iwV-025uHfGdnwGwHJsong-TbMQnWrUlfBBGL3VBHR3EFOgYTauRV35icKVf6tQ1327a-GtuA3YFzYAN_C0X53zMlo"/>
+</div>
+</header>
+<!-- Canvas Area -->
+<section class="pt-24 px-8 pb-12">
+<!-- Page Header -->
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Category Management</h2>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-xs font-medium text-primary bg-primary-container px-3 py-1 rounded-full">Total Categories: 24</span>
+<span class="text-xs text-on-surface-variant italic">Last updated 2 minutes ago</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-headline font-bold px-6 py-3 rounded-full flex items-center gap-2 scale-98 active:scale-95 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                    Create Category
+                </button>
+</div>
+<!-- Category List Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Media</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Description</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Products</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10 text-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Citrus" class="w-full h-full object-cover" data-alt="vibrant macro close up of fresh orange slices with water droplets and bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyHv1FriLOwyWVO1j3vRzIWl_CH2x3e3QqpowqMSiK1F1BBh2vU93naEhZo-d9bhDIHsvafNUWQID3CMny2sdF4muhRMFftB2yL4lrQgY7dHwbmkfn4O3Rp5VNsg3e9RWcMP9C7KpCIHeUaXGTxhON6jaoYblVXU4rhQoPt2hLSbr4YdrcwwcnCWelvRZxZheN4M_oaDTsA4rklVBsr-YpFdCDePBb-dG_Xhd9yxzMysY9s2wA1zbRfe_FAzE_CDd6aysV0DCCwXc"/>
+</div>
+</td>
+<td class="px-6 py-4 font-bold text-on-surface">Citrus Zest</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Pure sunshine extracted from oranges, lemons, and grapefruit.</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">14 Items</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Green" class="w-full h-full object-cover" data-alt="overhead view of dark leafy greens including kale and spinach with a rustic organic aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARDKLQooQCk5rlVpqqSwzII21YIKl9bB-ipBDPwtuNtIp02yGTVoMl27UsY9culuM21RCzzcNXMDJMx569iEDE5z9t-c_Sv5kqlDtc37VLd41Lh53n0rg-K4FgY7WWIB3Td45Kh2vY2l_Io8MGzTxNM27bo54OmZTOF1pBNyqiKVPXfsq9izAR1DJIoS7G9H6fquPPqhE3J-pJCAjI8Tf0hFrCsYmJtVFFgj4CBTggbdxzUNzarGGXK63Tk3YUYTUl1vilaiK5tZw"/>
+</div>
+</td>
+<td class="px-6 py-4 font-bold text-on-surface">Evergreen Elixirs</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Nutrient-dense cold-pressed greens for detoxification.</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">22 Items</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                                    Active
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden">
+<img alt="Berries" class="w-full h-full object-cover" data-alt="a pile of fresh raspberries and blueberries on a wooden table with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKiyz0NH-6-vDfzu9dqvMBAQSTycvKDWoCPSLOGiu5nz6ew0JOfKigax95PQVvwTGHPN4a-thkM3BlEliNQbsMqouaP9YNqufKRyiGdN2B9rfStC7-RjewMfP62ZdfbjguIxWVr8TWuSnAR34fhkU_JRrtFJuEvVpgM-pAcWcJTjVBdpHE0EWcqCq0YkYHFUoY9hFmnDzJmzzKyt4FtRsJZ5u0lOyyYWkrhELqM9BFJMP629G9rNd61d_Od9pMg-2P9ctLoH4Nqso"/>
+</div></td></tr>
+<tr><td class="px-6 py-4 font-bold text-on-surface">Antioxidant Berry</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Wild blueberries, raspberries and acai blends.</td>
+<td class="px-6 py-4">
+<span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">9 Items</span>
+</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-outline">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+                                    Archived
+                                </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button>
+<button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button>
+</div>
+</td>
+<!-- Row 4-12 Simulated -->
+</tr><tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Tropical" class="w-full h-full object-cover" data-alt="sliced pineapple and mango on a bright white surface with tropical shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYS8NzC1o0Pmh8QMT_htnPNS7NceR4wfinpmCTawDFKFmB-ivWgvOpC7MEyrFsTSrny51NtgXFHV72V4YNGpzPV57WjzjdZSOgehsUf9PWv9Z48WrFxOHWoXnJ-uH0j9rFKJTuzWrfvk_XMMk6FcNMUFlZsD-P8snQOzKY9SQtWgXmMxQUM72cbK4DyRiGvHzaSApz4vwDJ5iKHNameNmM6BjQ7DHJWZm2JgysxvFA_XGWMj6pAZtLPtMRuU8YgsCcC0KffJRLsl4"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Tropical Fusion</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Exotic pineapple, mango, and coconut water bases.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">18 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Root" class="w-full h-full object-cover" data-alt="earthy fresh ginger and beetroot on a dark stone background with high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArchS0HpM_jU_j2Yzb3EWvqDCIR7EcNeI9ZFqeX1fR6YeazKSqsJx5Xsya6Jyi1ESF1q1enXYDKBMqqP_HYi9hHGnoagILDJvWttihR60gMpQGQIdCdVcpVv1xJh4JEP1t_qNBvxs574cJHh4gz-3R2MsJIJ1wedJRQBc58TOtWjK5C4zGK6rXQ0LUJdPv4W_np-aquK3xzRuPY8YKukjBhzItuOUpXoxWCCsRsx1T5tNHY_pr-AjUQYRWihq1M2Rv0aHB94ZT3xE"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Root Vitality</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Earthy beet, ginger, and turmeric shots.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">12 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Nut" class="w-full h-full object-cover" data-alt="smooth almond milk being poured into a glass bowl with floating almonds and soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9aXgtQkKcBJT1hvw7u5ugkF7XTBoN_DEP0bb6J7twF-32AMbREKb9DA8F45PT6TLeFNMcWRJXjuchOpQuhNsot7ZDsH1dvs96XfSbH3iXUagxEYObte9izFHDaunJ1VyZwGRS1x6Ffj5-L_Nwy7LA75O3opnow2ESDD8PFzTfg5zc4zpzhVGdOZ33h78d68u63l8w6KX__r9g8P_Qd6uJ4bUZJ3axJTdWGTpGMS1Z3e6IhczUAKVLWNPXKJZhK9boXYB9lmAO3qk"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Artisan Milks</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">House-made almond, cashew, and oat blends.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">8 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Protein" class="w-full h-full object-cover" data-alt="thick green protein smoothie in a glass with hemp seeds on top in a bright gym setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsuGxUyjI61iyP2Jqsa7zt7-qB8vmB-2o4rvtMaccjgybs1fujFDBD07u6RgftH72dWsipgsiTYaH2HmQOma2e8FK1NkvldUcIOvs0kkYKYn7FVm8AxXw-SESc9FK6JfhBLqZ4I0nHsOq9rAExyLIK9Ke8WJwbpiKvEAtrvRrNRQ9ki1i4YEJO9ymaZhZYsvzWNl9MtfWEWTY6hGRXJkLep8FbfHZ73jnG7ryv54UiVuJx3RsTeXzXDctLQgcueLnU3X6acigozN0"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Protein Power</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Pre and post-workout fuel with clean protein.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">15 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Seasonal" class="w-full h-full object-cover" data-alt="autumnal pumpkins and spiced cider bottles in warm golden light with fallen leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwtLDkvuE8dbQm9y4oGjmfmrTzRe6UwCjKBX0ynCKvjfrxFfDSqvowHOXm_C1-taUJbLZLfDGfe5FGmFc5Fgju7H25u_auD96dD0NMk-xvhjngPI7yFWmtsVjlALyNIwY_pDREy3ZoEv0-ub8VZPPg3FOsYgof2Byglz7ojk0SjRCkbM3S_srRpq4I0cREZlRZ0ck0Ey8PogzPNLQ70cKyGGYk1EsZCcN7kzZGDs-t4V_zcI2aPpXZFew6LoEF5gX9u4Jzpau3HgE"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Seasonal Harvest</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Limited time releases based on local crops.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">4 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Cleanses" class="w-full h-full object-cover" data-alt="set of six rainbow colored juice bottles lined up in a clean bright kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkB3UQBKsEX6esKjY6ctIRx2zVzEu0JJ2P10Fp6mVu9I3kJ9HHzC91v3XsBzmEXlkLkVDcW_oooBL93KZ-qUgAb8Vv-_ZcXey7_AUZ0WYbGyIzzl-4wrnO4IGCeonTTP3nvmkMhVL-WVxPCHbGOrz_IrLdibAH_SYtRuiS8SRJVp707lOOibBucBZrocRgBax2TPlm094aIvgwh2pJ-A6KIJ2PuhHYv7p6oCCE4CxsgwExo_1Tiy9knLOlKD-USU60hkm4cSMmnXw"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Juice Cleanses</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Structured 3-day and 5-day detox programs.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">6 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Snacks" class="w-full h-full object-cover" data-alt="healthy fruit salad with kiwi pomegranate and orange on a clean minimalist plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAntzp6FPIQFtnlyqmI32FJs5x0ptXZqai5lDw_QcnUaIy6Gqf6a9F9oRVocZQz2jzjf7Xx1bL3i8ooOERiSyJNHvykUFpgj1bAjVsm1CjIGdoMfW3kAEJALpaY92B2QYlcyp4lEkzj02UFkl4hIsz1zwzAW94XS6yYp606vE5Kr1VSSmLd4F_9lQ7vYOGrfeCK77vCd6N1PWNYRXqG44yYPglOz7UBm6z8Znf1sv5Ezsh3hd_dLmy8EMUN_Cypgb32EGC2GyhFHFo"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Fresh Parfaits</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Layered yogurt, fruit, and house-made granola.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">11 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-outline"><span class="w-2 h-2 rounded-full bg-outline"></span>Archived</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Wellness" class="w-full h-full object-cover" data-alt="small glass medicine bottles with clear liquid and dropper against a soft white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg0FsUFVR3DrTofX-qKo5JMR7SZdf1B8_dyqvBUuNFiAZGxB9ViR4gSaF65XMgCCa02sGJshwQvp4Zh2DwsrKHFw31JifrLrJppg-3CWzNUlWj8-nQ-0F18pf-s83BiARp7zvztZnmHYo5L-7EXqGQRrNg0s4YyniLlhCPnoUjatgjsPj-H7K_xVXK6Ba3TWXi2VAbvZ3mt9gowT3tTB_OEd8_ESJjPNKCZR8w9PiMGPKL4PTEskBgoEPFrhR3oK3btMjdNzqFnBY"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Immunity Shots</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Concentrated bursts of ginger, oil of oregano, and zinc.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">13 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4"><div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden"><img alt="Bowls" class="w-full h-full object-cover" data-alt="colorful acai bowl topped with granola strawberries and honey in a natural wood bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCqgACc8qsO1sX2g_Ta6MS_weT4lxOkphEOdF8W-T-RHfQJZIWX-WDXCybgvB-jsOVk66FrhaTEFTMLXkxV0o8oVDT0Lv-Jft7ZWYzACr3W0BKDvmOhGHE7gKC_ZUgvRPxXcbX4EE6FntUOAaq4xXokvAorGB0_n1Fdl903GIE0tAmbuTeWFVSFwSVTP4JZRyFsapuYRG2uZvBEVROt7qCk72FL2WBFVjqBaDanLyIoBNkjYTLW40XXleQerTqMRdzCsIuQw6T3V4"/></div></td>
+<td class="px-6 py-4 font-bold text-on-surface">Acai Bowls</td>
+<td class="px-6 py-4 text-on-surface-variant max-w-xs truncate">Customizable smoothie bowls with superfood toppings.</td>
+<td class="px-6 py-4"><span class="bg-tertiary-container/30 text-on-tertiary-container px-2 py-1 rounded text-xs font-semibold">10 Items</span></td>
+<td class="px-6 py-4"><span class="flex items-center gap-1.5 text-primary"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
+<td class="px-6 py-4 text-right"><div class="flex justify-end gap-2"><button class="p-2 hover:bg-surface-container-high rounded-full text-on-surface-variant transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span></button><button class="p-2 hover:bg-error-container/20 rounded-full text-error transition-all"><span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span></button></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination & Footer Metadata -->
+<div class="mt-8 flex items-center justify-between text-on-surface-variant">
+<p class="text-sm font-medium">Showing 1-12 of 24 Categories</p>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-on-surface hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+</body></html>

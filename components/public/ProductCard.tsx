@@ -1,56 +1,100 @@
-import Link from 'next/link'
-import { formatVND } from '@/lib/formatters'
-import { ShoppingBag } from 'lucide-react'
+"use client";
+
+import Link from "next/link";
+import { formatVND } from "@/lib/formatters";
+import { Plus } from "lucide-react";
+import { useCartStore } from "@/stores/cartStore";
 
 type ProductCardProps = {
-  id: string
-  name: string
-  slug: string
-  price: number
-  imageUrl?: string
-  shortDescription?: string | null
-}
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  imageUrl?: string;
+  isMix?: boolean;
+  isPremium?: boolean;
+  discountPercentage?: number;
+};
 
-export function ProductCard({ name, slug, price, imageUrl, shortDescription }: ProductCardProps) {
-  const displayImage = imageUrl || 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500&q=80'
+export function ProductCard({
+  id,
+  name,
+  slug,
+  price,
+  imageUrl,
+  isMix,
+  isPremium,
+  discountPercentage,
+}: ProductCardProps) {
+  const { addItem } = useCartStore();
+
+  const displayImage =
+    imageUrl ||
+    "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=500&q=80";
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    addItem(
+      {
+        productId: id,
+        productName: name,
+        productSlug: slug,
+        imageUrl: displayImage,
+        variantId: "default",
+        variantName: "Mặc định",
+        variantPrice: price,
+        options: [],
+      },
+      1,
+    );
+  };
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-all hover:shadow-md hover:border-emerald-100">
-      <Link href={`/products/${slug}`} className="relative aspect-square w-full overflow-hidden bg-slate-50">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
+    <Link
+      href={`/products/${slug}`}
+      className="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10 block relative"
+    >
+      <div className="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
         <img
           src={displayImage}
           alt={name}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
-        
-        <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex justify-end">
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-700 transition-colors">
-            <ShoppingBag className="h-5 w-5" />
-          </button>
-        </div>
-      </Link>
 
-      <div className="flex flex-1 flex-col p-4">
-        <Link href={`/products/${slug}`} className="group-hover:text-emerald-600 transition-colors">
-          <h3 className="font-bold text-slate-800 line-clamp-2">{name}</h3>
-        </Link>
-        
-        {shortDescription && (
-          <p className="mt-1 text-xs text-slate-500 line-clamp-2 leading-relaxed">
-            
-            {typeof shortDescription === 'string' && shortDescription.startsWith('{') 
-              ? 'Chi tiết tuyệt hảo với hương vị tự nhiên...' 
-              : shortDescription}
-          </p>
-        )}
-
-        <div className="mt-auto pt-4 flex items-center justify-between">
-          <span className="text-lg font-extrabold text-emerald-600">
-            {formatVND(price)}
+        {/* Badges fake =)) */}
+        {discountPercentage && discountPercentage > 0 && (
+          <span className="absolute top-2 left-2 bg-error text-on-error text-[10px] px-2 py-0.5 rounded-full font-bold">
+            -{discountPercentage}%
           </span>
-        </div>
+        )}
+        {isMix && !discountPercentage && (
+          <span className="absolute top-2 left-2 bg-secondary text-white text-[10px] px-2 py-0.5 rounded-full font-bold z-10">
+            Mix
+          </span>
+        )}
+        {isPremium && !discountPercentage && !isMix && (
+          <span className="absolute top-2 left-2 bg-primary text-white text-[10px] px-2 py-0.5 rounded-full font-bold z-10">
+            Premium
+          </span>
+        )}
       </div>
-    </div>
-  )
+
+      <h3 className="font-bold text-sm text-on-surface line-clamp-1 mb-1 font-body">
+        {name}
+      </h3>
+
+      <div className="flex items-center justify-between mt-2">
+        <span className="text-primary font-bold text-sm tracking-tight">
+          {formatVND(price)}
+        </span>
+        <button
+          onClick={handleAddToCart}
+          className="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors z-20 relative"
+          aria-label="Add to cart"
+        >
+          <Plus strokeWidth={2.5} className="w-4 h-4" />
+        </button>
+      </div>
+    </Link>
+  );
 }

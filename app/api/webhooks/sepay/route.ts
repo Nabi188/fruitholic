@@ -32,7 +32,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true })
     }
 
-    const order = orders[0]
+    const order: any = orders[0]
 
     if (order.payment_status === 'paid') {
       return NextResponse.json({ success: true })
@@ -42,8 +42,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true })
     }
 
-    const { error: updateError } = await supabase
-      .from('orders')
+    const query: any = supabase.from('orders');
+    const { error: updateError } = await query
       .update({
         payment_status: 'paid',
         status: 'processing'
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true })
 
-  } catch (error) {
+  } catch {
     return NextResponse.json({ success: false }, { status: 500 })
   }
 }

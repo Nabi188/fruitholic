@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Organic Editorial - Trái Cây Tươi &amp; Nước Ép</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#90e28a",
+              "surface": "#f3f7f3",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-primary-container": "#006218",
+              "surface-dim": "#cfd6d1",
+              "tertiary": "#176a21",
+              "on-primary": "#d1ffc8",
+              "secondary": "#8d4a00",
+              "on-surface-variant": "#585d5a",
+              "background": "#f3f7f3",
+              "on-tertiary-fixed-variant": "#12661e",
+              "inverse-primary": "#9bfc96",
+              "error-dim": "#b92902",
+              "on-error": "#ffefec",
+              "on-background": "#2b302d",
+              "error": "#b02500",
+              "on-surface": "#2b302d",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#999e9b",
+              "on-tertiary": "#d1ffc8",
+              "on-tertiary-fixed": "#00460e",
+              "secondary-fixed-dim": "#ffb377",
+              "inverse-surface": "#0b0f0d",
+              "secondary-dim": "#7c4000",
+              "tertiary-fixed": "#9df197",
+              "tertiary-dim": "#025d16",
+              "surface-container-highest": "#d8deda",
+              "outline": "#737875",
+              "surface-bright": "#f3f7f3",
+              "on-error-container": "#520c00",
+              "tertiary-container": "#9df197",
+              "secondary-container": "#ffc69c",
+              "primary-fixed-dim": "#8ded89",
+              "surface-tint": "#006b1b",
+              "surface-container-low": "#edf2ee",
+              "surface-container-high": "#dee4df",
+              "on-secondary": "#fff0e7",
+              "primary-container": "#9bfc96",
+              "outline-variant": "#aaaeab",
+              "primary": "#006b1b",
+              "error-container": "#f95630",
+              "secondary-fixed": "#ffc69c",
+              "primary-fixed": "#9bfc96",
+              "on-secondary-container": "#6f3900",
+              "on-tertiary-container": "#005c15",
+              "primary-dim": "#005d16",
+              "surface-variant": "#d8deda",
+              "on-primary-fixed": "#004d11",
+              "surface-container": "#e4e9e5",
+              "on-secondary-fixed": "#532900",
+              "on-secondary-fixed-variant": "#7d4100"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-emerald-50/80 dark:bg-zinc-900/80 backdrop-blur-lg shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-full">
+<div class="text-2xl font-bold text-emerald-900 dark:text-emerald-100 tracking-tighter font-headline">
+                The Organic Editorial
+            </div>
+<div class="hidden md:flex items-center gap-8 font-plus-jakarta text-sm tracking-wide">
+<a class="text-emerald-700 dark:text-emerald-300 font-semibold border-b-2 border-orange-500 pb-1" href="#">Giới thiệu</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Chính sách</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Hướng dẫn</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Liên hệ</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Về chúng tôi</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-emerald-800 dark:text-emerald-400 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</button>
+<button class="p-2 text-emerald-800 dark:text-emerald-400 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Category Scroll Bar (TopAppBar) -->
+<div class="sticky top-16 w-full z-40 bg-white dark:bg-zinc-800 tonal-shift bg-zinc-100 dark:bg-zinc-900 overflow-hidden">
+<div class="flex items-center w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap gap-4 px-6 py-3 font-plus-jakarta font-medium">
+<div class="flex items-center gap-3 pr-4 border-r border-outline-variant/20">
+<span class="material-symbols-outlined text-emerald-700" data-icon="menu_book">menu_book</span>
+<span class="text-emerald-700">Danh mục sản phẩm</span>
+</div>
+<a class="bg-emerald-700 text-white rounded-full px-6 py-1.5 transition-all shadow-md" href="#">Tất cả</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Flash Sale</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Trái cây cắt sẵn</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Hoa quả dầm</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Hộp mix</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Sữa chua Hy Lạp</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Hộp quà</a>
+<a class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 rounded-full px-6 py-1.5 hover:bg-orange-100 transition-all" href="#">Nước ép &amp; Smoothie</a>
+<div class="ml-auto pl-4">
+<span class="material-symbols-outlined text-zinc-500" data-icon="filter_list">filter_list</span>
+</div>
+</div>
+</div>
+<main class="pt-8">
+<!-- Hero Section -->
+<section class="px-8 mb-16">
+<div class="relative rounded-lg overflow-hidden bg-surface-container-low min-h-[400px] flex items-center">
+<div class="absolute inset-0 z-0">
+<img alt="Banner Trái Cây" class="w-full h-full object-cover opacity-90 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxnJG8AUtktJsIyfwPy6Bl7SoeLbyuobMCghDYCLpOpe8rq7xP7OA55LeBdFjl_4vywBxlMWPAJttvUsDI2Xrix2roJOdh7bjtuPpYhn2oyOx9eiCpVuhG7XdYq4pOIP0Ub8DeLWyV3RVB4rklhYL79yXdzN1QAoyBiqLK7TNAjwAJ7ecLMNo_a0Jnpi10TEVMuP_29nACAKEcD_7GSup6u3YhN0JloyAridfqSIfPIVb07KZ0bEyfxiwXqK9Q1fvbGCmKnqgwYk8"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-low via-surface-container-low/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-2xl px-12 py-12">
+<span class="inline-block bg-secondary text-on-secondary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Mùa hè rực rỡ</span>
+<h1 class="font-headline text-5xl font-extrabold text-primary-dim leading-[1.1] mb-6 tracking-tighter">
+                        Năng lượng <br/> <span class="text-secondary">Thuần Khiết</span> Từ Thiên Nhiên.
+                    </h1>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group">
+                            Mua Ngay Tại Đây
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Product Sections -->
+<div class="space-y-16 px-8 pb-32">
+<!-- Section Template Function for repetitive rendering -->
+<!-- 1. Flash sale / Gợi ý hôm nay -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500 fill-1" data-icon="bolt">bolt</span>
+                        Flash Sale / Gợi ý hôm nay
+                    </h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<!-- Placeholder Cards -->
+<!-- Repeated 8 times for grid demonstration -->
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTP9A5lqNRCB_jxZO-OPKqGqcRUVsWU8ucLZXAD4i_K6tOqTOJODB8QVq9oNsOKBiVdK-xIAFbP-3IV61zwHFC3Nowi7JooiUv6VmkTo8nmrFv2IhnpSyAZ5JSh4jmCr74EUO_6ZPXdWLSqcHvWfrQJRNCcUV-ZrHneQlIsZyVunrTc2FzCeLX0CkbMPJR30RNYZ6d_tHCJP2y-mz3Ruc0CpJhSl0aIUw5NT3ITfi0gqAaPwhlgZR7TgPdUJ5rr1g-pETnuDdAOxE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <span class="absolute top-2 left-2 bg-error text-on-error text-[10px] px-2 py-0.5 rounded-full font-bold">-20%</span>
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Dưa hấu Long An</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">45.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 2. Trái cây cắt sẵn -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Trái cây cắt sẵn</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxnJG8AUtktJsIyfwPy6Bl7SoeLbyuobMCghDYCLpOpe8rq7xP7OA55LeBdFjl_4vywBxlMWPAJttvUsDI2Xrix2roJOdh7bjtuPpYhn2oyOx9eiCpVuhG7XdYq4pOIP0Ub8DeLWyV3RVB4rklhYL79yXdzN1QAoyBiqLK7TNAjwAJ7ecLMNo_a0Jnpi10TEVMuP_29nACAKEcD_7GSup6u3YhN0JloyAridfqSIfPIVb07KZ0bEyfxiwXqK9Q1fvbGCmKnqgwYk8" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Xoài Cát Hòa Lộc Cắt</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">35.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 3. Hoa quả dầm -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Hoa quả dầm</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTP9A5lqNRCB_jxZO-OPKqGqcRUVsWU8ucLZXAD4i_K6tOqTOJODB8QVq9oNsOKBiVdK-xIAFbP-3IV61zwHFC3Nowi7JooiUv6VmkTo8nmrFv2IhnpSyAZ5JSh4jmCr74EUO_6ZPXdWLSqcHvWfrQJRNCcUV-ZrHneQlIsZyVunrTc2FzCeLX0CkbMPJR30RNYZ6d_tHCJP2y-mz3Ruc0CpJhSl0aIUw5NT3ITfi0gqAaPwhlgZR7TgPdUJ5rr1g-pETnuDdAOxE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Hoa Quả Dầm Sữa Chua</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">50.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 4. Hộp mix cắt sẵn -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Hộp mix cắt sẵn</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTP9A5lqNRCB_jxZO-OPKqGqcRUVsWU8ucLZXAD4i_K6tOqTOJODB8QVq9oNsOKBiVdK-xIAFbP-3IV61zwHFC3Nowi7JooiUv6VmkTo8nmrFv2IhnpSyAZ5JSh4jmCr74EUO_6ZPXdWLSqcHvWfrQJRNCcUV-ZrHneQlIsZyVunrTc2FzCeLX0CkbMPJR30RNYZ6d_tHCJP2y-mz3Ruc0CpJhSl0aIUw5NT3ITfi0gqAaPwhlgZR7TgPdUJ5rr1g-pETnuDdAOxE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <span class="absolute top-2 left-2 bg-secondary text-white text-[10px] px-2 py-0.5 rounded-full font-bold">Mix</span>
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Combo 4 Loại Quả</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">75.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 5. Sữa chua Hy Lạp -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Sữa chua Hy Lạp</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2nhYLl_ZbwcwSADirGCHWZjzmDKqlHa7jeJvyvRRlRC8igdqMKyVlM0FEIQVubwFBV-oelrXyQmXQDcQG80YrFH9_6ZL_dLlAnlp3JzYCJ40aZ72bvJXYrawrqCX6DzQKil4yntovc5sfRytesf4GxCvtO420qntkV4ii9cANPxhRjJfm3vuZ8zBQ1GSbsxlKaF5GWHD-Xv1MEkOHfeJGuLHBQ10JyG-wrVhBj40CiMeMLhTRUK_z_iEzGvMsmLY8SSUBTq8YkwE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Greek Yogurt Berry</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">60.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 6. Hộp quà (4, 6, 9 ngăn) -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Hộp quà (4, 6, 9 ngăn)</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTP9A5lqNRCB_jxZO-OPKqGqcRUVsWU8ucLZXAD4i_K6tOqTOJODB8QVq9oNsOKBiVdK-xIAFbP-3IV61zwHFC3Nowi7JooiUv6VmkTo8nmrFv2IhnpSyAZ5JSh4jmCr74EUO_6ZPXdWLSqcHvWfrQJRNCcUV-ZrHneQlIsZyVunrTc2FzCeLX0CkbMPJR30RNYZ6d_tHCJP2y-mz3Ruc0CpJhSl0aIUw5NT3ITfi0gqAaPwhlgZR7TgPdUJ5rr1g-pETnuDdAOxE" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <span class="absolute top-2 left-2 bg-tertiary text-white text-[10px] px-2 py-0.5 rounded-full font-bold">Gift</span>
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Luxury Box 9 Ngăn</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">450.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 7. Nước ép - Smoothie -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Nước ép - Smoothie</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuFqck9qzFdwW6AKgGWOQUQuZU_NkxrDuCwLy0KDM9bBg88qfwzTlsxJrLOoxuc1o9R0c2SjERqmBemab2ySnl6RljreIACRnXpXRw6yPmq3ESz15F4Pf-cpYwwqWHba5fJAqM_Z-N_-N5Rb1jZW4r_ZiOdxm_wwbbCudxoqjBJ09fkwKPY79EhTYxC4wSuidMyIZwpAzB6RYwQkUh2PY5_wzrSegHwthhCJ6hTx0cGN1xHRDMMK9xRjcxi-uLVWZP_sFryyoLQgY" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Green Juice Detox</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">55.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+<!-- 8. Hộp quả 2 tầng -->
+<section>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Hộp quả 2 tầng</h2>
+<a class="text-primary font-bold text-sm hover:underline" href="#">Xem tất cả</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+<script>
+                        for(let i=0; i<8; i++) {
+                            document.write(`
+                            <div class="group bg-surface-container-lowest rounded-lg p-3 transition-all duration-300 hover:shadow-md border border-outline-variant/10">
+                                <div class="aspect-square rounded-lg overflow-hidden bg-surface-container-low mb-3 relative">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCycNlWtUvFr-jG-UF9R1_q_9tisWERazpRJJwu3fJBMQnUNUulsF1QdivgRbF6wshS1VSTvKDjg1TSVq8kmpr41WNEdZIYnyAXWG6wF37iwgW751zjQ_tIUpizNLfPssgdDe81bHY6nghNSw-hHgEUozmMvySimi6rJoMlk4cx5Xkttq7PlyxYXomskanMCX8rh3ADJ1IHbv4iX1pAkl1_ZU7fkM5NGkmvE6LEcGzU5yfeLX0QIqe0cN6zqTiNbV1CZ1ctts15Se8" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <span class="absolute top-2 left-2 bg-primary text-white text-[10px] px-2 py-0.5 rounded-full font-bold">Premium</span>
+                                </div>
+                                <h3 class="font-bold text-sm text-on-surface line-clamp-1 mb-1">Hamper 2 Tầng Đặc Biệt</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-bold">850.000đ</span>
+                                    <button class="bg-primary-container text-on-primary-container p-1.5 rounded-full hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            `);
+                        }
+                    </script>
+</div>
+</section>
+</div>
+<!-- Newsletter Subscription (Glassmorphism) -->
+<section class="px-8 pb-32">
+<div class="bg-surface-container-high rounded-xl p-12 relative overflow-hidden text-center">
+<div class="relative z-10 max-w-xl mx-auto">
+<h2 class="font-headline text-3xl font-bold text-on-surface mb-4 tracking-tight">Nhận ưu đãi mỗi sáng</h2>
+<p class="text-on-surface-variant mb-8">Đăng ký để nhận voucher 10% và thực đơn trái cây theo mùa mới nhất.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<input class="flex-grow rounded-full border-none bg-surface-container-lowest px-6 py-4 focus:ring-2 focus:ring-primary shadow-sm" placeholder="Email của bạn..." type="email"/>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-bold hover:shadow-lg transition-all">Đăng Ký</button>
+</div>
+</div>
+<!-- Abstract decorations -->
+<div class="absolute top-0 left-0 w-32 h-32 bg-primary/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl"></div>
+<div class="absolute bottom-0 right-0 w-48 h-48 bg-secondary/10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 tonal-shift">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16">
+<div>
+<div class="text-lg font-bold text-emerald-800 mb-6 font-headline">The Organic Editorial</div>
+<p class="font-be-vietnam text-sm text-zinc-500 max-w-xs mb-8">
+                    Mang hương vị tươi ngon của thiên nhiên đến tận bàn ăn của bạn. Sức khỏe là sự lựa chọn mỗi ngày.
+                </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 flex items-center justify-center hover:text-emerald-600 transition-all" href="#"><span class="material-symbols-outlined" data-icon="facebook">social_leaderboard</span></a>
+<a class="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 flex items-center justify-center hover:text-emerald-600 transition-all" href="#"><span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span></a>
+<a class="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 flex items-center justify-center hover:text-emerald-600 transition-all" href="#"><span class="material-symbols-outlined" data-icon="video_library">video_library</span></a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 font-be-vietnam text-sm">
+<div class="space-y-4">
+<h4 class="font-bold text-emerald-900 dark:text-emerald-100">Sản phẩm</h4>
+<ul class="space-y-2 text-zinc-500">
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Trái cây cắt</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Nước ép</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Matcha</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Quà tặng</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-emerald-900 dark:text-emerald-100">Hỗ trợ</h4>
+<ul class="space-y-2 text-zinc-500">
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Vận chuyển</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Thanh toán</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Chính sách hoàn</a></li>
+<li><a class="hover:text-emerald-600 underline-offset-4 hover:underline transition-all" href="#">Liên hệ</a></li>
+</ul>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-emerald-900 dark:text-emerald-100 font-be-vietnam">Địa chỉ</h4>
+<p class="text-sm text-zinc-500">
+                    245 Lê Lợi, Phường Bến Thành, Quận 1, <br/>Thành phố Hồ Chí Minh.
+                </p>
+<p class="text-sm text-zinc-500">Hotline: 1900 88 88 88</p>
+<p class="text-sm text-zinc-500">Email: hello@organic-editorial.vn</p>
+</div>
+</div>
+<div class="px-12 py-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-400 font-be-vietnam">
+<span>© 2024 The Organic Editorial. All rights reserved.</span>
+<div class="flex gap-6">
+<a class="hover:text-orange-600" href="#">Facebook</a>
+<a class="hover:text-orange-600" href="#">Instagram</a>
+<a class="hover:text-orange-600" href="#">TikTok</a>
+<a class="hover:text-orange-600" href="#">Zalo</a>
+</div>
+</div>
+</footer>
+</body></html>

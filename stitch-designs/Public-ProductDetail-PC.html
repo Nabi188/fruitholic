@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chi Tiết Sản Phẩm | The Organic Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#90e28a",
+              "surface": "#f3f7f3",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-primary-container": "#006218",
+              "surface-dim": "#cfd6d1",
+              "tertiary": "#176a21",
+              "on-primary": "#d1ffc8",
+              "secondary": "#8d4a00",
+              "on-surface-variant": "#585d5a",
+              "background": "#f3f7f3",
+              "on-tertiary-fixed-variant": "#12661e",
+              "inverse-primary": "#9bfc96",
+              "error-dim": "#b92902",
+              "on-error": "#ffefec",
+              "on-background": "#2b302d",
+              "error": "#b02500",
+              "on-surface": "#2b302d",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#999e9b",
+              "on-tertiary": "#d1ffc8",
+              "on-tertiary-fixed": "#00460e",
+              "secondary-fixed-dim": "#ffb377",
+              "inverse-surface": "#0b0f0d",
+              "secondary-dim": "#7c4000",
+              "tertiary-fixed": "#9df197",
+              "tertiary-dim": "#025d16",
+              "surface-container-highest": "#d8deda",
+              "outline": "#737875",
+              "surface-bright": "#f3f7f3",
+              "on-error-container": "#520c00",
+              "tertiary-container": "#9df197",
+              "secondary-container": "#ffc69c",
+              "primary-fixed-dim": "#8ded89",
+              "surface-tint": "#006b1b",
+              "surface-container-low": "#edf2ee",
+              "surface-container-high": "#dee4df",
+              "on-secondary": "#fff0e7",
+              "primary-container": "#9bfc96",
+              "outline-variant": "#aaaeab",
+              "primary": "#006b1b",
+              "error-container": "#f95630",
+              "secondary-fixed": "#ffc69c",
+              "primary-fixed": "#9bfc96",
+              "on-secondary-container": "#6f3900",
+              "on-tertiary-container": "#005c15",
+              "primary-dim": "#005d16",
+              "surface-variant": "#d8deda",
+              "on-primary-fixed": "#004d11",
+              "surface-container": "#e4e9e5",
+              "on-secondary-fixed": "#532900",
+              "on-secondary-fixed-variant": "#7d4100"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .tonal-shift { transition: background-color 0.3s ease; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-emerald-50/80 dark:bg-zinc-900/80 backdrop-blur-lg shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-full">
+<div class="text-2xl font-bold text-emerald-900 dark:text-emerald-100 tracking-tighter">
+                The Organic Editorial
+            </div>
+<div class="hidden md:flex gap-8 font-plus-jakarta text-sm tracking-wide">
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 transition-colors duration-300" href="#">Giới thiệu</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 transition-colors duration-300" href="#">Chính sách</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 transition-colors duration-300" href="#">Hướng dẫn</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 transition-colors duration-300" href="#">Liên hệ</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 transition-colors duration-300" href="#">Về chúng tôi</a>
+</div>
+<div class="flex items-center gap-4 text-emerald-800 dark:text-emerald-400">
+<button class="scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</button>
+<button class="scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-16 px-6 max-w-7xl mx-auto">
+<!-- Breadcrumb -->
+<div class="mb-8 flex items-center gap-2 text-sm text-outline">
+<a class="hover:text-primary transition-colors" href="#">Trang chủ</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Nước ép tươi</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-on-background font-medium">Nước Ép Cam Vàng &amp; Hạt Chia</span>
+</div>
+<!-- Product Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left: Image Gallery (Asymmetric Layout) -->
+<div class="lg:col-span-7 space-y-6">
+<div class="relative group aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Close-up of a vibrant orange juice in a glass bottle with chia seeds floating, surrounded by orange slices and green leaves on a bright marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQghCnk0ktt3rNVGJCZW6BeOK5_Ig-cUOSj9L8RaOeOP8nEA5euTFvYOpdmx0XiJrTs02ixIIze0COHzq4x4sVfB7LJedcrN-wZ40qoFXSPvGy--S6tbQ21svWWqnZVhc2hzqQ-orLJ7KnZL1G-zksiagXRzmtH7d3yeeq7dLVHpRPNw95_V_B7UF6KomPmuuEJCj-yySkAf5upVtA6SU4ATYmaYrqOFmqNV2pOJNukdvXXMtfgJVEtZ4-5QpEi4Uhs92234NOL_M"/>
+<button class="absolute top-4 right-4 bg-surface-container-lowest/80 backdrop-blur p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-primary">zoom_in</span>
+</button>
+</div>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square rounded-lg overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="Close up of orange juice glass bottle with chia seeds" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS_wiMEhaQQosS20yIjtGhJ3Bosv57nOp9j0NZQzkRJH5FErZiJigXy6Kcw_OD-KCvmohqOKdivixmDWdhqc8JmQy46G4ZP3GL9OmALBqbLdUeysz7whPmHMfBDNc-3DLk-LC1syHTqjVyFtGEzRiljXZqHAwGTVKHxBFlfCKj4uhsU5RulIxYOh5eyQeUuTewVxtHRN9VjjBggPsrBDUC1TZxYkIs9eXjxxkhrmsPmGGuK6AXfT3eZZJIMoPY19x1dIBdncsXhns"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="Fresh sliced oranges on a wooden board with green mint leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAATKnBYJt0XxlKbogchqIAQ2slL0CuytvT0I88Q5e4pGn9TqI_YqkgeKo8Bbmcqq_lFfQCYV6LUF5UQ9lPs8EnJvhrWBmeQ9F5v58C_l59jCDDm9R4gyIqgAYAUitOKv3P1kFF1eUZJzRFxpAF6CWinL2_vWLNfQxPcxkRCwQD73Q7ygPRaB9Vb26lZChJ3byNFvxeMdkPGlCPQrEBhwcSUcMlIB_fVfcRXfFOs4ntY4Usq1y8d3si9OZNBxhlADBnrxMNT0EA-7s"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="Top view of cold pressed orange juice bottles on crushed ice" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNnz8WLRAcziJueh0h92_3N4aU8Dpna3T-5gqwTwqZX-nS6f-nwV--rvNjkVSGYBLRGHE2Si90GMpApHG-wIGDHnlZJTFAZU1pcyiJm7avjVVnTve0Cpg1GamJLs4WE9xxN1l8pceAz7zOPYhqUdX5IJGyjOif4oQokDSFHoF61neE3CwYXQ-4iCs_irhFTUZ2QM8dMRsTqCd6OvdjCYPdQVSMOEG77BYx0WQClJR3o4Hw4ZKZ-XvpIFZxW9jkQi5XXXpUX7rUiIw"/>
+</div>
+<div class="aspect-square rounded-lg overflow-hidden border border-outline-variant hover:border-primary transition-colors relative">
+<img class="w-full h-full object-cover blur-[2px]" data-alt="Vibrant orange fields under bright sun with citrus fruits" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzjEdEdoDrgaw9U7UIEWDBFKtZCD96u85qShlek2u6Y1VfZ0nen9hR7nb68J_GVfXSsLaB_B-Hh_6sf7QM-SsBsbXmeGsQvB5Dv9_SkvStmmyhVpLsHRjziExZVpNQbv1zR0RjnWg_Ythwj2YZHgCQd_s9wrcGd5EuIE5x69ptnE4_PboBOu0DoaB6NSgi44ObC1A_Z3AyIVkcS1SeLlPwndgDxGMflzsY23WvcCt9hojyj8XaXZHZA2Pd3Sr_-L5s5urhWNf3IMY"/>
+<div class="absolute inset-0 flex items-center justify-center bg-on-surface/20 text-white font-bold text-lg">+2</div>
+</div>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="lg:col-span-5 flex flex-col">
+<div class="mb-2">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-bold rounded-full tracking-wider uppercase">Best Seller</span>
+</div>
+<h1 class="text-4xl font-extrabold text-on-surface leading-tight mb-4 tracking-tight">Nước Ép Cam Vàng &amp; Hạt Chia</h1>
+<div class="flex items-center gap-4 mb-6">
+<span class="text-3xl font-bold text-primary">65.000đ</span>
+<span class="text-xl text-outline line-through">85.000đ</span>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-semibold">4.9 (128 đánh giá)</span>
+</div>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                    Sự kết hợp hoàn hảo giữa vị ngọt thanh của cam vàng chín mọng từ trang trại hữu cơ Dalat và hạt chia giàu Omega-3. Thức uống cung cấp vitamin C dồi dặm, giúp tăng cường đề kháng và làm đẹp da mỗi ngày.
+                </p>
+<!-- Options -->
+<div class="space-y-8 mb-10">
+<!-- Size Selector -->
+<div>
+<span class="block text-sm font-bold text-on-surface mb-3 uppercase tracking-widest">Kích thước</span>
+<div class="flex gap-4">
+<button class="flex-1 py-3 px-4 rounded-full border-2 border-primary bg-primary-container text-on-primary-container font-semibold transition-all">Size M (350ml)</button>
+<button class="flex-1 py-3 px-4 rounded-full border-2 border-outline-variant text-outline hover:border-primary hover:text-primary transition-all">Size L (500ml)</button>
+</div>
+</div>
+<!-- Add-ons -->
+<div>
+<span class="block text-sm font-bold text-on-surface mb-3 uppercase tracking-widest">Topping thêm</span>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm hover:bg-secondary-container hover:text-on-secondary-container transition-all">+ Hạt chia (+5k)</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm hover:bg-secondary-container hover:text-on-secondary-container transition-all">+ Thạch dừa (+8k)</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant text-sm hover:bg-secondary-container hover:text-on-secondary-container transition-all">+ Nha đam (+10k)</button>
+</div>
+</div>
+<!-- Customization -->
+<div class="grid grid-cols-2 gap-6">
+<div>
+<span class="block text-sm font-bold text-on-surface mb-3 uppercase tracking-widest">Mức đường</span>
+<select class="w-full bg-surface-container-low border-none rounded-full px-4 py-3 focus:ring-2 focus:ring-primary">
+<option>Đường bình thường</option>
+<option>Ít đường (50%)</option>
+<option>Không đường</option>
+<option>Đường kiêng</option>
+</select>
+</div>
+<div>
+<span class="block text-sm font-bold text-on-surface mb-3 uppercase tracking-widest">Mức đá</span>
+<select class="w-full bg-surface-container-low border-none rounded-full px-4 py-3 focus:ring-2 focus:ring-primary">
+<option>Đá bình thường</option>
+<option>Ít đá</option>
+<option>Không đá</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Quantity & Add to Cart -->
+<div class="mt-auto flex gap-4">
+<div class="flex items-center bg-surface-container-high rounded-full px-4 py-2">
+<button class="w-8 h-8 flex items-center justify-center hover:text-primary"><span class="material-symbols-outlined">remove</span></button>
+<span class="w-10 text-center font-bold text-lg">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:text-primary"><span class="material-symbols-outlined">add</span></button>
+</div>
+<button class="flex-1 bg-primary hover:bg-primary-dim text-on-primary py-4 px-8 rounded-full font-bold text-lg shadow-xl shadow-primary/20 flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">shopping_cart</span>
+                        Thêm vào giỏ hàng
+                    </button>
+</div>
+</div>
+</div>
+<!-- Details & Nutrition Tabs -->
+<section class="mt-20">
+<div class="border-b border-outline-variant/30 flex gap-8 mb-8 overflow-x-auto no-scrollbar">
+<button class="pb-4 text-primary font-bold border-b-2 border-primary whitespace-nowrap">Mô tả sản phẩm</button>
+<button class="pb-4 text-outline font-medium hover:text-on-surface whitespace-nowrap">Quy trình sản xuất</button>
+</div>
+<div class="grid grid-cols-1 gap-12 max-w-3xl">
+<div class="space-y-6">
+<h3 class="text-2xl font-bold">Câu chuyện đằng sau</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Mỗi chai nước ép Cam Vàng của chúng tôi bắt đầu từ những quả cam chín mọng được hái thủ công vào lúc bình minh tại trang trại hữu cơ đạt chuẩn GlobalGAP. Chúng tôi sử dụng công nghệ ép lạnh (Cold-Pressed) để giữ trọn vẹn enzyme, khoáng chất và hương vị tinh khiết nhất của trái cây mà không qua xử lý nhiệt.
+                    </p>
+<ul class="space-y-3">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>100% Nguyên chất, không chất bảo quản</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Trái cây tươi hái trong ngày</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span>Bao bì thủy tinh thân thiện môi trường</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Customer Reviews (Bento Style) -->
+<section class="mt-24">
+<div class="flex justify-between items-end mb-10">
+<div>
+<h2 class="text-3xl font-extrabold mb-2">Trải nghiệm khách hàng</h2>
+<p class="text-on-surface-variant italic">Những chia sẻ thật từ cộng đồng sống sạch.</p>
+</div>
+<button class="bg-secondary text-white px-6 py-2 rounded-full font-bold hover:bg-secondary-dim transition-colors">Viết đánh giá</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Review 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center font-bold text-primary">TH</div>
+<div>
+<h4 class="font-bold">Trần Hà</h4>
+<div class="flex text-secondary text-xs">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">"Vị cam rất tươi, không bị gắt cổ như mấy loại đóng chai siêu thị. Hạt chia cho nhiều, uống rất thích."</p>
+</div>
+<!-- Review 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center font-bold text-secondary">MN</div>
+<div>
+<h4 class="font-bold">Minh Nhật</h4>
+<div class="flex text-secondary text-xs">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">"Giao hàng nhanh, chai thủy tinh đóng gói cẩn thận. Nước ép rất chất lượng, đúng vị organic."</p>
+</div>
+<!-- Review 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-surface-container">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center font-bold text-tertiary">AL</div>
+<div>
+<h4 class="font-bold">An Lê</h4>
+<div class="flex text-secondary text-xs">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed">"Bình thường mình không thích hạt chia lắm nhưng uống chung với cam này thấy hợp cực kỳ. Sẽ ủng hộ dài dài."</p>
+</div>
+</div>
+</section>
+<!-- Related Products -->
+<section class="mt-24">
+<h2 class="text-2xl font-extrabold mb-8 flex items-center gap-3">
+<span class="w-8 h-[2px] bg-primary"></span>
+                Có thể bạn cũng thích
+            </h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Item 1 -->
+<div class="group">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="Refreshing green juice with kale, apple and ginger in a glass bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSL4jvyC_XAFS63jHTQcyXAYCfmmbUx3NBKbETCeO_QeYUUt1Z25cEraRhauvp82H_0aSyQFFWXmJfD4DiWX3t2WpSq90fwfyqb7_wc8_MfgafMBhJrd2KWVU0xl9VpEIseZrz453Og9rkLb2Zpd7FRvXN-edRMHN-hhw931nxs1bqBt2_QA3quUlxIrIAY0i171V9MlNezGr6NgqfwYOh-1e5l-50EmVHCetYVPFG9ISPh9ErrCl4nP_pa_2wM2pLIH8WzgN1T-I"/>
+<button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</button>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">Nước Ép Kale &amp; Táo Xanh</h4>
+<p class="text-primary font-bold">75.000đ</p>
+</div>
+<!-- Item 2 -->
+<div class="group">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="Cut tropical fruit salad with mango, kiwi, and dragonfruit in a clear eco-friendly bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWNjiQvodo3l2ScRTCl9eGn3OIE7N_3H8c_nc9Un8Q0CSZuW9JHaydzUw1ibWS5shC01E4jdqjXaMMCZXsLa5uX30PHP8QxO9ppdtCheTmBK3tF3AYtWQJmvvg7ZjRQ7RZLH_QUed6R6gFrQq-bua2lPxr4D-Bi9-g3uqtopLodsOj0orcOm8Go0TXah9K1UgFBPQlun8MiyKm8-FXjmTwyQonI8iiG3oDNot97Q03IZgRqUxlDr6R5-pE97ir_6Q6C_OgcNIjtg"/>
+<button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</button>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">Trái Cây Mix Nhiệt Đới</h4>
+<p class="text-primary font-bold">55.000đ</p>
+</div>
+<!-- Item 3 -->
+<div class="group">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="Deep pink watermelon and lime juice in a sleek glass bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbWqQhkWjq8e7vJnQvUXeU2H3_c6k1Hx6GhEMl4xoEvSaw9-L8z2MXzAVGkzwfIIG_hmx0sPlp6n0gjGHtrNdFBU3qtG4-4KPR7h3RbypeUDkADvNFTa6GfJV1x9r3h3-i8KSDJo0qsbMnWGJ2NYLa4NcPObBWc77KS3jzt_eSfSanAAQshKF15NZQS6E6p7FtYpdJGWfqieEnbBZ2nvrdfSl6B6YrjclpDZi2JYA0fStZeZ2fhxV0mb_uAQvHXwzYQeBV1lc19n0"/>
+<button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</button>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">Nước Ép Dưa Hấu Chanh Dây</h4>
+<p class="text-primary font-bold">45.000đ</p>
+</div>
+<!-- Item 4 -->
+<div class="group">
+<div class="aspect-square rounded-xl bg-surface-container overflow-hidden mb-4 relative">
+<img class="w-full h-full object-cover transition-transform group-hover:scale-110" data-alt="Fresh peeled and sliced pomelo arranged artfully on a plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBowxuBSXIm_3yT9Dz3_7JHPqE0XgCYMjb9BFMYK9gj4T3h0oYlFPVJoMtG8wdDjP9QBKTmo5NbFDU7oOdZbUbW1BI1NXgABxj91ON1NPwmUMNYPgF1hdPQg13AQKz4uOl5nsMDWbfgA6qWXfKT16XUF8sJIQLg5zSPYOH1SOzhw3zScGfef3t3-BHeHB7tuUeS9mUFq6RJQpR55lpA-5xPETPwla-tgYigGyzrbax5s9JNbYU7iEzjOe7AACeQPpohs5dFIvkxu5o"/>
+<button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity translate-y-2 group-hover:translate-y-0">
+<span class="material-symbols-outlined text-primary">shopping_bag</span>
+</button>
+</div>
+<h4 class="font-bold group-hover:text-primary transition-colors">Bưởi Da Xanh Tách Múi</h4>
+<p class="text-primary font-bold">60.000đ</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16">
+<div>
+<div class="text-lg font-bold text-emerald-800 mb-4">The Organic Editorial</div>
+<p class="text-zinc-500 text-sm font-be-vietnam leading-relaxed">
+                    Mang đến nguồn năng lượng thuần khiết từ thiên nhiên thông qua những sản phẩm trái cây và nước ép hữu cơ chất lượng cao nhất.
+                </p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-bold text-emerald-900 dark:text-emerald-100 mb-2">Liên kết nhanh</h4>
+<a class="text-zinc-500 hover:text-emerald-600 underline-offset-4 hover:underline transition-all duration-200" href="#">Về chúng tôi</a>
+<a class="text-zinc-500 hover:text-emerald-600 underline-offset-4 hover:underline transition-all duration-200" href="#">Cửa hàng</a>
+<a class="text-zinc-500 hover:text-emerald-600 underline-offset-4 hover:underline transition-all duration-200" href="#">Blog dinh dưỡng</a>
+<a class="text-zinc-500 hover:text-emerald-600 underline-offset-4 hover:underline transition-all duration-200" href="#">Chính sách vận chuyển</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-emerald-900 dark:text-emerald-100 mb-2">Kết nối</h4>
+<div class="flex gap-4">
+<a class="text-zinc-500 hover:text-orange-600 transition-all duration-200" href="#">Facebook</a>
+<a class="text-zinc-500 hover:text-orange-600 transition-all duration-200" href="#">Instagram</a>
+<a class="text-zinc-500 hover:text-orange-600 transition-all duration-200" href="#">TikTok</a>
+<a class="text-zinc-500 hover:text-orange-600 transition-all duration-200" href="#">Zalo</a>
+</div>
+<p class="text-zinc-500 text-sm mt-4">© 2024 The Organic Editorial. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>

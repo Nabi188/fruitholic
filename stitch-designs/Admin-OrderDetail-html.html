@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Details | Verdant Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#90e28a",
+              "on-secondary": "#fff0e7",
+              "primary-container": "#9bfc96",
+              "tertiary-fixed": "#9df197",
+              "background": "#f3f7f3",
+              "surface": "#f3f7f3",
+              "secondary": "#8d4a00",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-container": "#9df197",
+              "on-error-container": "#520c00",
+              "secondary-fixed-dim": "#ffb377",
+              "surface-dim": "#cfd6d1",
+              "surface-container-high": "#dee4df",
+              "on-background": "#2b302d",
+              "on-surface": "#2b302d",
+              "secondary-dim": "#7c4000",
+              "surface-variant": "#d8deda",
+              "tertiary-dim": "#025d16",
+              "on-secondary-fixed-variant": "#7d4100",
+              "primary-dim": "#005d16",
+              "secondary-container": "#ffc69c",
+              "on-tertiary": "#d1ffc8",
+              "on-tertiary-fixed-variant": "#12661e",
+              "surface-tint": "#006b1b",
+              "error": "#b02500",
+              "tertiary": "#176a21",
+              "inverse-primary": "#9bfc96",
+              "surface-container-highest": "#d8deda",
+              "primary-fixed-dim": "#8ded89",
+              "outline": "#737875",
+              "error-dim": "#b92902",
+              "on-tertiary-container": "#005c15",
+              "surface-container-low": "#edf2ee",
+              "outline-variant": "#aaaeab",
+              "secondary-fixed": "#ffc69c",
+              "on-primary": "#d1ffc8",
+              "on-secondary-fixed": "#532900",
+              "surface-container": "#e4e9e5",
+              "on-secondary-container": "#6f3900",
+              "on-error": "#ffefec",
+              "inverse-surface": "#0b0f0d",
+              "surface-bright": "#f3f7f3",
+              "primary-fixed": "#9bfc96",
+              "error-container": "#f95630",
+              "on-surface-variant": "#585d5a",
+              "inverse-on-surface": "#999e9b",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-tertiary-fixed": "#00460e",
+              "primary": "#006b1b",
+              "on-primary-container": "#006218",
+              "on-primary-fixed": "#004d11"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col border-r border-opacity-10 border-[#006b1b] bg-[#f3f7f3] dark:bg-slate-900 font-['Plus_Jakarta_Sans'] antialiased tracking-tight z-50">
+<div class="flex flex-col h-full py-6 px-4">
+<div class="mb-8 px-2">
+<h1 class="text-xl font-bold text-[#006b1b] dark:text-green-400">Verdant Admin</h1>
+<p class="text-xs text-on-surface-variant opacity-70">Editorial Gastronomy</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-medium">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-medium">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 dark:hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-medium">Coupons</span>
+</a>
+<!-- Active Item: Orders -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#006b1b] dark:text-green-400 font-bold border-r-4 border-[#006b1b] bg-white/50 dark:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-medium">Orders</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 space-y-1 border-t border-outline-variant/20">
+<button class="w-full mb-4 py-3 px-4 bg-primary text-on-primary rounded-full font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Product
+                </button>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:text-[#006b1b] dark:hover:text-green-300 hover:bg-white/40 transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-medium">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-8 h-full w-full">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-[#006b1b] focus:ring-opacity-20 transition-all" placeholder="Search orders, customers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-slate-500 dark:text-slate-400 hover:text-[#006b1b] transition-all">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<button class="text-slate-500 dark:text-slate-400 hover:text-[#006b1b] transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-3 border-l border-outline-variant/30 pl-6">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Lead Editor</p>
+</div>
+<img alt="Admin User" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/10" data-alt="close-up portrait of a professional male administrator in a brightly lit office setting with a friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD84nH0As_jfHIW-MQPDXHDY9ckCkbPoCGVg7bdsFPyMgDUm6hdW0zJFa-PnFx1wQkNuTJZ9tTC0s36V1QdSrbpf0DO3vpY10g2ku9PBSXJWDWAJUBSpEbnj9C6Kl1UACb6vulSCubaTIUKr0gJNvv5vf0Hg5zyqj5Gtig9UzAmxLYdiLW2WCo1IVI_OqtkAgC5x8_KARGczxdlolpq8-518FHz5WG51LcKKUMLrjuf_kz-cZ0iegos9O-w8rSa4KDDRcQIINGNP_g"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-16 px-8 min-h-screen">
+<!-- Breadcrumb & Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<nav class="flex items-center gap-2 text-xs text-on-surface-variant mb-2 font-medium">
+<span>Orders</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary">Order #ORD-8829-VG</span>
+</nav>
+<h2 class="text-4xl font-extrabold text-on-surface tracking-tight">Order Details</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-2.5 rounded-full border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface-container-low transition-colors">
+                    Download Invoice
+                </button>
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary font-bold text-sm shadow-lg shadow-primary/20 hover:primary-dim transition-all">
+                    Print Label
+                </button>
+</div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Order Items & Summary -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Items Card -->
+<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">shopping_basket</span>
+                            Itemized Products
+                        </h3>
+<span class="text-xs font-medium bg-primary-container text-on-primary-container px-3 py-1 rounded-full">4 Items</span>
+</div>
+<div class="space-y-4">
+<!-- Product Item 1 -->
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Blood Orange Slices" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="macro photography of sliced blood oranges and citrus fruits with vibrant colors and soft water droplets" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1gzTASIV4zepvl9RGDdOMwASQ6jfq8TrdRUQCkKPoCPIvyc1gxLIomMSFe3eGWS098LPYhZDpsIAe2KTLV8YtOzfYjdzO0lHiDbOrP3AfdPoIZcW0Eezdq5Z4l9SpAIdMWap0jZQP0s2tZxe_K3iIJTu-LfJQtnl7xV_FseO_z1qmV89qg9mRKWUAeIQvmQeKIWBH5wvXL-TKVcDxtmEZyDPzs9wdyFd-l3Lb8WQsrKvl2x1srhOgqqLE3jtMx0vJy6BlqiTRMUQ"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface text-base">Sicilian Blood Orange Slices</h4>
+<p class="text-xs text-on-surface-variant">500g Box • Pre-washed</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-on-surface">$12.50</p>
+<p class="text-xs text-on-surface-variant font-medium">x 2</p>
+</div>
+<div class="pl-4 text-right min-w-[80px]">
+<p class="font-bold text-primary">$25.00</p>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Heirloom Greens" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="fresh organic kale and spinach leaves with dew drops against a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_fiPk8FJOs-RoK6wXyD5fYZxDLJDvZDfuF-4qsYyQE8i094h6btj3kl1x4X5x81GNnXYJ3R0NeyfdwXXZjVpFsO_JvQSXOHqrl1Ax4F0zGRNEZb8UF9XVALU7tR_E27AM3F2FhT1PO5cvTRXUNTUn2RtwoKBVlyxNxo3g9isUywdukaLdK_qQKgDkossKhvlTDST09sYHDaz-oOeIIYhn-jIlBqO67b7Uo393uLcgC7DsQdXTWJBUkrTdK9ONriCSIqzKh57_maM"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface text-base">Editorial Heirloom Greens</h4>
+<p class="text-xs text-on-surface-variant">300g Bag • Hydroponic</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-on-surface">$8.00</p>
+<p class="text-xs text-on-surface-variant font-medium">x 1</p>
+</div>
+<div class="pl-4 text-right min-w-[80px]">
+<p class="font-bold text-primary">$8.00</p>
+</div>
+</div>
+<!-- Product Item 3 -->
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<div class="w-20 h-20 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+<img alt="Pomegranate Arils" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="close up of fresh pomegranate seeds in a glass bowl with soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFNGcqzuR3DqMsMSyXvbjPagwjtY-xqWIjoKIgUDfnSPtkfSHNcEQzxk5t7RNG51rU3JFNWxNFSb0bwZGoiw5CftEHDcloLhN-lXoVfLWKpDxNYjVA0CRwaDCmvFEWyF91qzYlRk_Y-_GavlQZs6-_m85W2sicuj2kX6-EknzyRmY3NeLXlMBMrmkcTQWdGaBD8Pdqnj4xZBMs8x1G-2Gl472kDKErmRKzaPZk37C0zTAD8-g9jqpdeP_v9AkIcykm8G7hg3dWV3s"/>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-on-surface text-base">Fresh Pomegranate Arils</h4>
+<p class="text-xs text-on-surface-variant">150g Tub • Hand-picked</p>
+</div>
+<div class="text-right">
+<p class="font-bold text-on-surface">$6.50</p>
+<p class="text-xs text-on-surface-variant font-medium">x 1</p>
+</div>
+<div class="pl-4 text-right min-w-[80px]">
+<p class="font-bold text-primary">$6.50</p>
+</div>
+</div>
+</div>
+<!-- Summary -->
+<div class="mt-8 pt-6 border-t border-outline-variant/20 space-y-3">
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Subtotal</span>
+<span class="font-medium text-on-surface">$39.50</span>
+</div>
+<div class="flex justify-between text-sm text-on-surface-variant">
+<span>Delivery Fee</span>
+<span class="font-medium text-on-surface">$5.00</span>
+</div>
+<div class="flex justify-between text-sm text-secondary">
+<span>Coupon Discount (FRESH20)</span>
+<span class="font-medium">-$7.90</span>
+</div>
+<div class="flex justify-between items-center pt-4">
+<span class="text-lg font-extrabold text-on-surface">Total Amount</span>
+<span class="text-2xl font-black text-primary">$36.60</span>
+</div>
+</div>
+</div>
+<!-- Payment & Delivery Methods -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low rounded-lg p-6 flex items-start gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Payment Method</p>
+<p class="font-bold text-on-surface text-lg">Apple Pay</p>
+<p class="text-sm text-on-surface-variant">Visa ending in **** 9012</p>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 flex items-start gap-4">
+<div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Delivery Method</p>
+<p class="font-bold text-on-surface text-lg">Verdant Express</p>
+<p class="text-sm text-on-surface-variant">Est. Delivery: Today, 2:00 PM</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Customer & Status -->
+<div class="space-y-8">
+<!-- Customer Details -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden shadow-sm border border-outline-variant/10">
+<div class="h-24 relative bg-primary-container/30">
+<div class="absolute -bottom-10 left-6">
+<img alt="Elena Rodriguez" class="w-20 h-20 rounded-xl object-cover border-4 border-white shadow-md" data-alt="vibrant lifestyle portrait of a happy woman smiling outdoors with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwNAHpUwPH2LuU4ythOfPWlvb2S8UfUOhT5-u26nAzysleLjYbUQaLxeMhGdRMK-R2S_GqNh11Pbfn_eg5gvBQsJLpP6qz9uLkfaInWaZLBgE26i8RUApQtPyO4mjqQ0UETwsSWAHSF4JhgMIJWeYA7HgCIwoiLOlLfCZBcunfSyFqaCLGLFtUIGkvi7l750NURq0iKtcC471A8jkgir7x8wnGEgKcomjjvant0fmUpPINiDElfdzx0NOJrCi5ZTQJw5qcn2Hgj-s"/>
+</div>
+</div>
+<div class="pt-12 pb-6 px-6">
+<h3 class="text-xl font-bold text-on-surface">Elena Rodriguez</h3>
+<p class="text-sm text-primary font-medium mb-4">Premium Member</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">mail</span>
+<span class="text-sm font-medium">elena.r@lifestyle.com</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">call</span>
+<span class="text-sm font-medium">+1 (555) 234-8891</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-lg mt-0.5">location_on</span>
+<span class="text-sm font-medium leading-relaxed">722 Organic Lane, Penthouse B<br/>San Francisco, CA 94107</span>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 rounded-full border border-primary text-primary text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                            View Customer Profile
+                        </button>
+</div>
+</div>
+<!-- Status Timeline -->
+<div class="bg-surface-container-lowest rounded-lg p-6 shadow-sm border border-outline-variant/10">
+<h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">update</span>
+                        Order Timeline
+                    </h3>
+<div class="space-y-6 relative">
+<!-- Timeline Line -->
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-outline-variant/20"></div>
+<!-- Step 1: Completed -->
+<div class="relative flex gap-4">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Order Placed</p>
+<p class="text-xs text-on-surface-variant">Oct 12, 2023 • 09:15 AM</p>
+</div>
+</div>
+<!-- Step 2: Completed -->
+<div class="relative flex gap-4">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Payment Confirmed</p>
+<p class="text-xs text-on-surface-variant">Oct 12, 2023 • 09:17 AM</p>
+</div>
+</div>
+<!-- Step 3: Current -->
+<div class="relative flex gap-4">
+<div class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center z-10 shadow-sm shadow-secondary/40 ring-4 ring-secondary/10">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Processing &amp; Packing</p>
+<p class="text-xs text-secondary font-medium italic">Current Status</p>
+</div>
+</div>
+<!-- Step 4: Future -->
+<div class="relative flex gap-4">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center z-10">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+<div>
+<p class="text-sm font-medium text-outline">Out for Delivery</p>
+<p class="text-xs text-outline opacity-60">Pending completion of packing</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/20">
+<label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3">Update Status</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg text-sm font-medium focus:ring-2 focus:ring-primary focus:ring-opacity-20 mb-4">
+<option>Processing</option>
+<option>Packed &amp; Ready</option>
+<option>In Transit</option>
+<option>Delivered</option>
+<option>Cancelled</option>
+</select>
+<button class="w-full py-2.5 bg-primary text-on-primary rounded-full font-bold text-sm">
+                            Save Status Change
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

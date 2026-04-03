@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#90e28a",
+              "surface": "#f3f7f3",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-primary-container": "#006218",
+              "surface-dim": "#cfd6d1",
+              "tertiary": "#176a21",
+              "on-primary": "#d1ffc8",
+              "secondary": "#8d4a00",
+              "on-surface-variant": "#585d5a",
+              "background": "#f3f7f3",
+              "on-tertiary-fixed-variant": "#12661e",
+              "inverse-primary": "#9bfc96",
+              "error-dim": "#b92902",
+              "on-error": "#ffefec",
+              "on-background": "#2b302d",
+              "error": "#b02500",
+              "on-surface": "#2b302d",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#999e9b",
+              "on-tertiary": "#d1ffc8",
+              "on-tertiary-fixed": "#00460e",
+              "secondary-fixed-dim": "#ffb377",
+              "inverse-surface": "#0b0f0d",
+              "secondary-dim": "#7c4000",
+              "tertiary-fixed": "#9df197",
+              "tertiary-dim": "#025d16",
+              "surface-container-highest": "#d8deda",
+              "outline": "#737875",
+              "surface-bright": "#f3f7f3",
+              "on-error-container": "#520c00",
+              "tertiary-container": "#9df197",
+              "secondary-container": "#ffc69c",
+              "primary-fixed-dim": "#8ded89",
+              "surface-tint": "#006b1b",
+              "surface-container-low": "#edf2ee",
+              "surface-container-high": "#dee4df",
+              "on-secondary": "#fff0e7",
+              "primary-container": "#9bfc96",
+              "outline-variant": "#aaaeab",
+              "primary": "#006b1b",
+              "error-container": "#f95630",
+              "secondary-fixed": "#ffc69c",
+              "primary-fixed": "#9bfc96",
+              "on-secondary-container": "#6f3900",
+              "on-tertiary-container": "#005c15",
+              "primary-dim": "#005d16",
+              "surface-variant": "#d8deda",
+              "on-primary-fixed": "#004d11",
+              "surface-container": "#e4e9e5",
+              "on-secondary-fixed": "#532900",
+              "on-secondary-fixed-variant": "#7d4100"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; background-color: #f3f7f3; color: #2b302d; }
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-emerald-50/80 dark:bg-zinc-900/80 backdrop-blur-lg shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-full">
+<div class="text-2xl font-bold text-emerald-900 dark:text-emerald-100 tracking-tighter font-headline">The Organic Editorial</div>
+<div class="hidden md:flex items-center space-x-8 font-plus-jakarta text-sm tracking-wide">
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Giới thiệu</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Chính sách</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Hướng dẫn</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Liên hệ</a>
+<a class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300" href="#">Về chúng tôi</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-emerald-700 dark:text-emerald-300 font-semibold border-b-2 border-orange-500 pb-1 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</button>
+<button class="text-zinc-600 dark:text-zinc-400 hover:text-orange-600 transition-colors duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-24 pb-16 px-4 md:px-12 max-w-7xl mx-auto">
+<!-- Breadcrumb / Back Action -->
+<div class="mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+<span class="font-headline font-bold text-lg text-primary tracking-tight">Tiếp tục mua sắm</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Cart Items Section -->
+<div class="lg:col-span-8 space-y-6">
+<h1 class="text-4xl font-headline font-extrabold text-on-background mb-8 tracking-tighter">Giỏ hàng của bạn</h1>
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col md:flex-row gap-6 relative group overflow-hidden">
+<div class="w-full md:w-32 h-32 flex-shrink-0 bg-surface rounded-md overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up high-definition studio shot of fresh organic orange slices with water droplets on a white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8mZHF9AiDhu29gZNPoLVDBL3hkYooYvyfLYQSTibEMUHLmtgQNhqh-eqqHWdpGEQLA5aikM8FOpPEKSlRtgZpTChUPbRpjtLhwXG-XiHePT2VsqbQPBrGbSzIfe8NH0hkhwLTMmciKRzTwRBrKjOEmLbyY9iL3HqkZj8MKrNuZaxmAhDElohIYQhpOH1XQ5dAvzUy0oEmBzLlqJ96x1JcT7_ZBKCTb1Co9iPrxJn06NML3xlYOKtcpvE9qlZO3TWc6MiKx7Xc_Do"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-xl text-on-surface">Cam Sành Hữu Cơ</h3>
+<p class="text-on-surface-variant text-sm mt-1 font-body">Loại 1 - VietGAP standard</p>
+</div>
+<span class="font-headline font-bold text-primary">45.000đ</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center bg-surface-container-high rounded-full px-4 py-2 gap-4">
+<button class="hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="font-headline font-bold w-4 text-center">2</span>
+<button class="hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-headline font-bold text-lg text-on-background">90.000đ</span>
+<button class="text-error-dim hover:bg-error-container/20 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-6 shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col md:flex-row gap-6 relative group overflow-hidden">
+<div class="w-full md:w-32 h-32 flex-shrink-0 bg-surface rounded-md overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Artistic floating pineapple on a bright pastel background with soft shadows editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJROXkRhPNACcQqv5V_-38MH9XFAkn2gUTx2yQ603MLkfVteYwp7JmzUhj14YfgnuAUrzmkk9RpQcfJcxWlJbkrWDCYp37ooh7EmjjSz_WQeIRyYcjPOrTNkM3RwsOg1MTj_ZeRoVTGtZ6YBH-YMnDcdlXCI8KbVVCLQJc1niVmZj35uzMsYzDcyohpuZOsrPV3lBWkxqr8rnFud-Lsk4qjl6NPJC8LA-WZ0Hq_CdFk1r1HXCJa1iHlLQdakceWxXzbSflMEX5MF0"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline font-bold text-xl text-on-surface">Dứa Mật Tươi</h3>
+<p class="text-on-surface-variant text-sm mt-1 font-body">Ngọt lịm, gọt sẵn theo yêu cầu</p>
+</div>
+<span class="font-headline font-bold text-primary">65.000đ</span>
+</div>
+<div class="flex items-center justify-between mt-6">
+<div class="flex items-center bg-surface-container-high rounded-full px-4 py-2 gap-4">
+<button class="hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="font-headline font-bold w-4 text-center">1</span>
+<button class="hover:text-secondary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-headline font-bold text-lg text-on-background">65.000đ</span>
+<button class="text-error-dim hover:bg-error-container/20 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Suggestion (Editorial Feel) -->
+<div class="bg-primary/5 rounded-lg border-2 border-dashed border-primary/20 p-8 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" data-icon="eco">eco</span>
+<p class="font-headline font-bold text-primary">Bạn muốn thêm chút "Xanh"?</p>
+<p class="text-sm text-on-surface-variant mt-2 max-w-xs">Gói Salad Mix hữu cơ đang được giảm 20% hôm nay.</p>
+<button class="mt-4 px-6 py-2 bg-primary text-on-primary rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-transform">Xem thêm</button>
+</div>
+</div>
+<!-- Summary & Payment Section -->
+<aside class="lg:col-span-4 sticky top-24 space-y-6">
+<div class="bg-surface-container-low rounded-lg p-8 shadow-sm">
+<h2 class="text-2xl font-headline font-extrabold text-on-background mb-6">Tóm tắt đơn hàng</h2>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body">Tạm tính</span>
+<span class="font-headline font-bold">155.000đ</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="font-body">Phí vận chuyển</span>
+<span class="font-headline font-bold">15.000đ</span>
+</div>
+<div class="mb-6 pt-4 border-t border-outline-variant/10">
+<p class="font-headline font-bold text-xs text-on-surface-variant mb-3 uppercase tracking-widest">Mã giảm giá</p>
+<div class="flex gap-2">
+<input class="flex-grow bg-surface-container-lowest border border-outline-variant/30 rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all" placeholder="Nhập mã của bạn" type="text"/>
+<button class="px-6 py-2 bg-on-surface text-surface-container-lowest rounded-full text-sm font-bold hover:bg-on-surface-variant transition-colors whitespace-nowrap">
+            Áp dụng
+        </button>
+</div>
+</div><div class="pt-4 border-t border-outline-variant/20 flex justify-between items-end">
+<span class="font-headline font-bold text-lg">Tổng cộng</span>
+<span class="text-3xl font-headline font-extrabold text-primary">170.000đ</span>
+</div>
+</div>
+<div class="space-y-4">
+<p class="font-headline font-bold text-sm text-on-surface mb-2 uppercase tracking-widest">Phương thức thanh toán</p>
+<!-- Payment Method Radios -->
+<div class="space-y-3">
+<label class="flex items-center p-4 bg-surface-container-lowest rounded-md border-2 border-transparent hover:border-primary/30 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary-container/10">
+<input checked="" class="hidden" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-primary mr-3" data-icon="local_shipping">local_shipping</span>
+<div class="flex-grow">
+<span class="block font-headline font-bold text-on-surface">COD</span>
+<span class="block text-xs text-on-surface-variant">Thanh toán khi nhận hàng</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-has-[:checked]:opacity-100" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</label>
+<label class="flex items-center p-4 bg-surface-container-lowest rounded-md border-2 border-transparent hover:border-primary/30 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary-container/10">
+<input class="hidden" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-primary mr-3" data-icon="account_balance">account_balance</span>
+<div class="flex-grow">
+<span class="block font-headline font-bold text-on-surface">Chuyển khoản</span>
+<span class="block text-xs text-on-surface-variant">Qua ngân hàng nội địa</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-has-[:checked]:opacity-100" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</label>
+<label class="flex items-center p-4 bg-surface-container-lowest rounded-md border-2 border-transparent hover:border-primary/30 cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary-container/10">
+<input class="hidden" name="payment" type="radio"/>
+<span class="material-symbols-outlined text-primary mr-3" data-icon="account_balance_wallet">account_balance_wallet</span>
+<div class="flex-grow">
+<span class="block font-headline font-bold text-on-surface">Ví điện tử</span>
+<span class="block text-xs text-on-surface-variant">Momo, ZaloPay, ShopeePay</span>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-has-[:checked]:opacity-100" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</label>
+</div>
+</div>
+<button class="w-full mt-10 py-4 bg-primary text-on-primary rounded-full font-headline font-bold text-lg shadow-[0px_10px_20px_rgba(0,107,27,0.2)] hover:shadow-[0px_15px_30px_rgba(0,107,27,0.3)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                        Tiếp tục thanh toán
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<p class="text-center text-xs text-on-surface-variant mt-6 font-body">
+                        Bằng cách thanh toán, bạn đồng ý với <a class="underline hover:text-primary" href="#">Điều khoản dịch vụ</a> của chúng tôi.
+                    </p>
+</div>
+<!-- Promotional Banner in Sidebar -->
+<div class="bg-secondary-container text-on-secondary-container p-6 rounded-lg relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="font-headline font-bold text-lg">Giao hàng miễn phí</h4>
+<p class="text-sm opacity-90">Cho đơn hàng từ 300.000đ. Thêm 130.000đ để được freeship!</p>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl opacity-10 rotate-12 transition-transform group-hover:rotate-0" data-icon="celebration">celebration</span>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16">
+<div class="space-y-4">
+<div class="text-lg font-bold text-emerald-800 font-headline">The Organic Editorial</div>
+<p class="text-zinc-500 font-be-vietnam text-sm leading-relaxed max-w-xs">
+                    Tầm nhìn của chúng tôi là mang những sản phẩm hữu cơ tươi ngon nhất từ nông trại đến tận bàn ăn của bạn.
+                </p>
+</div>
+<div class="flex flex-col space-y-3">
+<h4 class="font-headline font-bold text-on-background mb-2">Kết nối</h4>
+<a class="text-zinc-500 hover:text-emerald-600 transition-all duration-200 font-be-vietnam text-sm" href="#">Facebook</a>
+<a class="text-zinc-500 hover:text-emerald-600 transition-all duration-200 font-be-vietnam text-sm" href="#">Instagram</a>
+<a class="text-zinc-500 hover:text-emerald-600 transition-all duration-200 font-be-vietnam text-sm" href="#">TikTok</a>
+<a class="text-zinc-500 hover:text-emerald-600 transition-all duration-200 font-be-vietnam text-sm" href="#">Zalo</a>
+</div>
+<div class="space-y-4">
+<h4 class="font-headline font-bold text-on-background mb-2">Đăng ký nhận tin</h4>
+<div class="flex bg-surface-container-lowest rounded-full p-1 border border-outline-variant/30">
+<input class="bg-transparent border-none focus:ring-0 text-sm flex-grow px-4 font-body" placeholder="Email của bạn" type="text"/>
+<button class="bg-primary text-on-primary rounded-full px-6 py-2 text-sm font-bold transition-all hover:bg-primary-dim">Gửi</button>
+</div>
+<p class="text-zinc-500 font-be-vietnam text-sm mt-8">
+                    © 2024 The Organic Editorial. All rights reserved.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

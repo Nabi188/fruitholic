@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#12661e",
+              "tertiary-fixed-dim": "#90e28a",
+              "primary-container": "#9bfc96",
+              "on-background": "#2b302d",
+              "secondary-fixed": "#ffc69c",
+              "on-tertiary-container": "#005c15",
+              "on-error": "#ffefec",
+              "surface-container": "#e4e9e5",
+              "surface-container-highest": "#d8deda",
+              "on-secondary-container": "#6f3900",
+              "on-tertiary": "#d1ffc8",
+              "primary-fixed-dim": "#8ded89",
+              "surface-container-low": "#edf2ee",
+              "tertiary-dim": "#025d16",
+              "surface-dim": "#cfd6d1",
+              "secondary": "#8d4a00",
+              "tertiary-fixed": "#9df197",
+              "on-primary-container": "#006218",
+              "on-primary": "#d1ffc8",
+              "secondary-fixed-dim": "#ffb377",
+              "secondary-container": "#ffc69c",
+              "on-secondary-fixed": "#532900",
+              "primary-fixed": "#9bfc96",
+              "outline-variant": "#aaaeab",
+              "on-surface-variant": "#585d5a",
+              "error-container": "#f95630",
+              "surface-container-lowest": "#ffffff",
+              "inverse-primary": "#9bfc96",
+              "error": "#b02500",
+              "on-error-container": "#520c00",
+              "on-secondary": "#fff0e7",
+              "tertiary-container": "#9df197",
+              "surface": "#f3f7f3",
+              "tertiary": "#176a21",
+              "on-primary-fixed-variant": "#006d1c",
+              "outline": "#737875",
+              "inverse-on-surface": "#999e9b",
+              "primary-dim": "#005d16",
+              "surface-variant": "#d8deda",
+              "inverse-surface": "#0b0f0d",
+              "surface-bright": "#f3f7f3",
+              "on-surface": "#2b302d",
+              "on-primary-fixed": "#004d11",
+              "primary": "#006b1b",
+              "surface-container-high": "#dee4df",
+              "error-dim": "#b92902",
+              "secondary-dim": "#7c4000",
+              "background": "#f3f7f3",
+              "on-secondary-fixed-variant": "#7d4100",
+              "on-tertiary-fixed": "#00460e",
+              "surface-tint": "#006b1b"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-background min-h-screen">
+<!-- SideNavBar (from Shared Components JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 flex flex-col gap-2 p-4 border-r border-[#006b1b]/10 bg-[#f3f7f3] dark:bg-stone-950 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="text-lg font-extrabold text-[#006b1b] tracking-tighter dark:text-green-400">Verdant Squeeze</h1>
+<p class="text-[10px] uppercase tracking-widest opacity-50 font-bold">Management Portal</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-3 text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="flex items-center gap-3 text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 px-6 py-3 hover:bg-[#006b1b]/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span>Coupons</span>
+</a>
+<!-- Active State: Orders -->
+<a class="flex items-center gap-3 px-6 py-3 text-[#006b1b] dark:text-green-400 font-bold bg-[#006b1b]/10 rounded-full relative after:content-[''] after:absolute after:left-2 after:w-1.5 after:h-1.5 after:bg-[#8d4a00] after:rounded-full scale-98 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span>Orders</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-lg flex items-center gap-3">
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full border-2 border-primary/20" data-alt="professional portrait of an administrative manager in a clean minimalist office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVEJ5Lowx2S5huXO13p7I4Fi5IR6sU14kwnlOI46sxsdyKixQ1-b0eqEMWmclwgwucAQ_n_glAv3l9vv9x2BBeTmKaN72dV4wVark32Xt7ewH5KaaPxrQA1QFLsIRDdsR6tbcMNKRSqkBAilx--PYzcMGLxRrbnhhIlMNiyj4bhxXaBt-X-bdqwaJySqc8773oV2HBPs67Eoa5E-A4GIQ13-YZiNPQO8enN4iM_QYNvg40ZTdM-hZO0LmpBNpC0JUy2ZdCKOpFNvU"/>
+<div class="overflow-hidden">
+<p class="font-bold truncate">Admin User</p>
+<p class="text-xs opacity-60 truncate text-[#006b1b]">Verdant Squeeze Admin</p>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (from Shared Components JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 bg-[#f3f7f3]/80 backdrop-blur-lg dark:bg-stone-950/80 flex justify-between items-center px-8 py-4 font-['Plus_Jakarta_Sans'] text-base shadow-[0px_10px_30px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2.5 pl-12 pr-4 focus:ring-2 focus:ring-[#006b1b]/20 transition-all text-sm" placeholder="Search orders, customers, or IDs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2 ml-auto">
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#006b1b]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-white/50 dark:hover:bg-stone-800 rounded-full p-2 transition-all text-[#006b1b]">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 p-8 min-h-screen">
+<div class="max-w-[1400px] mx-auto space-y-6">
+<!-- Header & Date Filter Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-on-background">Order Management</h2>
+<p class="text-on-surface-variant font-medium">Review and process store orders in real-time.</p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-lowest p-2 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 px-3 py-1.5 text-sm font-semibold border-r border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-sm">calendar_today</span>
+<span>Oct 12, 2023 - Oct 19, 2023</span>
+</div>
+<button class="flex items-center gap-1 text-sm font-bold text-primary px-3 py-1.5 hover:bg-primary/5 rounded-lg transition-colors">
+                        Change Range
+                    </button>
+</div>
+</div>
+<!-- Horizontal Status Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-on-primary font-bold text-sm shadow-md shadow-primary/20">
+                    All <span class="bg-on-primary/20 px-2 py-0.5 rounded-full text-[10px]">1,284</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-semibold text-sm transition-all">
+                    Unconfirmed <span class="bg-surface-container-highest px-2 py-0.5 rounded-full text-[10px]">12</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-semibold text-sm transition-all border border-secondary/10">
+                    Preparing <span class="bg-secondary/10 text-secondary px-2 py-0.5 rounded-full text-[10px]">32</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-semibold text-sm transition-all">
+                    Shipping <span class="bg-surface-container-highest px-2 py-0.5 rounded-full text-[10px]">45</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-semibold text-sm transition-all">
+                    Completed <span class="bg-surface-container-highest px-2 py-0.5 rounded-full text-[10px]">1,180</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-semibold text-sm transition-all">
+                    Cancelled <span class="bg-surface-container-highest px-2 py-0.5 rounded-full text-[10px]">15</span>
+</button>
+</div>
+<!-- Action Bar -->
+<div class="bg-surface-container-lowest rounded-xl p-3 flex items-center justify-between shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-4">
+<label class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-low rounded-lg text-xs font-bold uppercase tracking-wider text-on-surface-variant">
+<input class="rounded border-outline text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+                        Select Page
+                    </label>
+<div class="h-6 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">local_shipping</span> Ship Selected
+                        </button>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-surface-container text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">print</span> Print Labels
+                        </button>
+<button class="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-error-container/10 text-error">
+<span class="material-symbols-outlined text-lg">cancel</span> Cancel
+                        </button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-on-surface-variant">Showing 1-12 of 1,284</span>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-outline"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-8 h-8 rounded flex items-center justify-center hover:bg-surface-container text-outline"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Dense Data Table -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low/50 text-on-surface-variant text-[11px] uppercase tracking-widest font-bold">
+<tr>
+<th class="py-4 px-6 w-12 text-center"></th>
+<th class="py-4 px-4">Order ID</th>
+<th class="py-4 px-4">Date</th>
+<th class="py-4 px-4">Customer</th>
+<th class="py-4 px-4">Total Value</th>
+<th class="py-4 px-4">Payment</th>
+<th class="py-4 px-4">Status</th>
+<th class="py-4 px-6 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-sm font-medium">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89021</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 14:23</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-[10px] font-bold text-on-secondary-container">JS</div>
+<span>Julianna S.</span>
+</div>
+</td>
+<td class="py-3 px-4 font-bold">$42.50</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Paid
+                                </span>
+</td>
+<td class="py-3 px-4">
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[11px] font-bold">Preparing</span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89020</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 13:58</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-[10px] font-bold text-on-tertiary-container">MK</div>
+<span>Marcus Kane</span>
+</div>
+</td>
+<td class="py-3 px-4 font-bold">$118.00</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Paid
+                                </span>
+</td>
+<td class="py-3 px-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[11px] font-bold">Shipping</span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89019</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 13:45</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-outline-variant/20 flex items-center justify-center text-[10px] font-bold">EL</div>
+<span>Elena Lopez</span>
+</div>
+</td>
+<td class="py-3 px-4 font-bold">$12.99</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Pending
+                                </span>
+</td>
+<td class="py-3 px-4">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[11px] font-bold">Unconfirmed</span>
+</td>
+<td class="py-3 px-6 text-right">
+<button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Additional Rows (Repeated for density) -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89018</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 12:12</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-[10px] font-bold text-on-secondary-container">DB</div>
+<span>David Birn</span>
+</div>
+</td>
+<td class="py-3 px-4 font-bold">$34.00</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-outline-variant/10 text-outline-variant px-3 py-1 rounded-full text-[11px] font-bold">Completed</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<!-- Generating 8 more rows for the requested 12 rows per page -->
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89017</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 11:50</td>
+<td class="py-3 px-4"><span>Sarah Jenkins</span></td>
+<td class="py-3 px-4 font-bold">$89.10</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[11px] font-bold">Shipping</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89016</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 10:30</td>
+<td class="py-3 px-4"><span>Oliver Twist</span></td>
+<td class="py-3 px-4 font-bold">$22.00</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[11px] font-bold">Preparing</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89015</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 09:15</td>
+<td class="py-3 px-4"><span>Lisa Ray</span></td>
+<td class="py-3 px-4 font-bold">$156.40</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-outline-variant/10 text-outline-variant px-3 py-1 rounded-full text-[11px] font-bold">Completed</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89014</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 19, 08:45</td>
+<td class="py-3 px-4"><span>Fiona Gallagher</span></td>
+<td class="py-3 px-4 font-bold">$12.50</td>
+<td class="py-3 px-4"><span class="text-error font-bold text-[11px]">Failed</span></td>
+<td class="py-3 px-4"><span class="bg-error-container/10 text-error px-3 py-1 rounded-full text-[11px] font-bold">Cancelled</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89013</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 18, 22:10</td>
+<td class="py-3 px-4"><span>Kevin Hart</span></td>
+<td class="py-3 px-4 font-bold">$67.20</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-outline-variant/10 text-outline-variant px-3 py-1 rounded-full text-[11px] font-bold">Completed</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89012</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 18, 21:30</td>
+<td class="py-3 px-4"><span>Ava DuVernay</span></td>
+<td class="py-3 px-4 font-bold">$94.00</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[11px] font-bold">Preparing</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89011</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 18, 20:05</td>
+<td class="py-3 px-4"><span>Tom Cruise</span></td>
+<td class="py-3 px-4 font-bold">$210.00</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[11px] font-bold">Shipping</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+<tr class="hover:bg-surface/30 transition-colors group">
+<td class="py-3 px-6 text-center"><input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-3 px-4 font-bold text-primary">#VS-89010</td>
+<td class="py-3 px-4 text-on-surface-variant">Oct 18, 19:42</td>
+<td class="py-3 px-4"><span>Meryl Streep</span></td>
+<td class="py-3 px-4 font-bold">$55.50</td>
+<td class="py-3 px-4"><span class="text-primary font-bold text-[11px]">Paid</span></td>
+<td class="py-3 px-4"><span class="bg-outline-variant/10 text-outline-variant px-3 py-1 rounded-full text-[11px] font-bold">Completed</span></td>
+<td class="py-3 px-6 text-right"><button class="p-2 hover:bg-surface-container rounded-full text-outline transition-colors opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined">more_vert</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Detailed Bottom Bar -->
+<div class="flex items-center justify-between px-2">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-xs font-semibold text-on-surface-variant">
+<span>Items per page:</span>
+<select class="bg-transparent border-none focus:ring-0 text-primary font-bold cursor-pointer">
+<option>12</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-3 py-1 rounded text-xs font-bold bg-surface-container-high text-on-surface-variant">1</button>
+<button class="px-3 py-1 rounded text-xs font-bold hover:bg-surface-container-low text-outline">2</button>
+<button class="px-3 py-1 rounded text-xs font-bold hover:bg-surface-container-low text-outline">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="px-3 py-1 rounded text-xs font-bold hover:bg-surface-container-low text-outline">107</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed based on instructions for Order Management List) -->
+</body></html>

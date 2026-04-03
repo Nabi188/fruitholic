@@ -1,75 +1,95 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Search, Loader2, PackageSearch } from 'lucide-react'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Search, Loader2, PackageSearch } from "lucide-react";
+import { findOrderForTracking } from "@/app/actions/track";
 
 export default function OrderTrackingPage() {
-  const router = useRouter()
-  const [orderId, setOrderId] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter();
+  const [orderRef, setOrderRef] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!orderId.trim()) {
-      setError('Vui lòng nhập mã đơn hàng hợp lệ')
-      return
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!orderRef.trim()) {
+      setError("Vui lòng nhập mã đơn hàng (Tối thiểu 8 ký tự)");
+      return;
     }
 
-    setIsSubmitting(true)
-    setError('')
+    setIsSubmitting(true);
 
-    // Basic regex to check if it looks roughly like a UUID
-    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    const result = await findOrderForTracking(orderRef);
     
-    if (uuidRegex.test(orderId.trim())) {
-      router.push(`/orders/${orderId.trim()}`)
+    if (result.success && result.orderId) {
+      router.push(`/orders/${result.orderId}`);
     } else {
-      setIsSubmitting(false)
-      setError('Mã đơn hàng không đúng định dạng. Xin vui lòng kiểm tra lại URL hoặc email.')
+      setError(result.error || "Không tìm thấy dữ liệu.");
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <div className="container mx-auto px-4 py-20 max-w-2xl text-center">
-      <div className="h-20 w-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-        <PackageSearch className="h-10 w-10" />
+    <div className="container mx-auto px-4 py-32 max-w-xl text-center relative overflow-hidden">
+      {/* Background decorations STITCH style */}
+      <div className="absolute top-10 left-10 w-48 h-48 bg-primary-container/30 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
+      <div className="absolute bottom-10 right-10 w-56 h-56 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+
+      <div className="h-24 w-24 bg-surface-container-high text-primary rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
+        <PackageSearch className="h-10 w-10 text-primary-dim" strokeWidth={2} />
       </div>
-      
-      <h1 className="text-3xl font-extrabold text-slate-900 mb-4">Theo dõi lộ trình đơn hàng</h1>
-      <p className="text-slate-500 mb-10 max-w-md mx-auto">
-        Nhập chính xác mã đơn hàng (ID) của bạn để kiểm tra tình trạng thanh toán và lộ trình giao hàng mới nhất.
+
+      <h1 className="text-4xl md:text-5xl font-extrabold text-primary-dim mb-4 tracking-tighter font-headline">
+        Tra Cứu Giao Hàng
+      </h1>
+      <p className="text-on-surface-variant font-body mb-10 max-w-sm mx-auto text-lg leading-relaxed">
+        Nhập chính xác <strong>Mã Giao Dịch</strong> được gửi trong email để kiểm tra lộ trình vận chuyển.
       </p>
 
-      <form onSubmit={handleSearch} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm flex flex-col gap-4 text-left">
+      <form
+        onSubmit={handleSearch}
+        className="bg-white p-8 sm:p-10 rounded-[2rem] border border-surface-container shadow-sm flex flex-col gap-6 text-left relative z-10"
+      >
         <div>
-          <label className="text-sm font-bold text-slate-700 block mb-2">Mã đơn hàng (Order ID)</label>
+          <label className="text-sm font-bold text-on-surface block mb-3 font-body">
+            Mã đơn hàng (Order ID / Tracking Ref)
+          </label>
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-outline-variant" />
             <input
               type="text"
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value)}
-              placeholder="Ví dụ: 123e4567-e89b-12d3... "
-              className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all font-mono text-sm placeholder:font-sans placeholder:text-slate-400"
+              value={orderRef}
+              onChange={(e) => setOrderRef(e.target.value)}
+              placeholder="Ví dụ: 8B9F2A1C"
+              className="w-full pl-14 pr-5 py-4 bg-surface-bright border border-surface-container-high rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-mono text-sm placeholder:font-body placeholder:text-outline/70"
             />
           </div>
-          {error && <span className="text-sm font-medium text-red-500 mt-2 block">{error}</span>}
         </div>
+
+        {error && (
+          <div className="bg-error-container/20 text-error px-4 py-3 rounded-xl text-sm font-medium font-body flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-error"></span>
+            {error}
+          </div>
+        )}
 
         <button
           type="submit"
-          disabled={isSubmitting || !orderId.trim()}
-          className="mt-2 w-full flex justify-center items-center gap-2 rounded-xl bg-emerald-600 px-6 py-4 text-lg font-bold text-white shadow-xl shadow-emerald-600/20 transition-all hover:bg-emerald-700 disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed"
+          disabled={isSubmitting || !orderRef.trim()}
+          className="mt-4 w-full flex justify-center items-center gap-3 rounded-full bg-primary px-8 py-4 text-base font-bold text-white shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:bg-primary-dim disabled:bg-surface-container-highest disabled:text-outline disabled:shadow-none disabled:cursor-not-allowed font-headline tracking-wide uppercase"
         >
           {isSubmitting ? (
-            <><Loader2 className="w-6 h-6 animate-spin" /> Đang tra cứu...</>
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" /> Hệ thống đang quét...
+            </>
           ) : (
-            'Kiểm tra tình trạng'
+            "Kiểm tra ngay"
           )}
         </button>
       </form>
     </div>
-  )
+  );
 }

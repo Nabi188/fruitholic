@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verdant Squeeze - Admin Management Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-tertiary-fixed-variant": "#12661e",
+                "tertiary-fixed-dim": "#90e28a",
+                "primary-container": "#9bfc96",
+                "on-background": "#2b302d",
+                "secondary-fixed": "#ffc69c",
+                "on-tertiary-container": "#005c15",
+                "on-error": "#ffefec",
+                "surface-container": "#e4e9e5",
+                "surface-container-highest": "#d8deda",
+                "on-secondary-container": "#6f3900",
+                "on-tertiary": "#d1ffc8",
+                "primary-fixed-dim": "#8ded89",
+                "surface-container-low": "#edf2ee",
+                "tertiary-dim": "#025d16",
+                "surface-dim": "#cfd6d1",
+                "secondary": "#8d4a00",
+                "tertiary-fixed": "#9df197",
+                "on-primary-container": "#006218",
+                "on-primary": "#d1ffc8",
+                "secondary-fixed-dim": "#ffb377",
+                "secondary-container": "#ffc69c",
+                "on-secondary-fixed": "#532900",
+                "primary-fixed": "#9bfc96",
+                "outline-variant": "#aaaeab",
+                "on-surface-variant": "#585d5a",
+                "error-container": "#f95630",
+                "surface-container-lowest": "#ffffff",
+                "inverse-primary": "#9bfc96",
+                "error": "#b02500",
+                "on-error-container": "#520c00",
+                "on-secondary": "#fff0e7",
+                "tertiary-container": "#9df197",
+                "surface": "#f3f7f3",
+                "tertiary": "#176a21",
+                "on-primary-fixed-variant": "#006d1c",
+                "outline": "#737875",
+                "inverse-on-surface": "#999e9b",
+                "primary-dim": "#005d16",
+                "surface-variant": "#d8deda",
+                "inverse-surface": "#0b0f0d",
+                "surface-bright": "#f3f7f3",
+                "on-surface": "#2b302d",
+                "on-primary-fixed": "#004d11",
+                "primary": "#006b1b",
+                "surface-container-high": "#dee4df",
+                "error-dim": "#b92902",
+                "secondary-dim": "#7c4000",
+                "background": "#f3f7f3",
+                "on-secondary-fixed-variant": "#7d4100",
+                "on-tertiary-fixed": "#00460e",
+                "surface-tint": "#006b1b"
+              },
+              fontFamily: {
+                "headline": ["Plus Jakarta Sans"],
+                "body": ["Be Vietnam Pro"],
+                "label": ["Be Vietnam Pro"]
+              },
+              borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f3f7f3;
+            color: #2b302d;
+        }
+        .sidebar-active {
+            background-color: rgba(0, 107, 27, 0.1);
+            color: #006b1b;
+            font-weight: 700;
+            border-radius: 9999px;
+            position: relative;
+        }
+        .sidebar-active::after {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            width: 0.375rem;
+            height: 0.375rem;
+            background-color: #8d4a00;
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 z-40 bg-[#f3f7f3] dark:bg-stone-950 flex flex-col gap-2 p-4 border-r border-[#006b1b]/10 font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-wide">
+<div class="mb-8 px-4 py-2">
+<h1 class="text-lg font-extrabold text-[#006b1b] tracking-tighter dark:text-green-400">Verdant Squeeze</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant opacity-60">Management Portal</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="sidebar-active flex items-center gap-3 px-6 py-3 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 hover:bg-[#006b1b]/5 px-6 py-3 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 hover:bg-[#006b1b]/5 px-6 py-3 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Products</span>
+</a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 hover:bg-[#006b1b]/5 px-6 py-3 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span>Coupons</span>
+</a>
+<a class="text-[#2b302d] dark:text-stone-400 opacity-70 hover:opacity-100 hover:bg-[#006b1b]/5 px-6 py-3 rounded-full transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>Orders</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-surface-container-low rounded-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary overflow-hidden shadow-sm">
+<img alt="Verdant Squeeze Admin" class="w-full h-full object-cover" data-alt="Professional headshot of a male executive with a confident smile, warm studio lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtOQVS1owbzq2qfljSPx5Y0dvTuVs_206We_HaytZ50janb-7H6c9Ys6yyQ_BbQXfWTgLvc0CWQDvNCaEKhXg22Rb-q4Zjdjs5re1gOA7SogD-E34QWCn52SLL-AchGscOr0_UUL6XMgFmHNkwGTvxhKJWw8TNt1v7YWWInD4qy6OQOqCdB5KyoA-Ka4ir9u7Huz3lvi6IujcEnAUdFxGS2qlVDDhGwF3SxRzPC3rZs7-ZsiZ6Gi7I6uBiMW0v9IJCGWcorkU_w0Q"/>
+</div>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Admin User</p>
+<p class="text-[10px] text-on-surface-variant truncate">Executive Access</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-30 bg-[#f3f7f3]/80 backdrop-blur-lg flex justify-between items-center px-8 py-4 font-['Plus_Jakarta_Sans'] text-base shadow-[0px_10px_30px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-4 bg-surface-container-low px-4 py-2 rounded-full w-96 focus-within:ring-2 focus-within:ring-[#006b1b]/20">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-outline" placeholder="Search analytics or orders..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-white/50 rounded-full p-2 transition-all relative">
+<span class="material-symbols-outlined text-on-surface" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<button class="hover:bg-white/50 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-on-surface" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<span class="text-sm font-semibold text-primary">Live Operations</span>
+</div>
+</header>
+<!-- Canvas Body -->
+<div class="pt-24 px-8 pb-12">
+<!-- Page Header -->
+<div class="mb-10 flex justify-between items-end">
+<div>
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-background">Operational Insights</h2>
+<p class="text-on-surface-variant font-body mt-1">Real-time performance metrics for Verdant Squeeze.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-highest px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="calendar_today">calendar_today</span>
+<span>Today</span>
+</button>
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-sm hover:shadow-md transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+<span>Export Report</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid - Core Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/10 rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="list_alt">list_alt</span>
+</span>
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">+12%</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Total Orders</p>
+<p class="text-2xl font-extrabold font-headline mt-1">1,284</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary/10 rounded-full">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+</span>
+<span class="text-[10px] font-bold text-on-surface-variant px-2 py-0.5 bg-surface-container rounded-full">94%</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Confirmed</p>
+<p class="text-2xl font-extrabold font-headline mt-1">1,208</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-secondary/10 rounded-full">
+<span class="material-symbols-outlined text-secondary" data-icon="sync">sync</span>
+</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Processing</p>
+<p class="text-2xl font-extrabold font-headline mt-1 text-secondary">42</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-tertiary-container/30 rounded-full">
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle">check_circle</span>
+</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Completed</p>
+<p class="text-2xl font-extrabold font-headline mt-1">1,166</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-error/10 rounded-full">
+<span class="material-symbols-outlined text-error" data-icon="cancel">cancel</span>
+</span>
+<span class="text-[10px] font-bold text-error px-2 py-0.5 bg-error/5 rounded-full">Low</span>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-medium uppercase tracking-wider">Cancelled</p>
+<p class="text-2xl font-extrabold font-headline mt-1">12</p>
+</div>
+</div>
+</div>
+<!-- Main Layout Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+<!-- Performance Chart Visual (Simulated CSS Chart) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] h-full">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="text-xl font-extrabold font-headline">Revenue Performance</h3>
+<p class="text-sm text-on-surface-variant">Daily earnings vs fixed target of $12,500</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-primary rounded-full"></span>
+<span class="text-xs font-medium">Daily Earnings</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-secondary rounded-full"></span>
+<span class="text-xs font-medium">Target</span>
+</div>
+</div>
+</div>
+<!-- SVG Chart Container -->
+<div class="relative h-64 w-full mt-4 flex items-end justify-between px-2">
+<!-- Target Line -->
+<div class="absolute w-full h-[2px] bg-secondary/20 top-1/4 left-0 flex items-center">
+<span class="bg-secondary text-[10px] text-white px-2 py-0.5 rounded-full -ml-2 font-bold">$12.5k Target</span>
+</div>
+<!-- Columns -->
+<div class="w-12 bg-primary/20 hover:bg-primary/40 transition-all rounded-t-lg h-[60%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$9,400</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">MON</div>
+</div>
+<div class="w-12 bg-primary/20 hover:bg-primary/40 transition-all rounded-t-lg h-[75%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$11,200</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">TUE</div>
+</div>
+<div class="w-12 bg-primary hover:bg-primary/80 transition-all rounded-t-lg h-[95%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$14,100</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">WED</div>
+</div>
+<div class="w-12 bg-primary/20 hover:bg-primary/40 transition-all rounded-t-lg h-[65%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$9,800</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">THU</div>
+</div>
+<div class="w-12 bg-primary/20 hover:bg-primary/40 transition-all rounded-t-lg h-[80%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$12,000</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">FRI</div>
+</div>
+<div class="w-12 bg-primary/20 hover:bg-primary/40 transition-all rounded-t-lg h-[40%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$6,200</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold">SAT</div>
+</div>
+<div class="w-12 bg-primary/40 hover:bg-primary/60 transition-all rounded-t-lg h-[25%] flex flex-col justify-end group relative">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-on-background text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">$3,900</div>
+<div class="text-[10px] absolute -bottom-6 left-1/2 -translate-x-1/2 font-bold text-primary">SUN</div>
+</div>
+</div>
+</div>
+<!-- Snapshot/Summary Column -->
+<div class="flex flex-col gap-6">
+<div class="bg-primary p-8 rounded-lg text-on-primary shadow-lg overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-sm font-medium opacity-80">Today's Revenue</p>
+<h4 class="text-4xl font-extrabold font-headline mt-2">$14,284.50</h4>
+<div class="mt-6 flex items-center gap-2 bg-on-primary/20 backdrop-blur-md w-fit px-3 py-1 rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span class="text-xs font-bold">18.4% above average</span>
+</div>
+</div>
+<!-- Abstract Organic Shape Decor -->
+<div class="absolute -bottom-10 -right-10 w-40 h-40 bg-on-primary/10 rounded-full blur-3xl"></div>
+<div class="absolute top-0 -right-4 w-24 h-24 bg-tertiary-container/20 rounded-full blur-2xl"></div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg">
+<h4 class="font-bold text-sm uppercase tracking-widest text-on-surface-variant mb-4">Stock Status</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Signature Green Juice</span>
+<span class="text-xs font-bold px-2 py-1 bg-primary/10 text-primary rounded-full">High</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Zesty Ginger Shot</span>
+<span class="text-xs font-bold px-2 py-1 bg-secondary/10 text-secondary rounded-full">Low (12)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Pure Orange Squeeze</span>
+<span class="text-xs font-bold px-2 py-1 bg-primary/10 text-primary rounded-full">Optimal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Best Sellers Table -->
+<div class="mt-12 bg-surface-container-lowest rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
+<div class="px-8 py-6 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="text-xl font-extrabold font-headline">Best Selling Items Today</h3>
+<button class="text-primary text-sm font-bold flex items-center gap-1 hover:underline">
+                        View Detailed Inventory
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Product Name</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Category</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Quantity Sold</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">Revenue</th>
+<th class="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-center">Trend</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Signature Green" class="w-full h-full object-cover" data-alt="Vibrant cold-pressed green juice in a glass bottle with fresh kale and cucumber leaves on a light stone surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1d1IFzAJnFjjx5je4LntcQSxVKZ5ywdUa4FFa3RXdT8MybCAa_eZDkuLK_LAl463tqcon8qjhsZpqXFkiPsjlwwdVhQUX979KBFK9jKKwowqxMuhYY9DlvOLpBzkyFgSk22yrlUg5saux3lTElkphJyxAwKwa8YJbJZs90xljvW8dQiWQ6-GDGJTGPO77FA6OEq0QrHP6itV8zsyQklmoo9yRMI6rEVxohUMtMio56OCFBQcrW40mqZBhgQdDbGpelUKJx-vRvtw"/>
+</div>
+<span class="font-bold text-on-background">Signature Green Cold Press</span>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full text-xs font-medium">Detox Juice</span>
+</td>
+<td class="px-8 py-5 font-medium">452 units</td>
+<td class="px-8 py-5 font-bold text-right">$3,164.00</td>
+<td class="px-8 py-5 text-center">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Pure Orange" class="w-full h-full object-cover" data-alt="A tall glass of orange juice with ice cubes and orange slices on a sunny kitchen counter with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIx7dRPGxsKXWk1ITck0L-g-jU63N-sLDiV5kiaUmjw7MvArdr3iznyrWkf80A2l7dPPSE_y3Q8y_yXx2_WYYt4D6sJt6bnapfHQwgdy5qr967lHdYVPjh7eNqfTbiRCnmCzBHLl6_zqSMUp7SXNrn2WzABKXZIgWI1iXUratHfMu7MsEngTkuRG067GwRUYrgEF0YHKi-mab4aoUh-oxW0W3BMV8A9jWynaMpNCvYzFXWv3YvCE519xKYfgZtHgXfXGQXqOa1pkE"/>
+</div>
+<span class="font-bold text-on-background">Sunrise Vitamin C Squeeze</span>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full text-xs font-medium">Fruit Squeeze</span>
+</td>
+<td class="px-8 py-5 font-medium">318 units</td>
+<td class="px-8 py-5 font-bold text-right">$1,908.00</td>
+<td class="px-8 py-5 text-center">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Berry Salad" class="w-full h-full object-cover" data-alt="Artisanal salad bowl with fresh berries, nuts, and vibrant mixed greens on a light ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA9cZe58hE8BV357K19j4lZD0-N8Kfhso_oiVJ7S526lHp3X3RyFcucgA2_xORuLR9-h8rRH7jtKOOLijrADeNqYbCdNoNH3sfoTG4QFXeUJMwRmK7ArjdI83pW56kTu3xsI5BjelZ8RUXW9sifzDVTLWPGIEoVflRpr3DXH_8qt59So-y_jxEVGfcU3lH-8d9XkMq13daZDFTzG7St_ZL74JEma_aV-hlyzpQxLswYTa6EFE1r6c4C55V9Gg1DXE5x03rCjeIR6s"/>
+</div>
+<span class="font-bold text-on-background">Vitality Berry Power Bowl</span>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full text-xs font-medium">Raw Food</span>
+</td>
+<td class="px-8 py-5 font-medium">184 units</td>
+<td class="px-8 py-5 font-bold text-right">$2,208.00</td>
+<td class="px-8 py-5 text-center">
+<span class="material-symbols-outlined text-outline" data-icon="trending_flat">trending_flat</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img alt="Ginger Shot" class="w-full h-full object-cover" data-alt="Small concentrated ginger and turmeric shot in a glass vial on a bright marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIQWTXjHrnjV5FnToxkN0tE493zbeqM8s6fNaEPfxCUnCZVO8puLHEeME6utZpnJffoc_zmdx2VM74f7R80LpDz_LqrQqJc3EqE1vzX3ehRjRh7iBXp8QfctImmej0XmHH0G4CBPh1ddE6RVKvDzigd1hGEsyowrJvvqCU938kwjEOJWVT18GLhltTT0ijAIYDCe8Rg-JjPq3P6dfEOKYcR5TuwxO3-ihmU6WPnTb5kJBIlmDyCLNilVQ_fzLcrA5D_DvdiFxueeI"/>
+</div>
+<span class="font-bold text-on-background">Immunity Boost Ginger Shot</span>
+</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full text-xs font-medium">Health Shot</span>
+</td>
+<td class="px-8 py-5 font-medium">156 units</td>
+<td class="px-8 py-5 font-bold text-right">$624.00</td>
+<td class="px-8 py-5 text-center">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_down">trending_down</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

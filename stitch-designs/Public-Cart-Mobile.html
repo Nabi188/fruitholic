@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#6f3900",
+              "on-tertiary": "#d1ffc8",
+              "surface": "#f3f7f3",
+              "primary-fixed-dim": "#8ded89",
+              "secondary": "#8d4a00",
+              "on-primary-container": "#006218",
+              "surface-dim": "#cfd6d1",
+              "on-secondary": "#fff0e7",
+              "on-error": "#ffefec",
+              "on-error-container": "#520c00",
+              "surface-container-low": "#edf2ee",
+              "tertiary-fixed-dim": "#90e28a",
+              "on-surface": "#2b302d",
+              "error-dim": "#b92902",
+              "error": "#b02500",
+              "on-primary-fixed": "#004d11",
+              "primary": "#006b1b",
+              "on-primary": "#d1ffc8",
+              "outline-variant": "#aaaeab",
+              "inverse-on-surface": "#999e9b",
+              "inverse-primary": "#9bfc96",
+              "on-tertiary-fixed": "#00460e",
+              "tertiary-container": "#9df197",
+              "on-background": "#2b302d",
+              "tertiary-fixed": "#9df197",
+              "secondary-fixed-dim": "#ffb377",
+              "primary-container": "#9bfc96",
+              "on-tertiary-container": "#005c15",
+              "on-tertiary-fixed-variant": "#12661e",
+              "on-surface-variant": "#585d5a",
+              "tertiary-dim": "#025d16",
+              "surface-container-highest": "#d8deda",
+              "on-primary-fixed-variant": "#006d1c",
+              "secondary-container": "#ffc69c",
+              "primary-dim": "#005d16",
+              "background": "#f3f7f3",
+              "secondary-fixed": "#ffc69c",
+              "surface-bright": "#f3f7f3",
+              "error-container": "#f95630",
+              "outline": "#737875",
+              "surface-container": "#e4e9e5",
+              "surface-container-high": "#dee4df",
+              "primary-fixed": "#9bfc96",
+              "surface-variant": "#d8deda",
+              "surface-container-lowest": "#ffffff",
+              "secondary-dim": "#7c4000",
+              "surface-tint": "#006b1b",
+              "tertiary": "#176a21",
+              "inverse-surface": "#0b0f0d",
+              "on-secondary-fixed": "#532900",
+              "on-secondary-fixed-variant": "#7d4100"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #f3f7f3;
+            color: #2b302d;
+        }
+        .editorial-shadow {
+            box-shadow: 0px 20px 40px rgba(43, 48, 45, 0.06);
+        }
+        .glass-nav {
+            background-color: rgba(243, 247, 243, 0.8);
+            backdrop-filter: blur(16px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 glass-nav shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-4">
+<button class="text-green-700 dark:text-green-400 hover:opacity-80 transition-opacity scale-95 active:transition-all">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+<h1 class="text-xl font-extrabold text-[#006b1b] dark:text-green-500 font-['Plus_Jakarta_Sans'] tracking-tight">Verdant Squeeze</h1>
+<div class="flex items-center gap-4">
+<button class="text-green-700 dark:text-green-400 hover:opacity-80 transition-opacity scale-95 active:transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6">
+<!-- Editorial Header -->
+<section class="mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface mb-2">Your Fresh Basket</h2>
+<p class="font-body text-on-surface-variant">Curated vitality, ready for your home.</p>
+</section>
+<!-- Cart Items List -->
+<div class="space-y-6">
+<!-- Item 1 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex gap-4 editorial-shadow relative group">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of a vibrant green detox juice with fresh kale, cucumber, and apple slices in a crystal clear bottle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXmrrRWUogOAJMRd3L90FUrbScsIzg04moLaAMjKTMdQKjyf1XKrOXrNsgcYr4eQKST0llRFBZZV8O0StoHf8cWMl_opSp0XOhruusw8roH7t2zLHkHD8h2R7giqDIrnhV2nPgkra7V58alOphzgQbEbhCF4noegklnrYY1AdoJzTgHHPSshu6JJfIq5zd75xJtKymaeaKbb2oOpz4HgIK5aYyGRG5efGySfvnQMrB4c2yLaLajk02xk9qXbdOciP6XzbpJfcQf5g"/>
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg leading-tight">Zesty Kale Vitality</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-sm font-body mt-1">500ml • Cold-pressed</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<span class="font-headline font-bold text-primary text-xl">$12.50</span>
+<div class="flex items-center bg-surface-container-high rounded-full px-3 py-1 gap-4">
+<button class="w-6 h-6 flex items-center justify-center text-primary-dim"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="font-bold text-sm">1</span>
+<button class="w-6 h-6 flex items-center justify-center text-primary-dim"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest rounded-lg p-4 flex gap-4 editorial-shadow relative group">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Top down view of a colorful tropical fruit platter featuring sliced dragon fruit, mango, and fresh berries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCJv_tJ7ahCqvgOnOL3krDwMvo4UCyfr3ns9U2gOWnfd2Pkl28MUvwPHKMfFJo3x6axi4HS4B55T8ANxcnKAhOABzzZiep91QMbEm3hgnwtm1WmrTwe7BfGR4DDh01tJW_i-zS-BwcoID7XwTsKPRwZMGTIITEpCa5uQw9mJnYAENhAxs_4bjhTvJLG-xWHlCUyDmJTN-Av44loczlpx4kq4K1VQRc0mM3-LG_zWHlPk-v9PAD69T2OG9kexiO9qbBUV5tHrxAp_s"/>
+</div>
+<div class="flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline font-bold text-lg leading-tight">Tropical Harvest Box</h3>
+<button class="text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<p class="text-on-surface-variant text-sm font-body mt-1">Seasonal Selection</p>
+</div>
+<div class="flex justify-between items-end mt-2">
+<span class="font-headline font-bold text-primary text-xl">$24.00</span>
+<div class="flex items-center bg-surface-container-high rounded-full px-3 py-1 gap-4">
+<button class="w-6 h-6 flex items-center justify-center text-primary-dim"><span class="material-symbols-outlined text-sm" data-icon="remove">remove</span></button>
+<span class="font-bold text-sm">2</span>
+<button class="w-6 h-6 flex items-center justify-center text-primary-dim"><span class="material-symbols-outlined text-sm" data-icon="add">add</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Coupon Input -->
+<div class="mt-12 bg-surface-container-low p-4 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="confirmation_number">confirmation_number</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-outline flex-grow font-body text-sm" placeholder="Enter promo code" type="text"/>
+<button class="font-headline font-bold text-primary text-sm px-4 py-2 hover:bg-primary-container rounded-full transition-colors">Apply</button>
+</div>
+<!-- Payment Method Selection -->
+<section class="mt-12">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline font-bold text-lg">Payment Method</h3>
+<button class="text-primary font-bold text-xs uppercase tracking-wider">Change</button>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-4 flex items-center gap-4 editorial-shadow">
+<div class="w-12 h-8 bg-on-background rounded flex items-center justify-center">
+<span class="text-[8px] text-white font-black italic">VISA</span>
+</div>
+<div class="flex-grow">
+<p class="font-headline font-bold text-sm tracking-wide">•••• •••• •••• 4242</p>
+<p class="text-xs text-on-surface-variant font-body">Expires 12/26</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</section>
+<!-- Order Summary -->
+<section class="mt-12 space-y-4">
+<h3 class="font-headline font-bold text-lg mb-4">Order Summary</h3>
+<div class="flex justify-between font-body text-on-surface-variant">
+<span>Subtotal</span>
+<span>$60.50</span>
+</div>
+<div class="flex justify-between font-body text-on-surface-variant">
+<span>Delivery</span>
+<span class="text-primary font-bold">Free</span>
+</div>
+<div class="flex justify-between font-body text-on-surface-variant">
+<span>Discount</span>
+<span class="text-secondary">-$5.00</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/15 flex justify-between items-center">
+<span class="font-headline font-extrabold text-xl">Total</span>
+<span class="font-headline font-extrabold text-2xl text-on-surface">$55.50</span>
+</div>
+</section>
+<!-- Spacer for FAB/Checkout -->
+<div class="h-40"></div>
+</main>
+<!-- Checkout Action Area -->
+<div class="fixed bottom-0 left-0 w-full z-50 glass-nav px-6 pt-6 pb-12 shadow-[0px_-10px_30px_rgba(43,48,45,0.04)] rounded-t-[32px]">
+<button class="w-full bg-gradient-to-r from-primary to-primary-dim text-on-primary font-headline font-bold py-5 rounded-full shadow-lg flex items-center justify-center gap-3 active:scale-95 transition-transform">
+<span>Proceed to Checkout</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-4 glass-nav rounded-t-[32px] md:hidden">
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 hover:text-[#006b1b] dark:hover:text-green-300 transition-colors tap-highlight-none active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 hover:text-[#006b1b] dark:hover:text-green-300 transition-colors tap-highlight-none active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="potted_plant">potted_plant</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#006b1b] dark:text-green-400 after:content-[''] after:w-1 after:h-1 after:bg-[#8d4a00] after:rounded-full after:mt-1 hover:text-[#006b1b] dark:hover:text-green-300 transition-colors tap-highlight-none active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold">Cart</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 hover:text-[#006b1b] dark:hover:text-green-300 transition-colors tap-highlight-none active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
