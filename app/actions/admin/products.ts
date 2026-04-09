@@ -2,29 +2,14 @@
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
-const variantSchema = z.object({
-  name: z.string().min(1),
-  price: z.coerce.number().min(0),
-  is_active: z.boolean().default(true),
-  sort_order: z.coerce.number().int().min(0).default(0),
-});
-
-const productSchema = z.object({
-  name: z.string().min(1, "Tên sản phẩm không được trống"),
-  slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
-  category_id: z.string().uuid().optional().nullable(),
-  short_description: z.string().optional(),
-  description: z.string().optional(),
-  is_active: z.boolean().default(true),
-  sort_order: z.coerce.number().int().min(0).default(0),
-});
+import { productSchema, variantSchema } from "@/schemas/products";
 
 export async function createProduct(data: {
-  product: Record<string, unknown>;
-  variants: Record<string, unknown>[];
+  product: any;
+  variants: any[];
   imageUrls: string[];
+  optionGroupIds: string[];
 }) {
   const supabase = await createSupabaseServerClient();
 
@@ -37,7 +22,8 @@ export async function createProduct(data: {
     .select("id")
     .single();
 
-  if (productError || !product) return { error: productError?.message ?? "Lỗi tạo sản phẩm" };
+  if (productError || !product)
+    return { error: productError?.message ?? "Lỗi tạo sản phẩm" };
 
   if (data.variants.length > 0) {
     const parsedVariants = data.variants.map((v, i) =>
@@ -49,15 +35,23 @@ export async function createProduct(data: {
   }
 
   if (data.imageUrls.length > 0) {
-    await (supabase as any)
-      .from("product_images")
-      .insert(
-        data.imageUrls.map((url, i) => ({
-          product_id: product.id,
-          url,
-          sort_order: i,
-        })),
-      );
+    await (supabase as any).from("product_images").insert(
+      data.imageUrls.map((url, i) => ({
+        product_id: product.id,
+        url,
+        sort_order: i,
+      })),
+    );
+  }
+
+  if (data.optionGroupIds.length > 0) {
+    await (supabase as any).from("product_option_groups").insert(
+      data.optionGroupIds.map((option_group_id, i) => ({
+        product_id: product.id,
+        option_group_id,
+        sort_order: i,
+      })),
+    );
   }
 
   revalidatePath("/admin/products");
@@ -70,6 +64,7 @@ export async function updateProduct(
     product: Record<string, unknown>;
     variants: Record<string, unknown>[];
     imageUrls: string[];
+    optionGroupIds: string[];
   },
 ) {
   const supabase = await createSupabaseServerClient();
@@ -83,7 +78,10 @@ export async function updateProduct(
     .eq("id", productId);
   if (error) return { error: error.message };
 
-  await (supabase as any).from("product_variants").delete().eq("product_id", productId);
+  await (supabase as any)
+    .from("product_variants")
+    .delete()
+    .eq("product_id", productId);
   if (data.variants.length > 0) {
     const parsedVariants = data.variants.map((v, i) =>
       variantSchema.parse({ ...v, sort_order: i }),
@@ -93,21 +91,35 @@ export async function updateProduct(
       .insert(parsedVariants.map((v) => ({ ...v, product_id: productId })));
   }
 
-  await (supabase as any).from("product_images").delete().eq("product_id", productId);
+  await (supabase as any)
+    .from("product_images")
+    .delete()
+    .eq("product_id", productId);
   if (data.imageUrls.length > 0) {
-    await (supabase as any)
-      .from("product_images")
-      .insert(
-        data.imageUrls.map((url, i) => ({
-          product_id: productId,
-          url,
-          sort_order: i,
-        })),
-      );
+    await (supabase as any).from("product_images").insert(
+      data.imageUrls.map((url, i) => ({
+        product_id: productId,
+        url,
+        sort_order: i,
+      })),
+    );
+  }
+
+  await (supabase as any)
+    .from("product_option_groups")
+    .delete()
+    .eq("product_id", productId);
+  if (data.optionGroupIds.length > 0) {
+    await (supabase as any).from("product_option_groups").insert(
+      data.optionGroupIds.map((option_group_id, i) => ({
+        product_id: productId,
+        option_group_id,
+        sort_order: i,
+      })),
+    );
   }
 
   revalidatePath("/admin/products");
-  revalidatePath(`/admin/products/${productId}`);
   return { success: true };
 }
 
@@ -116,6 +128,20 @@ export async function deleteProduct(productId: string) {
   const { error } = await (supabase as any)
     .from("products")
     .delete()
+    .eq("id", productId);
+  if (error) return { error: error.message };
+  revalidatePath("/admin/products");
+  return { success: true };
+}
+
+export async function toggleProductActive(
+  productId: string,
+  isActive: boolean,
+) {
+  const supabase = await createSupabaseServerClient();
+  const { error } = await (supabase as any)
+    .from("products")
+    .update({ is_active: isActive })
     .eq("id", productId);
   if (error) return { error: error.message };
   revalidatePath("/admin/products");

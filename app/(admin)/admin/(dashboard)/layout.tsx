@@ -1,4 +1,5 @@
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { Toaster } from "@/components/ui/sonner";
 import {
   SidebarProvider,
   SidebarInset,
@@ -21,6 +22,7 @@ export default function DashboardLayout({
           <div className="pt-4 px-4 pb-12">{children}</div>
         </div>
       </SidebarInset>
+      <Toaster richColors position="top-right" />
     </SidebarProvider>
   );
 }

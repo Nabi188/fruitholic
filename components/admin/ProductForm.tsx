@@ -137,11 +137,13 @@ export function ProductForm({ categories, product }: Props) {
             product: productData,
             variants,
             imageUrls,
+            optionGroupIds: [],
           })
         : await createProduct({
             product: productData,
             variants,
             imageUrls,
+            optionGroupIds: [],
           });
 
       if (result.error) {
@@ -156,7 +158,7 @@ export function ProductForm({ categories, product }: Props) {
 
   const handleDelete = () => {
     if (!product) return;
-    if (!confirm("Bạn có chắc muốn xóa sản phẩm này không?")) return;
+    if (!confirm("Are you sure to delete this product?")) return;
     startTransition(async () => {
       await deleteProduct(product.id);
       router.push("/admin/products");
@@ -164,7 +166,7 @@ export function ProductForm({ categories, product }: Props) {
   };
 
   return (
-    <div className="max-w-[1400px] mx-auto">
+    <div className="container mx-auto">
       <div className="mb-8 flex items-center gap-4">
         <button
           onClick={() => router.back()}

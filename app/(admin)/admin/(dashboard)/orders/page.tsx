@@ -8,11 +8,30 @@ export const metadata = {
   title: "Đơn hàng | Fruitholic Admin",
 };
 
-const statusConfig: Record<string, { label: string; bg: string; text: string }> = {
-  pending: { label: "Chờ xử lý", bg: "bg-surface-container-high", text: "text-on-surface-variant" },
-  confirmed: { label: "Đã xác nhận", bg: "bg-primary/10", text: "text-primary" },
-  delivering: { label: "Đang giao", bg: "bg-secondary/10", text: "text-secondary" },
-  completed: { label: "Hoàn thành", bg: "bg-tertiary-container/30", text: "text-tertiary" },
+const statusConfig: Record<
+  string,
+  { label: string; bg: string; text: string }
+> = {
+  pending: {
+    label: "Chờ xử lý",
+    bg: "bg-surface-container-high",
+    text: "text-on-surface-variant",
+  },
+  confirmed: {
+    label: "Đã xác nhận",
+    bg: "bg-primary/10",
+    text: "text-primary",
+  },
+  delivering: {
+    label: "Đang giao",
+    bg: "bg-secondary/10",
+    text: "text-secondary",
+  },
+  completed: {
+    label: "Hoàn thành",
+    bg: "bg-tertiary-container/30",
+    text: "text-tertiary",
+  },
   cancelled: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
 };
 
@@ -32,7 +51,9 @@ export default async function OrdersPage({
 
   let query = (supabase as any)
     .from("orders")
-    .select("id, code, customer_name, customer_phone, total_amount, status, payment_status, payment_method, created_at")
+    .select(
+      "id, code, customer_name, customer_phone, total_amount, status, payment_status, payment_method, created_at",
+    )
     .order("created_at", { ascending: false })
     .limit(50);
 
@@ -53,7 +74,7 @@ export default async function OrdersPage({
   ];
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-6">
+    <div className="container mx-auto space-y-6">
       <div>
         <h2 className="text-3xl font-extrabold font-headline tracking-tight text-on-surface">
           Quản lý đơn hàng
@@ -96,17 +117,29 @@ export default async function OrdersPage({
             <tbody className="text-sm font-medium divide-y divide-outline-variant/10">
               {allOrders.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-8 py-12 text-center text-on-surface-variant">
+                  <td
+                    colSpan={7}
+                    className="px-8 py-12 text-center text-on-surface-variant"
+                  >
                     Không có đơn hàng nào.
                   </td>
                 </tr>
               )}
               {allOrders.map((order: any) => {
-                const statusCfg = statusConfig[order.status] ?? statusConfig.pending;
-                const paymentCfg = paymentConfig[order.payment_status?.toLowerCase()] ?? paymentConfig.unpaid;
+                const statusCfg =
+                  statusConfig[order.status] ?? statusConfig.pending;
+                const paymentCfg =
+                  paymentConfig[order.payment_status?.toLowerCase()] ??
+                  paymentConfig.unpaid;
                 const date = new Date(order.created_at);
-                const dateStr = date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" });
-                const timeStr = date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
+                const dateStr = date.toLocaleDateString("vi-VN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                });
+                const timeStr = date.toLocaleTimeString("vi-VN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
                 const initials = order.customer_name
                   ?.split(" ")
                   .slice(-2)
@@ -119,7 +152,9 @@ export default async function OrdersPage({
                     key={order.id}
                     className="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group"
                   >
-                    <td className="py-3 px-6 font-bold text-primary">#{order.code}</td>
+                    <td className="py-3 px-6 font-bold text-primary">
+                      #{order.code}
+                    </td>
                     <td className="py-3 px-4 text-on-surface-variant text-xs">
                       {dateStr}, {timeStr}
                     </td>
@@ -130,19 +165,29 @@ export default async function OrdersPage({
                         </div>
                         <div>
                           <div>{order.customer_name}</div>
-                          <div className="text-xs text-on-surface-variant">{order.customer_phone}</div>
+                          <div className="text-xs text-on-surface-variant">
+                            {order.customer_phone}
+                          </div>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 font-bold">{formatVND(order.total_amount)}</td>
+                    <td className="py-3 px-4 font-bold">
+                      {formatVND(order.total_amount)}
+                    </td>
                     <td className="py-3 px-4">
-                      <span className={`inline-flex items-center gap-1 text-[11px] font-bold ${paymentCfg.color}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${order.payment_status?.toLowerCase() === "paid" ? "bg-primary" : "bg-secondary"}`} />
+                      <span
+                        className={`inline-flex items-center gap-1 text-[11px] font-bold ${paymentCfg.color}`}
+                      >
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${order.payment_status?.toLowerCase() === "paid" ? "bg-primary" : "bg-secondary"}`}
+                        />
                         {paymentCfg.label}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`px-3 py-1 rounded-full text-[11px] font-bold ${statusCfg.bg} ${statusCfg.text}`}>
+                      <span
+                        className={`px-3 py-1 rounded-full text-[11px] font-bold ${statusCfg.bg} ${statusCfg.text}`}
+                      >
                         {statusCfg.label}
                       </span>
                     </td>

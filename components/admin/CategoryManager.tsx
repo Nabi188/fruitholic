@@ -9,35 +9,17 @@ import {
 } from "@/app/actions/admin/categories";
 import { Plus, Pencil, Trash2, X } from "lucide-react";
 
-type Category = {
-  id: string;
-  name: string;
-  slug: string;
-  sort_order: number;
-  is_active: boolean;
-  parent_id: string | null;
-  product_count?: number;
-};
+import { AdminCategory } from "@/types/admin";
+import { slugify } from "@/utils/slugify";
 
 type Props = {
-  categories: Category[];
+  categories: AdminCategory[];
 };
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-}
 
 export function CategoryManager({ categories }: Props) {
   const [isPending, startTransition] = useTransition();
   const [showModal, setShowModal] = useState(false);
-  const [editing, setEditing] = useState<Category | null>(null);
+  const [editing, setEditing] = useState<AdminCategory | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -49,12 +31,18 @@ export function CategoryManager({ categories }: Props) {
 
   const openCreate = () => {
     setEditing(null);
-    setFormData({ name: "", slug: "", sort_order: 0, is_active: true, parent_id: "" });
+    setFormData({
+      name: "",
+      slug: "",
+      sort_order: 0,
+      is_active: true,
+      parent_id: "",
+    });
     setError(null);
     setShowModal(true);
   };
 
-  const openEdit = (cat: Category) => {
+  const openEdit = (cat: AdminCategory) => {
     setEditing(cat);
     setFormData({
       name: cat.name,
@@ -84,7 +72,9 @@ export function CategoryManager({ categories }: Props) {
         : await createCategory(fd);
 
       if (result.error) {
-        setError(typeof result.error === "string" ? result.error : "Có lỗi xảy ra.");
+        setError(
+          typeof result.error === "string" ? result.error : "Có lỗi xảy ra.",
+        );
       } else {
         setShowModal(false);
       }
@@ -93,11 +83,15 @@ export function CategoryManager({ categories }: Props) {
 
   const handleDelete = (id: string) => {
     if (!confirm("Bạn có chắc muốn xóa danh mục này không?")) return;
-    startTransition(async () => { await deleteCategory(id); });
+    startTransition(async () => {
+      await deleteCategory(id);
+    });
   };
 
   const handleToggle = (id: string, is_active: boolean) => {
-    startTransition(async () => { await toggleCategoryActive(id, !is_active); });
+    startTransition(async () => {
+      await toggleCategoryActive(id, !is_active);
+    });
   };
 
   return (
@@ -177,9 +171,7 @@ export function CategoryManager({ categories }: Props) {
                   <button
                     onClick={() => handleToggle(cat.id, cat.is_active)}
                     className={`flex items-center gap-1.5 text-sm font-semibold transition-all ${
-                      cat.is_active
-                        ? "text-primary"
-                        : "text-outline-variant"
+                      cat.is_active ? "text-primary" : "text-outline-variant"
                     }`}
                   >
                     <span

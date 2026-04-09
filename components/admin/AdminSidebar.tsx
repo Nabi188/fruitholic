@@ -12,6 +12,7 @@ import {
   Layers,
   Box,
   ShoppingCart,
+  SlidersHorizontal,
   LogOut,
 } from "lucide-react";
 
@@ -32,6 +33,7 @@ const navItems = [
   { href: "/admin", icon: LayoutDashboard, label: "Dashboard", exact: true },
   { href: "/admin/categories", icon: Layers, label: "Danh mục" },
   { href: "/admin/products", icon: Box, label: "Sản phẩm" },
+  { href: "/admin/option-groups", icon: SlidersHorizontal, label: "Tuỳ chọn" },
   { href: "/admin/orders", icon: ShoppingCart, label: "Đơn hàng" },
 ];
 

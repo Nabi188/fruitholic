@@ -14,5 +14,9 @@ export default async function CategoriesPage() {
     .select("id, name, slug, sort_order, is_active, parent_id")
     .order("sort_order")) as { data: any[]; error: any };
 
-  return <CategoryManager categories={categories ?? []} />;
+  return (
+    <div className="container mx-auto">
+      <CategoryManager categories={categories ?? []} />
+    </div>
+  );
 }

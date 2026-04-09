@@ -30,7 +30,7 @@ export async function POST() {
     signature,
     cloudName: envConfig.CLOUDINARY_CLOUD_NAME,
     apiKey: envConfig.CLOUDINARY_API_KEY,
-    // Đọc lại docs > Không vào đúng folder khi upload
+    // TODO: Đọc lại docs > Không vào đúng folder khi upload
     folder: "fruitholic/products",
   });
 }
