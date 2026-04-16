@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { updateOrderStatus, updateOrderPaymentStatus } from "@/app/actions/admin/orders";
+import {
+  updateOrderStatus,
+  updateOrderPaymentStatus,
+} from "@/app/actions/admin/orders";
 import { FileEdit, Loader2, CheckCircle2, Save } from "lucide-react";
 
 const orderStatuses = [
-  { value: "pending", label: "Chờ xử lý" },
-  { value: "confirmed", label: "Đã xác nhận" },
-  { value: "delivering", label: "Đang giao" },
-  { value: "completed", label: "Hoàn thành" },
-  { value: "cancelled", label: "Đã hủy" },
+  { value: "PENDING", label: "Chờ xử lý" },
+  { value: "CONFIRMED", label: "Đã xác nhận" },
+  { value: "DELIVERING", label: "Đang giao" },
+  { value: "COMPLETED", label: "Hoàn thành" },
+  { value: "CANCELLED", label: "Đã hủy" },
 ];
 
 type Props = {
@@ -18,7 +21,11 @@ type Props = {
   currentPaymentStatus: string;
 };
 
-export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatus }: Props) {
+export function OrderStatusActions({
+  orderId,
+  currentStatus,
+  currentPaymentStatus,
+}: Props) {
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState(currentStatus);
   const [paymentStatus, setPaymentStatus] = useState(currentPaymentStatus);
@@ -72,9 +79,9 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
             onChange={(e) => setPaymentStatus(e.target.value)}
             className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
           >
-            <option value="unpaid">Chưa thanh toán</option>
-            <option value="paid">Đã thanh toán</option>
-            <option value="refunded">Hoàn tiền</option>
+            <option value="UNPAID">Chưa thanh toán</option>
+            <option value="PAID">Đã thanh toán</option>
+            <option value="REFUNDED">Hoàn tiền</option>
           </select>
         </div>
 

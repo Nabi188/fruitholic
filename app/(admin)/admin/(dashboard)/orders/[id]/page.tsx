@@ -17,27 +17,51 @@ export default async function AdminOrderDetailPage({
 
   const { data: order } = (await (supabase as any)
     .from("orders")
-    .select(`
+    .select(
+      `
       *,
       order_items(
-        id, product_name, variant_name, unit_price, quantity, selected_options,
+        id, product_name, variant_name, price, quantity,
+        order_item_options(
+          id, option_group_name, option_value_name, price
+        ),
         products(name, product_images(url, sort_order))
       )
-    `)
+    `,
+    )
     .eq("id", id)
     .single()) as { data: any };
 
   if (!order) notFound();
 
-  const statusConfig: Record<string, { label: string; bg: string; text: string }> = {
-    pending: { label: "Chờ xử lý", bg: "bg-surface-container-high", text: "text-on-surface-variant" },
-    confirmed: { label: "Đã xác nhận", bg: "bg-primary/10", text: "text-primary" },
-    delivering: { label: "Đang giao", bg: "bg-secondary/10", text: "text-secondary" },
-    completed: { label: "Hoàn thành", bg: "bg-tertiary-container/30", text: "text-tertiary" },
-    cancelled: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
+  const statusConfig: Record<
+    string,
+    { label: string; bg: string; text: string }
+  > = {
+    PENDING: {
+      label: "Chờ xử lý",
+      bg: "bg-surface-container-high",
+      text: "text-on-surface-variant",
+    },
+    CONFIRMED: {
+      label: "Đã xác nhận",
+      bg: "bg-primary/10",
+      text: "text-primary",
+    },
+    DELIVERING: {
+      label: "Đang giao",
+      bg: "bg-secondary/10",
+      text: "text-secondary",
+    },
+    COMPLETED: {
+      label: "Hoàn thành",
+      bg: "bg-tertiary-container/30",
+      text: "text-tertiary",
+    },
+    CANCELLED: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
   };
 
-  const cfg = statusConfig[order.status] ?? statusConfig.pending;
+  const cfg = statusConfig[order.status?.toUpperCase()] ?? statusConfig.PENDING;
   const items = order.order_items ?? [];
 
   return (
@@ -78,7 +102,10 @@ export default async function AdminOrderDetailPage({
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Điện thoại</span>
-                <a href={`tel:${order.customer_phone}`} className="font-bold text-primary">
+                <a
+                  href={`tel:${order.customer_phone}`}
+                  className="font-bold text-primary"
+                >
                   {order.customer_phone}
                 </a>
               </div>
@@ -100,12 +127,16 @@ export default async function AdminOrderDetailPage({
                 </div>
               )}
               <div className="flex justify-between items-start gap-4">
-                <span className="text-on-surface-variant shrink-0">Địa chỉ</span>
+                <span className="text-on-surface-variant shrink-0">
+                  Địa chỉ
+                </span>
                 <span className="text-right">{order.address}</span>
               </div>
               {order.note && (
                 <div className="flex justify-between items-start gap-4">
-                  <span className="text-on-surface-variant shrink-0">Ghi chú</span>
+                  <span className="text-on-surface-variant shrink-0">
+                    Ghi chú
+                  </span>
                   <span className="text-right italic">{order.note}</span>
                 </div>
               )}
@@ -120,14 +151,18 @@ export default async function AdminOrderDetailPage({
             <div className="space-y-3 text-sm font-body">
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Hình thức TT</span>
-                <strong>{order.payment_method === "cod" ? "COD" : "Chuyển khoản"}</strong>
+                <strong>
+                  {order.payment_method === "cod" ? "COD" : "Chuyển khoản"}
+                </strong>
               </div>
               <div className="flex justify-between">
                 <span className="text-on-surface-variant">Trạng thái TT</span>
                 <span
                   className={`font-bold ${order.payment_status?.toLowerCase() === "paid" ? "text-primary" : "text-secondary"}`}
                 >
-                  {order.payment_status?.toLowerCase() === "paid" ? "Đã thanh toán" : "Chưa thanh toán"}
+                  {order.payment_status?.toLowerCase() === "paid"
+                    ? "Đã thanh toán"
+                    : "Chưa thanh toán"}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -154,10 +189,13 @@ export default async function AdminOrderDetailPage({
             <div className="space-y-5">
               {items.map((item: any) => {
                 const img = item.products?.product_images?.[0]?.url;
-                const optCost = item.selected_options
-                  ? item.selected_options.reduce((s: number, o: any) => s + (o.price ?? 0), 0)
+                const optCost = item.order_item_options
+                  ? item.order_item_options.reduce(
+                      (s: number, o: any) => s + (o.price ?? 0),
+                      0,
+                    )
                   : 0;
-                const itemTotal = (item.unit_price + optCost) * item.quantity;
+                const itemTotal = (item.price + optCost) * item.quantity;
                 return (
                   <div key={item.id} className="flex gap-4">
                     <div className="w-16 h-16 rounded-xl bg-surface-container overflow-hidden flex-shrink-0">
@@ -171,13 +209,19 @@ export default async function AdminOrderDetailPage({
                     </div>
                     <div className="flex-grow py-1">
                       <p className="font-bold text-sm">{item.product_name}</p>
-                      <p className="text-xs text-on-surface-variant">{item.variant_name}</p>
-                      {item.selected_options && (
+                      <p className="text-xs text-on-surface-variant">
+                        {item.variant_name}
+                      </p>
+                      {item.order_item_options && (
                         <p className="text-xs text-on-surface-variant mt-0.5">
-                          {item.selected_options.map((o: any) => o.optionValueName).join(", ")}
+                          {item.order_item_options
+                            .map((o: any) => o.option_value_name)
+                            .join(", ")}
                         </p>
                       )}
-                      <p className="text-xs text-on-surface-variant mt-0.5">x{item.quantity}</p>
+                      <p className="text-xs text-on-surface-variant mt-0.5">
+                        x{item.quantity}
+                      </p>
                     </div>
                     <div className="text-sm font-bold text-primary py-1 shrink-0">
                       {formatVND(itemTotal)}

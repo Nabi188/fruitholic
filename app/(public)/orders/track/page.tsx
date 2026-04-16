@@ -16,18 +16,18 @@ export default function OrderTrackingPage() {
     setError("");
 
     if (!orderRef.trim()) {
-      setError("Vui lòng nhập mã đơn hàng (Tối thiểu 8 ký tự)");
+      setError("Order code is invalid. Please enter at least 6 characters.");
       return;
     }
 
     setIsSubmitting(true);
 
     const result = await findOrderForTracking(orderRef);
-    
-    if (result.success && result.orderId) {
-      router.push(`/orders/${result.orderId}`);
+
+    if (result.success && result.orderCode) {
+      router.push(`/orders/${result.orderCode}`);
     } else {
-      setError(result.error || "Không tìm thấy dữ liệu.");
+      setError(result.error || "Order not found.");
       setIsSubmitting(false);
     }
   };
@@ -43,10 +43,11 @@ export default function OrderTrackingPage() {
       </div>
 
       <h1 className="text-4xl md:text-5xl font-extrabold text-primary-dim mb-4 tracking-tighter font-headline">
-        Tra Cứu Giao Hàng
+        Order Tracking
       </h1>
       <p className="text-on-surface-variant font-body mb-10 max-w-sm mx-auto text-lg leading-relaxed">
-        Nhập chính xác <strong>Mã Giao Dịch</strong> được gửi trong email để kiểm tra lộ trình vận chuyển.
+        Enter your <strong>Order Code</strong> (sent in email) to check your
+        shipping status.
       </p>
 
       <form
@@ -55,7 +56,7 @@ export default function OrderTrackingPage() {
       >
         <div>
           <label className="text-sm font-bold text-on-surface block mb-3 font-body">
-            Mã đơn hàng (Order ID / Tracking Ref)
+            Order Code (Order ID / Tracking Ref)
           </label>
           <div className="relative">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-outline-variant" />
@@ -63,7 +64,7 @@ export default function OrderTrackingPage() {
               type="text"
               value={orderRef}
               onChange={(e) => setOrderRef(e.target.value)}
-              placeholder="Ví dụ: 8B9F2A1C"
+              placeholder="Example: FH123456"
               className="w-full pl-14 pr-5 py-4 bg-surface-bright border border-surface-container-high rounded-full focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-mono text-sm placeholder:font-body placeholder:text-outline/70"
             />
           </div>
@@ -83,10 +84,10 @@ export default function OrderTrackingPage() {
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="w-5 h-5 animate-spin" /> Hệ thống đang quét...
+              <Loader2 className="w-5 h-5 animate-spin" /> Checking...
             </>
           ) : (
-            "Kiểm tra ngay"
+            "Check now"
           )}
         </button>
       </form>

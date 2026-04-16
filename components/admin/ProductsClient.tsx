@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Plus, Pencil, Copy, Check } from "lucide-react";
 import { formatVND } from "@/lib/formatters";
 import { toast } from "sonner";
-import { ProductDrawer } from "@/components/admin/ProductDrawer";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { toggleProductActive } from "@/app/actions/admin/products";
@@ -52,7 +52,7 @@ function ActiveSwitch({ product }: { product: AdminProduct }) {
     startTransition(async () => {
       const result = await toggleProductActive(product.id, next);
       if (result.error) {
-        setOptimistic(!next); // revert
+        setOptimistic(!next);
         toast.error("Failed to update status");
       } else {
         toast.success(
@@ -74,38 +74,8 @@ function ActiveSwitch({ product }: { product: AdminProduct }) {
   );
 }
 
-export function ProductsClient({
-  products,
-  categories,
-  optionGroups,
-  siteUrl,
-}: Props) {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<AdminProduct | null>(
-    null,
-  );
-
-  const openCreate = () => {
-    setEditingProduct(null);
-    setDrawerOpen(true);
-  };
-
-  const openEdit = (p: AdminProduct) => {
-    setEditingProduct(p);
-    setDrawerOpen(true);
-  };
-
-  const drawerProduct = editingProduct
-    ? {
-        ...editingProduct,
-        product_variants: editingProduct.product_variants.sort(
-          (a, b) => a.sort_order - b.sort_order,
-        ),
-        product_images: editingProduct.product_images.sort(
-          (a, b) => a.sort_order - b.sort_order,
-        ),
-      }
-    : undefined;
+export function ProductsClient({ products, siteUrl }: Props) {
+  const router = useRouter();
 
   return (
     <>
@@ -121,7 +91,7 @@ export function ProductsClient({
           </div>
         </div>
         <Button
-          onClick={openCreate}
+          onClick={() => router.push("/admin/products/new")}
           className="font-headline font-bold px-6 h-11 rounded-full shadow-lg shadow-primary/20"
         >
           <Plus className="w-5 h-5" />
@@ -162,7 +132,7 @@ export function ProductsClient({
                   >
                     No products yet.{" "}
                     <button
-                      onClick={openCreate}
+                      onClick={() => router.push("/admin/products/new")}
                       className="text-primary font-semibold underline"
                     >
                       Add one now
@@ -182,7 +152,7 @@ export function ProductsClient({
                   <tr
                     key={product.id}
                     className="hover:bg-surface-container/30 transition-colors group cursor-pointer"
-                    onClick={() => openEdit(product)}
+                    onClick={() => router.push(`/admin/products/${product.id}`)}
                   >
                     <td className="px-4 py-3">
                       <div className="w-11 h-11 rounded-xl bg-surface-container overflow-hidden shrink-0">
@@ -257,7 +227,7 @@ export function ProductsClient({
                           size="icon-sm"
                           onClick={(e) => {
                             e.stopPropagation();
-                            openEdit(product);
+                            router.push(`/admin/products/${product.id}`);
                           }}
                         >
                           <Pencil className="w-4 h-4" />
@@ -272,15 +242,6 @@ export function ProductsClient({
           </table>
         </div>
       </div>
-
-      <ProductDrawer
-        open={drawerOpen}
-        onOpenChange={setDrawerOpen}
-        categories={categories}
-        optionGroups={optionGroups}
-        product={drawerProduct}
-        key={editingProduct?.id ?? "new"}
-      />
     </>
   );
 }

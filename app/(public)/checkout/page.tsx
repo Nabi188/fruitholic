@@ -7,7 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutSchema, type CheckoutInput } from "@/schemas/orders";
 import { useCartStore } from "@/stores/cartStore";
 import { formatVND } from "@/lib/formatters";
-import { ArrowLeft, Loader2, CreditCard, Wallet, Banknote } from "lucide-react";
+import {
+  ArrowLeft,
+  Loader2,
+  CreditCard,
+  Wallet,
+  Banknote,
+  Clock,
+  Store,
+} from "lucide-react";
 import Link from "next/link";
 
 import { placeOrder } from "@/app/actions/checkout";
@@ -41,10 +49,11 @@ export default function CheckoutPage() {
     watch,
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = form;
   const isSelfReceiver = watch("is_self_receiver");
   const paymentMethod = watch("payment_method");
+  const deliveryType = watch("delivery_type");
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -54,14 +63,19 @@ export default function CheckoutPage() {
     return () => clearTimeout(t);
   }, [items, form]);
 
+  useEffect(() => {
+    if (items.length === 0) {
+      router.replace("/cart");
+    }
+  }, [items.length, router]);
+
   if (!mounted) return null;
 
   if (items.length === 0) {
-    router.replace("/cart");
     return null;
   }
 
-  const onSubmit = async (data: CheckoutInput & { items?: any[] }) => {
+  const onSubmit = async (data: CheckoutInput) => {
     setIsSubmitting(true);
     setServerError("");
 
@@ -70,17 +84,27 @@ export default function CheckoutPage() {
       data.receiver_phone = data.customer_phone;
     }
 
+    // For PICKUP: no receiver / address needed
+    if (data.delivery_type === "PICKUP") {
+      data.is_self_receiver = true;
+      data.receiver_name = "Fruitholic";
+      data.receiver_phone = data.customer_phone;
+      data.address = "Fruitholic";
+    }
+
     try {
-      const result = await placeOrder({ ...data, items: data.items || [] });
+      // Use items directly from cartStore (in scope) — form data strips unknown fields
+      const result = await placeOrder({ ...data, items });
 
       if (result.success && result.orderId) {
         clearCart();
-        router.push(`/orders/${result.orderId}`);
+        router.push(`/thank-you?code=${result.orderCode}`);
       } else {
         setServerError(result.error || "Lỗi không xác định.");
       }
     } catch (_e) {
-      setServerError("Lỗi mạng. Vui lòng kiểm tra connection." + _e);
+      setServerError("Lỗi mạng. Vui lòng kiểm tra kết nối.");
+      console.error("Checkout submit error:", _e);
     } finally {
       setIsSubmitting(false);
     }
@@ -186,7 +210,7 @@ export default function CheckoutPage() {
               </span>
             </label>
 
-            {!isSelfReceiver && (
+            {!isSelfReceiver && deliveryType !== "PICKUP" && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm font-semibold text-slate-700">
@@ -223,22 +247,24 @@ export default function CheckoutPage() {
               </div>
             )}
 
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-semibold text-slate-700">
-                Địa chỉ giao hàng chi tiết *
-              </label>
-              <textarea
-                {...register("address")}
-                rows={3}
-                placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành phố..."
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all placeholder:text-slate-400"
-              />
-              {errors.address && (
-                <span className="text-xs text-red-500">
-                  {errors.address.message}
-                </span>
-              )}
-            </div>
+            {deliveryType !== "PICKUP" && (
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-slate-700">
+                  Địa chỉ giao hàng chi tiết *
+                </label>
+                <textarea
+                  {...register("address")}
+                  rows={3}
+                  placeholder="Số nhà, Tên đường, Phường/Xã, Quận/Huyện, Tỉnh/Thành phố..."
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all placeholder:text-slate-400"
+                />
+                {errors.address && (
+                  <span className="text-xs text-red-500">
+                    {errors.address.message}
+                  </span>
+                )}
+              </div>
+            )}
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-slate-700">
@@ -251,6 +277,88 @@ export default function CheckoutPage() {
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all placeholder:text-slate-400"
               />
             </div>
+          </div>
+
+          {/* Delivery type */}
+          <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col gap-6">
+            <h2 className="text-xl font-bold text-slate-800 border-b pb-4">
+              3. Hình thức giao hàng
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {(
+                [
+                  {
+                    value: "ASAP",
+                    icon: Clock,
+                    label: "Giao ngay",
+                    desc: "Shipper giao sớm nhất có thể",
+                  },
+                  {
+                    value: "SCHEDULED",
+                    icon: Clock,
+                    label: "Hẹn giờ",
+                    desc: "Chọn giờ giao cụ thể",
+                  },
+                  {
+                    value: "PICKUP",
+                    icon: Store,
+                    label: "Nhận tại cửa hàng",
+                    desc: "Đến lấy trực tiếp",
+                  },
+                ] as const
+              ).map(({ value, icon: Icon, label, desc }) => (
+                <label
+                  key={value}
+                  className={`relative flex cursor-pointer rounded-2xl border-2 p-5 flex-col gap-2 transition-all ${
+                    deliveryType === value
+                      ? "border-emerald-500 bg-emerald-50/50"
+                      : "border-slate-200 hover:border-emerald-200 bg-white"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    {...register("delivery_type")}
+                    value={value}
+                    className="sr-only"
+                  />
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-lg ${deliveryType === value ? "bg-emerald-100 text-emerald-600" : "bg-slate-100 text-slate-500"}`}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <span
+                      className={`font-bold ${deliveryType === value ? "text-emerald-900" : "text-slate-700"}`}
+                    >
+                      {label}
+                    </span>
+                  </div>
+                  <span className="text-xs text-slate-500">{desc}</span>
+                  {deliveryType === value && (
+                    <div className="absolute top-4 right-4 h-5 w-5 rounded-full border-[6px] border-emerald-500 bg-white" />
+                  )}
+                </label>
+              ))}
+            </div>
+
+            {deliveryType === "SCHEDULED" && (
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-slate-700">
+                  Chọn thời gian giao *
+                </label>
+                <input
+                  type="datetime-local"
+                  {...register("delivery_time")}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                />
+                {errors.delivery_time && (
+                  <span className="text-xs text-red-500">
+                    {errors.delivery_time.message}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex flex-col gap-6">
@@ -398,7 +506,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               form="checkout-form"
-              disabled={isSubmitting || !isValid}
+              disabled={isSubmitting}
               className="w-full flex justify-center items-center gap-2 rounded-2xl bg-emerald-600 px-6 py-4 text-lg font-bold text-white shadow-xl shadow-emerald-600/20 transition-all hover:bg-emerald-700 disabled:bg-slate-300 disabled:shadow-none disabled:cursor-not-allowed"
             >
               {isSubmitting ? (

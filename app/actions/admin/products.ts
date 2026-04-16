@@ -3,7 +3,11 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-import { productSchema, variantSchema } from "@/schemas/products";
+import {
+  productSchema,
+  productBaseSchema,
+  variantSchema,
+} from "@/schemas/products";
 
 export async function createProduct(data: {
   product: any;
@@ -69,7 +73,7 @@ export async function updateProduct(
 ) {
   const supabase = await createSupabaseServerClient();
 
-  const parsed = productSchema.safeParse(data.product);
+  const parsed = productBaseSchema.safeParse(data.product);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
   const { error } = await (supabase as any)

@@ -12,27 +12,27 @@ const statusConfig: Record<
   string,
   { label: string; bg: string; text: string }
 > = {
-  pending: {
+  PENDING: {
     label: "Chờ xử lý",
     bg: "bg-surface-container-high",
     text: "text-on-surface-variant",
   },
-  confirmed: {
+  CONFIRMED: {
     label: "Đã xác nhận",
     bg: "bg-primary/10",
     text: "text-primary",
   },
-  delivering: {
+  DELIVERING: {
     label: "Đang giao",
     bg: "bg-secondary/10",
     text: "text-secondary",
   },
-  completed: {
+  COMPLETED: {
     label: "Hoàn thành",
     bg: "bg-tertiary-container/30",
     text: "text-tertiary",
   },
-  cancelled: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
+  CANCELLED: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
 };
 
 const paymentConfig: Record<string, { label: string; color: string }> = {
@@ -57,7 +57,7 @@ export default async function OrdersPage({
     .order("created_at", { ascending: false })
     .limit(50);
 
-  if (status && status !== "all") {
+  if (status && status !== "ALL") {
     query = query.eq("status", status);
   }
 
@@ -65,12 +65,12 @@ export default async function OrdersPage({
   const allOrders = (orders as any[]) ?? [];
 
   const tabs = [
-    { key: "all", label: "Tất cả" },
-    { key: "pending", label: "Chờ xử lý" },
-    { key: "confirmed", label: "Xác nhận" },
-    { key: "delivering", label: "Đang giao" },
-    { key: "completed", label: "Hoàn thành" },
-    { key: "cancelled", label: "Đã hủy" },
+    { key: "ALL", label: "Tất cả" },
+    { key: "PENDING", label: "Chờ xử lý" },
+    { key: "CONFIRMED", label: "Xác nhận" },
+    { key: "DELIVERING", label: "Đang giao" },
+    { key: "COMPLETED", label: "Hoàn thành" },
+    { key: "CANCELLED", label: "Đã hủy" },
   ];
 
   return (
@@ -88,9 +88,9 @@ export default async function OrdersPage({
         {tabs.map((tab) => (
           <Link
             key={tab.key}
-            href={`/admin/orders${tab.key !== "all" ? `?status=${tab.key}` : ""}`}
+            href={`/admin/orders${tab.key !== "ALL" ? `?status=${tab.key}` : ""}`}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all ${
-              (status ?? "all") === tab.key
+              (status ?? "ALL") === tab.key
                 ? "bg-primary text-on-primary shadow-md shadow-primary/20"
                 : "bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high"
             }`}
@@ -127,7 +127,8 @@ export default async function OrdersPage({
               )}
               {allOrders.map((order: any) => {
                 const statusCfg =
-                  statusConfig[order.status] ?? statusConfig.pending;
+                  statusConfig[order.status?.toUpperCase()] ??
+                  statusConfig.PENDING;
                 const paymentCfg =
                   paymentConfig[order.payment_status?.toLowerCase()] ??
                   paymentConfig.unpaid;

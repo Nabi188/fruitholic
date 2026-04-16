@@ -26,7 +26,7 @@ export const variantSchema = z.object({
 
 export type VariantInput = z.infer<typeof variantSchema>;
 
-export const productSchema = z.object({
+export const productBaseSchema = z.object({
   name: z.string().min(1, "Product name is required"),
   slug: z
     .string()
@@ -40,12 +40,16 @@ export const productSchema = z.object({
   short_description: z.string().optional().nullable(),
   is_active: z.boolean().default(true),
   sort_order: z.number().int().min(0).default(0),
+});
+
+export const productSchema = productBaseSchema.extend({
   variants: z
     .array(variantSchema)
     .min(1, "Product must have at least one variant"),
 });
 
 export type ProductInput = z.infer<typeof productSchema>;
+export type ProductBaseInput = z.infer<typeof productBaseSchema>;
 
 export const optionValueSchema = z.object({
   id: z.string().uuid().optional(),

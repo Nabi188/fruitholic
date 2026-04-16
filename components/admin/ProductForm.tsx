@@ -1,471 +1,385 @@
 "use client";
 
-import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Plus, Loader2, Save, Trash2, ArrowLeft } from "lucide-react";
 import {
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "@/app/actions/admin/products";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import {
-  ArrowLeft,
-  Trash2,
-  AlertCircle,
-  Plus,
-  X,
-  Loader2,
-  ImagePlus,
-  Save,
-} from "lucide-react";
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
-type Variant = { name: string; price: number; is_active: boolean };
-type Category = { id: string; name: string };
+import { AdminProduct, AdminCategory, AdminOptionGroup } from "@/types/admin";
+import { useProductForm } from "@/hooks/use-product-form";
+import { slugify } from "@/utils/slugify";
+import { QuickCreateOptionGroup } from "./QuickCreateOptionGroup";
+import { SortableVariantItem } from "./SortableVariantItem";
+import { ImageManager } from "./ImageManager";
 
 type Props = {
-  categories: Category[];
-  product?: {
-    id: string;
-    name: string;
-    slug: string;
-    category_id: string | null;
-    short_description: string | null;
-    description: string | null;
-    is_active: boolean;
-    sort_order: number;
-    product_variants: { name: string; price: number; is_active: boolean }[];
-    product_images: { url: string; sort_order: number }[];
-  };
+  categories: AdminCategory[];
+  optionGroups: AdminOptionGroup[];
+  product?: AdminProduct;
 };
 
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-}
-
-export function ProductForm({ categories, product }: Props) {
+export function ProductForm({ categories, optionGroups, product }: Props) {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
 
-  const [name, setName] = useState(product?.name ?? "");
-  const [slug, setSlug] = useState(product?.slug ?? "");
-  const [categoryId, setCategoryId] = useState(product?.category_id ?? "");
-  const [shortDesc, setShortDesc] = useState(product?.short_description ?? "");
-  const [desc, setDesc] = useState(product?.description ?? "");
-  const [isActive, setIsActive] = useState(product?.is_active ?? true);
-  const [sortOrder, setSortOrder] = useState(product?.sort_order ?? 0);
-  const [variants, setVariants] = useState<Variant[]>(
-    product?.product_variants ?? [
-      { name: "Mặc định", price: 0, is_active: true },
-    ],
+  const { state, actions } = useProductForm(product, optionGroups, () =>
+    router.push("/admin/products"),
   );
-  const [imageUrls, setImageUrls] = useState<string[]>(
-    product?.product_images
-      ?.sort((a, b) => a.sort_order - b.sort_order)
-      .map((i) => i.url) ?? [],
+
+  const {
+    name,
+    slug,
+    categoryId,
+    shortDesc,
+    desc,
+    isActive,
+    sortOrder,
+    variants,
+    images,
+    selectedGroupIds,
+    localGroups,
+    uploading,
+    newImageUrl,
+    isPending,
+  } = state;
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
   );
-  const [newImageUrl, setNewImageUrl] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const addVariant = () =>
-    setVariants((prev) => [...prev, { name: "", price: 0, is_active: true }]);
-
-  const removeVariant = (i: number) =>
-    setVariants((prev) => prev.filter((_, idx) => idx !== i));
-
-  const updateVariant = (
-    i: number,
-    key: keyof Variant,
-    val: string | number | boolean,
-  ) =>
-    setVariants((prev) =>
-      prev.map((v, idx) => (idx === i ? { ...v, [key]: val } : v)),
-    );
-
-  const handleUpload = async (file: File) => {
-    setUploading(true);
-    try {
-      const sigRes = await fetch("/api/upload", { method: "POST" });
-      const { timestamp, signature, cloudName, apiKey, folder } =
-        await sigRes.json();
-
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("timestamp", String(timestamp));
-      fd.append("signature", signature);
-      fd.append("api_key", apiKey);
-      fd.append("folder", folder);
-
-      const uploadRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        { method: "POST", body: fd },
-      );
-      const result = await uploadRes.json();
-      if (result.secure_url) {
-        setImageUrls((prev) => [...prev, result.secure_url]);
-      }
-    } catch {
-      setError("Lỗi tải ảnh lên. Vui lòng thử lại.");
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    const productData = {
-      name,
-      slug,
-      category_id: categoryId || null,
-      short_description: shortDesc,
-      description: desc,
-      is_active: isActive,
-      sort_order: sortOrder,
-    };
-
-    startTransition(async () => {
-      const result = product
-        ? await updateProduct(product.id, {
-            product: productData,
-            variants,
-            imageUrls,
-            optionGroupIds: [],
-          })
-        : await createProduct({
-            product: productData,
-            variants,
-            imageUrls,
-            optionGroupIds: [],
-          });
-
-      if (result.error) {
-        setError(
-          typeof result.error === "string" ? result.error : "Có lỗi xảy ra.",
-        );
-      } else {
-        router.push("/admin/products");
-      }
-    });
-  };
-
-  const handleDelete = () => {
-    if (!product) return;
-    if (!confirm("Are you sure to delete this product?")) return;
-    startTransition(async () => {
-      await deleteProduct(product.id);
-      router.push("/admin/products");
-    });
-  };
 
   return (
-    <div className="container mx-auto">
-      <div className="mb-8 flex items-center gap-4">
-        <button
-          onClick={() => router.back()}
-          className="p-2 hover:bg-surface-container rounded-full transition-all text-on-surface-variant"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-        <div>
-          <h2 className="text-2xl font-extrabold font-headline text-on-surface">
-            {product ? "Sửa sản phẩm" : "Thêm sản phẩm mới"}
-          </h2>
-          {product && (
-            <p className="text-on-surface-variant text-sm mt-0.5">
-              /{product.slug}
-            </p>
-          )}
+    <div className="min-h-screen bg-surface-container">
+      {/* Sticky Header */}
+      <div className="bg-surface-container-lowest border-b border-outline-variant/10 sticky top-0 z-10">
+        <div className="container mx-auto px-6 md:px-8 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              onClick={() => router.push("/admin/products")}
+              className="rounded-full"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div>
+              <h1 className="text-xl font-extrabold font-headline text-on-surface leading-none">
+                {product ? "Edit product" : "New product"}
+              </h1>
+              <p className="text-xs text-on-surface-variant mt-0.5">
+                {product
+                  ? `Updating "${product.name}"`
+                  : "Fill in the details below"}
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            {product && (
+              <AlertDialog>
+                <AlertDialogTrigger
+                  render={
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="rounded-full"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Delete
+                    </Button>
+                  }
+                />
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently delete{" "}
+                      <strong>{product.name}</strong>. This action cannot be
+                      undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={actions.handleDelete}
+                      className="bg-error text-on-error hover:bg-error/90"
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+            <Button
+              type="submit"
+              form="product-form"
+              disabled={isPending}
+              className="rounded-full h-9 shadow-xl shadow-primary/20"
+            >
+              {isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  {product ? "Update" : "Create"}
+                </>
+              )}
+            </Button>
+          </div>
         </div>
-        {product && (
-          <button
-            onClick={handleDelete}
-            className="ml-auto flex items-center gap-2 px-4 py-2 rounded-full text-error hover:bg-error/10 transition-all text-sm font-semibold"
-          >
-            <Trash2 className="w-4 h-4" />
-            Xóa sản phẩm
-          </button>
-        )}
       </div>
 
-      {error && (
-        <div className="mb-6 px-4 py-3 bg-error/10 text-error text-sm rounded-xl flex items-center gap-2">
-          <AlertCircle className="w-5 h-5" />
-          {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] space-y-5">
-          <h3 className="font-headline font-bold text-lg">Thông tin cơ bản</h3>
-
-          <div>
-            <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-              Tên sản phẩm *
-            </label>
-            <input
-              type="text"
-              required
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                if (!product) setSlug(slugify(e.target.value));
-              }}
-              className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-              placeholder="VD: Nước ép cam tươi"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                Slug *
-              </label>
-              <input
-                type="text"
-                required
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm font-mono outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                Danh mục
-              </label>
-              <select
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-              >
-                <option value="">— Không có —</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-              Mô tả ngắn
-            </label>
-            <textarea
-              value={shortDesc}
-              onChange={(e) => setShortDesc(e.target.value)}
-              rows={2}
-              className="w-full px-4 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-              placeholder="Một dòng mô tả ngắn gọn về sản phẩm..."
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-              Mô tả chi tiết
-            </label>
-            <textarea
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              rows={6}
-              className="w-full px-4 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-              placeholder="Mô tả đầy đủ về sản phẩm..."
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                Thứ tự
-              </label>
-              <input
-                type="number"
-                min={0}
-                value={sortOrder}
-                onChange={(e) => setSortOrder(Number(e.target.value))}
-                className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                Trạng thái
-              </label>
-              <select
-                value={String(isActive)}
-                onChange={(e) => setIsActive(e.target.value === "true")}
-                className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-              >
-                <option value="true">Hiển thị</option>
-                <option value="false">Ẩn</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] space-y-5">
-          <div className="flex items-center justify-between">
-            <h3 className="font-headline font-bold text-lg">
-              Phân loại (Variants)
-            </h3>
-            <button
-              type="button"
-              onClick={addVariant}
-              className="flex items-center gap-1 text-sm text-primary font-semibold hover:underline"
-            >
-              <Plus className="w-4 h-4" />
-              Thêm
-            </button>
-          </div>
-
-          <div className="space-y-3">
-            {variants.map((v, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <input
-                  type="text"
-                  required
-                  value={v.name}
-                  onChange={(e) => updateVariant(i, "name", e.target.value)}
-                  placeholder="Tên (VD: Nhỏ, Lớn, 500ml)"
-                  className="flex-1 px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
+      {/* Page Body */}
+      <div className="container mx-auto px-6 md:px-8 py-8">
+        <form
+          id="product-form"
+          onSubmit={actions.handleSubmit}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
+          {/* LEFT: main content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Basic Info */}
+            <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
+              <h2 className="text-base font-bold font-headline text-on-surface">
+                Basic Info
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="col-span-2">
+                  <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                    Product Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => {
+                      actions.setName(e.target.value);
+                      if (!product) actions.setSlug(slugify(e.target.value));
+                    }}
+                    className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
+                    placeholder="e.g. Strawberry Smoothie"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                    Slug *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={slug}
+                    onChange={(e) => actions.setSlug(e.target.value)}
+                    className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm font-mono outline-none focus:ring-2 focus:ring-primary/30"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                    Category
+                  </label>
+                  <select
+                    value={categoryId ?? ""}
+                    onChange={(e) => actions.setCategoryId(e.target.value)}
+                    className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
+                  >
+                    <option value="">No Category</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                  Short Description
+                </label>
+                <textarea
+                  value={shortDesc ?? ""}
+                  onChange={(e) => actions.setShortDesc(e.target.value)}
+                  rows={2}
+                  className="w-full px-5 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+                  placeholder="Brief tagline shown in product listings..."
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                  Detailed Description
+                </label>
+                <textarea
+                  value={desc ?? ""}
+                  onChange={(e) => actions.setDesc(e.target.value)}
+                  rows={5}
+                  className="w-full px-5 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+                  placeholder="Full product description..."
+                />
+              </div>
+            </div>
+
+            {/* Variants */}
+            <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-bold font-headline text-on-surface">
+                  Variants
+                </h2>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={actions.addVariant}
+                  className="text-primary"
+                >
+                  <Plus className="w-4 h-4 mr-1" /> Add Variant
+                </Button>
+              </div>
+              <DndContext
+                id="variants-dnd"
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={actions.handleVariantDragEnd}
+              >
+                <SortableContext
+                  items={variants.map((v) => v.uid!)}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <div className="space-y-3">
+                    {variants.map((v) => (
+                      <SortableVariantItem
+                        key={v.uid}
+                        variant={v}
+                        isOnly={variants.length === 1}
+                        onUpdate={(key, val) =>
+                          actions.updateVariant(v.uid!, key, val)
+                        }
+                        onRemove={() => actions.removeVariant(v.uid!)}
+                      />
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
+            </div>
+
+            {/* Images */}
+            <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 shadow-sm">
+              <ImageManager
+                images={images}
+                uploading={uploading}
+                newImageUrl={newImageUrl}
+                onFileUpload={actions.handleFileUpload}
+                onUrlAdd={actions.handleUrlAdd}
+                onRemove={actions.removeImage}
+                onDragEnd={actions.handleImageDragEnd}
+                onUrlChange={actions.setNewImageUrl}
+              />
+            </div>
+          </div>
+
+          {/* RIGHT: sidebar */}
+          <div className="space-y-6">
+            {/* Settings card */}
+            <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
+              <h2 className="text-base font-bold font-headline text-on-surface">
+                Settings
+              </h2>
+              <div>
+                <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
+                  Sort Order
+                </label>
                 <input
                   type="number"
-                  required
-                  min={0}
-                  value={v.price}
-                  onChange={(e) =>
-                    updateVariant(i, "price", Number(e.target.value))
-                  }
-                  placeholder="Giá (VNĐ)"
-                  className="w-36 px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
+                  value={sortOrder}
+                  onChange={(e) => actions.setSortOrder(Number(e.target.value))}
+                  className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                 />
-                <select
-                  value={String(v.is_active)}
-                  onChange={(e) =>
-                    updateVariant(i, "is_active", e.target.value === "true")
-                  }
-                  className="px-3 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-                >
-                  <option value="true">Bật</option>
-                  <option value="false">Tắt</option>
-                </select>
-                {variants.length > 1 && (
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-on-surface-variant mb-2">
+                  Status
+                </label>
+                <div className="flex gap-2">
                   <button
                     type="button"
-                    onClick={() => removeVariant(i)}
-                    className="p-2 text-error hover:bg-error/10 rounded-full transition-all"
+                    onClick={() => actions.setIsActive(true)}
+                    className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${isActive ? "bg-primary text-on-primary" : "bg-surface-container-low text-on-surface-variant"}`}
                   >
-                    <X className="w-4 h-4" />
+                    Active
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => actions.setIsActive(false)}
+                    className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${!isActive ? "bg-error/10 text-error" : "bg-surface-container-low text-on-surface-variant"}`}
+                  >
+                    Inactive
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Option Groups card */}
+            <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-base font-bold font-headline text-on-surface">
+                    Option Groups
+                  </h2>
+                  <p className="text-xs text-on-surface-variant mt-0.5">
+                    Let customers customise.
+                  </p>
+                </div>
+                <QuickCreateOptionGroup
+                  onCreated={actions.handleOptionGroupCreated}
+                />
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {localGroups.map((g) => {
+                  const isSelected = selectedGroupIds.includes(g.id);
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => actions.toggleOptionGroup(g.id)}
+                      className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all border ${
+                        isSelected
+                          ? "bg-primary text-on-primary border-primary shadow-lg shadow-primary/20"
+                          : "bg-surface-container-low text-on-surface-variant border-outline-variant/20 hover:border-primary/40"
+                      }`}
+                    >
+                      {g.name}
+                      {isSelected && <span className="ml-2">✓</span>}
+                    </button>
+                  );
+                })}
+                {localGroups.length === 0 && (
+                  <p className="text-xs text-on-surface-variant opacity-50">
+                    No option groups yet.
+                  </p>
                 )}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-
-        <div className="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] space-y-5">
-          <h3 className="font-headline font-bold text-lg">Hình ảnh</h3>
-
-          <div className="flex flex-wrap gap-3">
-            {imageUrls.map((url, i) => (
-              <div key={i} className="relative group w-24 h-24">
-                <img
-                  src={url}
-                  alt=""
-                  className="w-full h-full object-cover rounded-xl"
-                />
-                <button
-                  type="button"
-                  onClick={() =>
-                    setImageUrls((prev) => prev.filter((_, idx) => idx !== i))
-                  }
-                  className="absolute -top-2 -right-2 w-6 h-6 bg-error text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
-
-            <label className="w-24 h-24 rounded-xl border-2 border-dashed border-outline-variant/50 flex flex-col items-center justify-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all">
-              {uploading ? (
-                <Loader2 className="w-6 h-6 text-outline-variant animate-spin" />
-              ) : (
-                <ImagePlus className="w-6 h-6 text-outline-variant" />
-              )}
-              <span className="text-xs text-on-surface-variant mt-1">
-                {uploading ? "..." : "Tải lên"}
-              </span>
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                disabled={uploading}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleUpload(file);
-                }}
-              />
-            </label>
-          </div>
-
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={newImageUrl}
-              onChange={(e) => setNewImageUrl(e.target.value)}
-              placeholder="Hoặc nhập URL ảnh trực tiếp..."
-              className="flex-1 px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                if (newImageUrl.trim()) {
-                  setImageUrls((prev) => [...prev, newImageUrl.trim()]);
-                  setNewImageUrl("");
-                }
-              }}
-              className="px-5 py-3 bg-surface-container-high rounded-full text-sm font-semibold hover:bg-surface-container-highest transition-all"
-            >
-              Thêm
-            </button>
-          </div>
-        </div>
-
-        <div className="flex gap-4 pb-8">
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="flex-1 py-3.5 bg-surface-container border border-outline-variant/20 text-on-surface-variant font-semibold rounded-full hover:bg-surface-container-high transition-all"
-          >
-            Hủy
-          </button>
-          <button
-            type="submit"
-            disabled={isPending}
-            className="flex-1 py-3.5 bg-primary text-on-primary font-bold rounded-full shadow-lg shadow-primary/20 hover:brightness-105 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
-          >
-            {isPending ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Đang lưu...
-              </>
-            ) : (
-              <>
-                <Save className="w-5 h-5" />
-                {product ? "Cập nhật" : "Tạo sản phẩm"}
-              </>
-            )}
-          </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }

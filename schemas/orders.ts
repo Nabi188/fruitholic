@@ -23,19 +23,20 @@ export const checkoutSchema = z
       .optional()
       .or(z.literal("")),
     is_self_receiver: z.boolean(),
-    receiver_name: z.string().min(2, "Name is not valid").optional(),
+    receiver_name: z.string().optional().or(z.literal("")),
     receiver_phone: z
       .string()
       .regex(/^(0|\+84)[3-9]\d{8}$/, "Phone is not valid")
-      .optional(),
-    address: z.string().min(10, "Address is not valid"),
-    note: z.string().max(500).optional(),
+      .optional()
+      .or(z.literal("")),
+    address: z.string().max(400).optional().or(z.literal("")),
+    note: z.string().max(500).optional().or(z.literal("")),
     delivery_type: deliveryTypeSchema,
-    delivery_time: z.string().datetime().optional(),
+    delivery_time: z.string().optional().or(z.literal("")),
     payment_method: paymentMethodSchema,
   })
   .superRefine((data, ctx) => {
-    if (!data.is_self_receiver) {
+    if (!data.is_self_receiver && data.delivery_type !== "PICKUP") {
       if (!data.receiver_name || data.receiver_name.length < 2) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -48,6 +49,15 @@ export const checkoutSchema = z
           code: z.ZodIssueCode.custom,
           message: "Phone is not valid",
           path: ["receiver_phone"],
+        });
+      }
+    }
+    if (data.delivery_type !== "PICKUP") {
+      if (!data.address || data.address.length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Address is not valid",
+          path: ["address"],
         });
       }
     }

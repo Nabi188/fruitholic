@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Plus,
   Pencil,
@@ -139,11 +139,8 @@ export function OptionGroupManager({ groups }: Props) {
               </tr>
             )}
             {groups.map((g) => (
-              <>
-                <tr
-                  key={g.id}
-                  className="hover:bg-surface-container/30 transition-colors"
-                >
+              <React.Fragment key={g.id}>
+                <tr className="hover:bg-surface-container/30 transition-colors">
                   {/* Name (expand toggle) */}
                   <td className="px-6 py-4">
                     <button
@@ -309,7 +306,7 @@ export function OptionGroupManager({ groups }: Props) {
                     </td>
                   </tr>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </tbody>
         </table>

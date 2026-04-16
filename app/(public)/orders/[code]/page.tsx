@@ -3,10 +3,20 @@
 import { useEffect, useState } from "react";
 import { createBrowserClient } from "@supabase/ssr";
 import { formatVND } from "@/lib/formatters";
-import { Copy, QrCode, Check, CreditCard, Truck, MapPin, ShoppingBag, Phone, Headphones } from "lucide-react";
+import {
+  Copy,
+  QrCode,
+  Check,
+  CreditCard,
+  Truck,
+  MapPin,
+  ShoppingBag,
+  Phone,
+  Headphones,
+} from "lucide-react";
 import { use } from "react";
 
-type Params = Promise<{ id: string }>;
+type Params = Promise<{ code: string }>;
 
 export default function OrderConfirmationPage(props: { params: Params }) {
   const params = use(props.params);
@@ -21,18 +31,19 @@ export default function OrderConfirmationPage(props: { params: Params }) {
 
   useEffect(() => {
     async function fetchOrder() {
+      const codeParam = params.code.toUpperCase();
       const { data: oData } = await supabase
         .from("orders")
         .select("*")
-        .eq("id", params.id)
+        .eq("code", codeParam)
         .single();
 
       if (oData) {
         setOrder(oData);
         const { data: iData } = await supabase
           .from("order_items")
-          .select("*, products(name, product_images(url))")
-          .eq("order_id", params.id);
+          .select("*, order_item_options(option_value_name, price)")
+          .eq("order_id", oData.id);
 
         if (iData) setItems(iData);
       }
@@ -41,24 +52,26 @@ export default function OrderConfirmationPage(props: { params: Params }) {
 
     fetchOrder();
 
-    const payChannel = supabase
-      .channel(`order-${params.id}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "orders",
-          filter: `id=eq.${params.id}`,
-        },
-        (payload) => setOrder((prev: any) => ({ ...prev, ...payload.new })),
-      )
-      .subscribe();
+    if (order?.id) {
+      const payChannel = supabase
+        .channel(`order-${order.id}`)
+        .on(
+          "postgres_changes",
+          {
+            event: "UPDATE",
+            schema: "public",
+            table: "orders",
+            filter: `id=eq.${order.id}`,
+          },
+          (payload) => setOrder((prev: any) => ({ ...prev, ...payload.new })),
+        )
+        .subscribe();
 
-    return () => {
-      supabase.removeChannel(payChannel);
-    };
-  }, [params.id, supabase]);
+      return () => {
+        supabase.removeChannel(payChannel);
+      };
+    }
+  }, [params.code, supabase, order?.id]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -75,33 +88,34 @@ export default function OrderConfirmationPage(props: { params: Params }) {
   if (!order) {
     return (
       <div className="text-center py-20 text-on-surface-variant">
-        Không tìm thấy đơn hàng.
+        Order not found.
       </div>
     );
   }
 
-  const isPaid = order.payment_status === "paid";
-  const BANK_ID = process.env.NEXT_PUBLIC_BANK_ID || "MB";
-  const BANK_ACCOUNT = process.env.NEXT_PUBLIC_BANK_ACCOUNT || "0000000000";
-  const BANK_NAME = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || "FRUITHOLIC";
-  const orderRef = order.id.split("-")[0].toUpperCase();
-  const transferContent = `FRUIT ${orderRef}`;
-  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${BANK_ACCOUNT}-qr_only.png?amount=${order.total_amount}&addInfo=${encodeURIComponent(
-    transferContent,
-  )}&accountName=${encodeURIComponent(BANK_NAME)}`;
+  const isPaid = order.payment_status === "PAID";
+  const BANK_ID = process.env.NEXT_PUBLIC_BANK_ID;
+  const BANK_ACCOUNT = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NO || "";
+  const BANK_NAME = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME;
+  const orderRef = order.code.split("-")[0].toUpperCase();
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID || ""}-${BANK_ACCOUNT || ""}-qr_only.png?amount=${order.total_amount}&addInfo=${encodeURIComponent(orderRef)}&accountName=${encodeURIComponent(BANK_NAME || "").replace(/%20/g, "+")}`;
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case "pending":
+      case "PENDING":
         return "Đang xử lý";
-      case "delivering":
+      case "CONFIRMED":
+        return "Đã xác nhận";
+      case "PREPARING":
+        return "Đang chuẩn bị";
+      case "DELIVERING":
         return "Đang giao hàng";
-      case "completed":
+      case "COMPLETED":
         return "Đã hoàn thành";
-      case "cancelled":
+      case "CANCELLED":
         return "Đã hủy";
       default:
-        return status.toUpperCase();
+        return status;
     }
   };
 
@@ -109,12 +123,20 @@ export default function OrderConfirmationPage(props: { params: Params }) {
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
-      <header className="mb-12 text-center md:text-left relative">
+      <header className="mb-12 text-center relative max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold mb-6">
+          <ShoppingBag className="w-4 h-4" />
+          Mã đơn hàng: {order.code}
+        </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-4 font-headline">
-          Trạng thái giao dịch
+          {order.status === "PENDING"
+            ? "Cám ơn bạn đã đặt hàng!"
+            : "Trạng thái giao dịch"}
         </h1>
-        <p className="text-on-surface-variant max-w-lg text-lg leading-relaxed font-body">
-          Cập nhật hành trình tươi mới của bạn từ nông trại đến tận cửa nhà.
+        <p className="text-on-surface-variant text-lg leading-relaxed font-body">
+          {order.status === "PENDING"
+            ? "Đơn hàng của bạn đã được hệ thống ghi nhận và đang chờ xử lý."
+            : "Cập nhật hành trình tươi mới của bạn từ nông trại đến tận cửa nhà."}
         </p>
       </header>
 
@@ -123,7 +145,7 @@ export default function OrderConfirmationPage(props: { params: Params }) {
         {/* Left Col: Payment & Timeline Section */}
         <div className="lg:col-span-7 space-y-8">
           {/* Payment Prompt Card (if bank transfer + pending) */}
-          {order.payment_method === "bank_transfer" && !isPaid && (
+          {order.payment_method === "BANK_TRANSFER" && !isPaid && (
             <div className="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] border border-surface-container relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary-container/20 rounded-full -mr-16 -mt-16 blur-3xl"></div>
               <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center">
@@ -161,10 +183,10 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                       Nội dung (BẮT BUỘC)
                     </span>
                     <button
-                      onClick={() => copyToClipboard(transferContent)}
+                      onClick={() => copyToClipboard(orderRef)}
                       className="font-bold text-primary flex items-center gap-1 group-hover:text-primary-dim transition-colors tracking-wider"
                     >
-                      {transferContent} <Copy className="w-3 h-3" />
+                      {orderRef} <Copy className="w-3 h-3" />
                     </button>
                   </div>
                 </div>
@@ -210,9 +232,9 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                 className={`relative ${isPaid || order.payment_method === "cod" ? "" : "opacity-40"}`}
               >
                 <div
-                  className={`absolute -left-[38px] top-0 w-8 h-8 rounded-full flex items-center justify-center z-10 ${isPaid || order.payment_method === "cod" ? "bg-primary shadow-primary/20" : "bg-surface-container-highest border border-outline-variant"} shadow-sm`}
+                  className={`absolute -left-[38px] top-0 w-8 h-8 rounded-full flex items-center justify-center z-10 ${isPaid || order.payment_method === "COD" ? "bg-primary shadow-primary/20" : "bg-surface-container-highest border border-outline-variant"} shadow-sm`}
                 >
-                  {isPaid || order.payment_method === "cod" ? (
+                  {isPaid || order.payment_method === "COD" ? (
                     <Check className="w-4 h-4 text-on-primary font-bold" />
                   ) : (
                     <CreditCard className="w-4 h-4 text-outline-variant" />
@@ -222,14 +244,14 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                   <span
                     className={`text-lg font-bold font-headline ${isPaid || order.payment_method === "cod" ? "text-on-surface" : "text-on-surface-variant"}`}
                   >
-                    {order.payment_method === "cod"
+                    {order.payment_method === "COD"
                       ? "Thanh toán COD"
                       : "Xác nhận thanh toán"}
                   </span>
                   <p className="text-sm font-medium font-body leading-relaxed mt-1">
                     {isPaid
                       ? "Giao dịch thành công."
-                      : order.payment_method === "cod"
+                      : order.payment_method === "COD"
                         ? "Thanh toán tiền mặt khi nhận hàng"
                         : "Đang chờ thanh toán chuyển khoản"}
                   </p>
@@ -238,21 +260,23 @@ export default function OrderConfirmationPage(props: { params: Params }) {
 
               {/* Step 3: Delivery */}
               <div
-                className={`relative ${order.status !== "pending" ? "" : "opacity-40"}`}
+                className={`relative ${order.status !== "PENDING" ? "" : "opacity-40"}`}
               >
                 <div
-                  className={`absolute -left-[38px] top-0 w-8 h-8 rounded-full ring-4 ring-primary-container flex items-center justify-center z-10 ${order.status === "delivering" ? "bg-primary" : order.status === "completed" ? "bg-primary" : "bg-surface-container-highest"}`}
+                  className={`absolute -left-[38px] top-0 w-8 h-8 rounded-full ring-4 ring-primary-container flex items-center justify-center z-10 ${order.status === "DELIVERING" ? "bg-primary" : order.status === "COMPLETED" ? "bg-primary" : "bg-surface-container-highest"}`}
                 >
-                  <Truck className={`w-4 h-4 ${order.status !== "pending" ? "text-on-primary" : "text-outline-variant"}`} />
+                  <Truck
+                    className={`w-4 h-4 ${order.status !== "PENDING" ? "text-on-primary" : "text-outline-variant"}`}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <span
-                    className={`text-lg font-bold font-headline ${order.status === "delivering" ? "text-primary" : order.status === "completed" ? "text-on-surface" : "text-on-surface-variant"}`}
+                    className={`text-lg font-bold font-headline ${order.status === "DELIVERING" ? "text-primary" : order.status === "COMPLETED" ? "text-on-surface" : "text-on-surface-variant"}`}
                   >
                     Đang giao hàng
                   </span>
                   <p
-                    className={`text-sm font-medium font-body leading-relaxed mt-1 ${order.status === "delivering" ? "text-primary" : "text-on-surface-variant"}`}
+                    className={`text-sm font-medium font-body leading-relaxed mt-1 ${order.status === "DELIVERING" ? "text-primary" : "text-on-surface-variant"}`}
                   >
                     {order.status === "delivering"
                       ? "Tài xế đang di chuyển tới địa chỉ của bạn."
@@ -270,7 +294,7 @@ export default function OrderConfirmationPage(props: { params: Params }) {
             </div>
             <div className="flex-grow text-center md:text-left">
               <h3 className="text-xl font-bold mb-2 font-headline">
-                Thông tin nhận hàng
+                Shipping Information
               </h3>
               <p className="text-on-surface-variant font-medium font-body mb-1">
                 <strong className="text-on-surface">
@@ -279,7 +303,7 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                 &mdash; {order.receiver_phone}
               </p>
               <p className="text-on-surface-variant text-sm font-body">
-                {order.delivery_address}
+                {order.address}
               </p>
             </div>
           </div>
@@ -290,7 +314,7 @@ export default function OrderConfirmationPage(props: { params: Params }) {
           <div className="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] border border-surface-container relative">
             <h3 className="text-xl font-bold mb-8 flex items-center gap-2 font-headline">
               <ShoppingBag className="w-5 h-5 text-primary" />
-              Danh sách sản phẩm
+              Product List
             </h3>
 
             <div className="space-y-6">
@@ -298,13 +322,13 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                 const imgUrl =
                   item.products?.product_images?.[0]?.url ||
                   "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80";
-                const optCost = item.selected_options
-                  ? item.selected_options.reduce(
+                const optCost = item.order_item_options
+                  ? item.order_item_options.reduce(
                       (s: any, o: any) => s + (o.price || 0),
                       0,
                     )
                   : 0;
-                const itemTotal = (item.unit_price + optCost) * item.quantity;
+                const itemTotal = (item.price + optCost) * item.quantity;
                 return (
                   <div key={item.id} className="flex gap-4">
                     <div className="w-20 h-20 rounded-xl bg-surface-container-low overflow-hidden flex-shrink-0">
@@ -319,13 +343,13 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                         {item.products?.name}
                       </span>
                       <span className="text-xs text-on-surface-variant mt-1 line-clamp-1">
-                        {item.selected_options &&
-                          item.selected_options
-                            .map((opt: any) => opt.optionValueName)
+                        {item.order_item_options &&
+                          item.order_item_options
+                            .map((opt: any) => opt.option_value_name)
                             .join(", ")}
                       </span>
                       <span className="text-xs text-on-surface-variant mt-0.5">
-                        SL: x{item.quantity}
+                        Qty: x{item.quantity}
                       </span>
                       <span className="text-sm font-bold text-primary mt-auto">
                         {formatVND(itemTotal)}
@@ -338,7 +362,7 @@ export default function OrderConfirmationPage(props: { params: Params }) {
 
             <div className="mt-8 pt-6 border-t border-surface-container text-body">
               <div className="flex justify-between items-center text-lg font-extrabold pb-2">
-                <span>Tổng thanh toán</span>
+                <span>Total amount</span>
                 <span className="text-primary-dim text-2xl">
                   {formatVND(order.total_amount)}
                 </span>
@@ -346,23 +370,21 @@ export default function OrderConfirmationPage(props: { params: Params }) {
             </div>
           </div>
 
-          {/* Support Banner */}
           <div className="bg-primary/5 p-8 rounded-[2rem] relative overflow-hidden group border border-primary/10">
             <div className="relative z-10">
               <h3 className="text-lg font-bold mb-3 text-primary-dim font-headline">
-                Cần hỗ trợ gấp?
+                Need urgent assistance?
               </h3>
               <p className="text-sm text-primary-dim/80 mb-6 font-body leading-relaxed">
-                Nếu bạn thay đổi địa chỉ hoặc giờ nhận, hãy gọi ngay cho tổng
-                đài.
+                If you need any assistance, please contact us.
               </p>
               <div className="space-y-3">
                 <a
-                  href="tel:19001234"
+                  href="tel:0962651808"
                   className="flex items-center justify-center gap-3 bg-white hover:bg-surface-container-low px-4 py-3.5 rounded-full transition-all text-primary-dim font-bold text-sm shadow-sm ring-1 ring-primary/20"
                 >
                   <Phone className="w-5 h-5" />
-                  Hotline: 1900 1234
+                  Hotline: 0962 651 808
                 </a>
               </div>
             </div>
