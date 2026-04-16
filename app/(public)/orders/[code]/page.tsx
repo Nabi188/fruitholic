@@ -42,7 +42,9 @@ export default function OrderConfirmationPage(props: { params: Params }) {
         setOrder(oData);
         const { data: iData } = await supabase
           .from("order_items")
-          .select("*, order_item_options(option_value_name, price)")
+          .select(
+            "*, order_item_options(option_value_name, price), products(product_images(url))",
+          )
           .eq("order_id", oData.id);
 
         if (iData) setItems(iData);
@@ -175,10 +177,10 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                     </button>
                   </div>
                   <div className="flex justify-between">
-                    <span>Chủ TK</span>{" "}
+                    <span>Chủ tài khoản</span>{" "}
                     <strong className="text-on-surface">{BANK_NAME}</strong>
                   </div>
-                  <div className="flex justify-between items-center bg-surface-container-low p-2 rounded-lg mt-2 group">
+                  <div className="flex justify-between">
                     <span className="font-semibold text-primary">
                       Nội dung (BẮT BUỘC)
                     </span>
@@ -340,14 +342,22 @@ export default function OrderConfirmationPage(props: { params: Params }) {
                     </div>
                     <div className="flex flex-col flex-grow py-1">
                       <span className="font-bold text-sm text-on-surface font-body">
-                        {item.products?.name}
+                        {item.product_name}
                       </span>
-                      <span className="text-xs text-on-surface-variant mt-1 line-clamp-1">
-                        {item.order_item_options &&
-                          item.order_item_options
-                            .map((opt: any) => opt.option_value_name)
-                            .join(", ")}
-                      </span>
+                      {(item.variant_name ||
+                        (item.order_item_options &&
+                          item.order_item_options.length > 0)) && (
+                        <span className="text-xs text-on-surface-variant mt-1 line-clamp-1">
+                          {[
+                            item.variant_name,
+                            ...(item.order_item_options?.map(
+                              (opt: any) => opt.option_value_name,
+                            ) || []),
+                          ]
+                            .filter(Boolean)
+                            .join(" - ")}
+                        </span>
+                      )}
                       <span className="text-xs text-on-surface-variant mt-0.5">
                         Qty: x{item.quantity}
                       </span>
