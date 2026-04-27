@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import { formatVND } from "@/lib/formatters";
@@ -22,7 +22,7 @@ import {
   Banknote,
 } from "lucide-react";
 
-export default function OrderTrackingPage() {
+function OrderTrackingContent() {
   const searchParams = useSearchParams();
   const codeParam = searchParams.get("code");
 
@@ -31,6 +31,21 @@ export default function OrderTrackingPage() {
   }
 
   return <SearchForm />;
+}
+
+export default function OrderTrackingPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center justify-center py-20">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <p className="mt-4 text-on-surface-variant text-sm font-medium">Loading...</p>
+        </div>
+      }
+    >
+      <OrderTrackingContent />
+    </Suspense>
+  );
 }
 
 function SearchForm() {
