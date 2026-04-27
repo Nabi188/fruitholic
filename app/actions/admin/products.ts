@@ -4,7 +4,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
 import {
-  productSchema,
   productBaseSchema,
   variantSchema,
 } from "@/schemas/products";
@@ -17,7 +16,7 @@ export async function createProduct(data: {
 }) {
   const supabase = await createSupabaseServerClient();
 
-  const parsed = productSchema.safeParse(data.product);
+  const parsed = productBaseSchema.safeParse(data.product);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
   // Shift existing sort_order values to prevent collision

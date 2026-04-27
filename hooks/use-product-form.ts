@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useCallback, useRef } from "react";
+import { useState, useTransition, useCallback } from "react";
 import { toast } from "sonner";
 import { arrayMove } from "@dnd-kit/sortable";
 import type { DragEndEvent } from "@dnd-kit/core";
@@ -13,9 +13,9 @@ import {
 import type {
   AdminProduct,
   AdminProductVariant,
-  AdminProductImage,
   AdminOptionGroup,
 } from "@/types/admin";
+import { useImageUpload } from "./use-image-upload";
 
 export function useProductForm(
   product?: AdminProduct,
@@ -41,7 +41,7 @@ export function useProductForm(
     return [
       {
         uid: generateUid(),
-        name: "Mặc định",
+        name: "Default",
         price: 0,
         is_active: true,
         sort_order: 0,
@@ -49,10 +49,10 @@ export function useProductForm(
     ];
   });
 
-  const [images, setImages] = useState<AdminProductImage[]>(
+  // Image upload — delegated to useImageUpload hook
+  const imageUpload = useImageUpload(
     product?.product_images
-      ?.sort((a, b) => a.sort_order - b.sort_order)
-      .map((img) => ({ ...img, uid: generateUid() })) ?? [],
+      ?.sort((a, b) => a.sort_order - b.sort_order) ?? [],
   );
 
   const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>(
@@ -61,10 +61,8 @@ export function useProductForm(
 
   const [localGroups, setLocalGroups] =
     useState<AdminOptionGroup[]>(optionGroups);
-  const [uploading, setUploading] = useState(false);
-  const [newImageUrl, setNewImageUrl] = useState("");
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // ─── Variant management ───────────────────────────────────────
 
   const addVariant = () => {
     const nextSort =
@@ -108,66 +106,7 @@ export function useProductForm(
     }
   };
 
-  const removeImage = (uid: string) => {
-    setImages((p) => p.filter((img) => img.uid !== uid));
-  };
-
-  const handleImageDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      setImages((prev) => {
-        const oldIndex = prev.findIndex((img) => img.uid === active.id);
-        const newIndex = prev.findIndex((img) => img.uid === over.id);
-        return arrayMove(prev, oldIndex, newIndex);
-      });
-    }
-  };
-
-  const handleFileUpload = async (files: File[]) => {
-    setUploading(true);
-    try {
-      for (const file of files) {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", "fruitholic");
-
-        const res = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          { method: "POST", body: formData },
-        );
-        const data = await res.json();
-        if (data.secure_url) {
-          setImages((prev) => [
-            ...prev,
-            {
-              uid: generateUid(),
-              url: data.secure_url,
-              sort_order: prev.length,
-            },
-          ]);
-        }
-      }
-      toast.success("Images uploaded successfully");
-    } catch (err) {
-      toast.error("Upload failed");
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const handleUrlAdd = () => {
-    if (newImageUrl.trim()) {
-      setImages((prev) => [
-        ...prev,
-        {
-          uid: generateUid(),
-          url: newImageUrl.trim(),
-          sort_order: prev.length,
-        },
-      ]);
-      setNewImageUrl("");
-    }
-  };
+  // ─── Option group management ──────────────────────────────────
 
   const handleOptionGroupCreated = (group: AdminOptionGroup) => {
     setLocalGroups((p) => [...p, group]);
@@ -180,6 +119,8 @@ export function useProductForm(
     );
   };
 
+  // ─── Form actions ─────────────────────────────────────────────
+
   const resetForm = useCallback(() => {
     setName("");
     setSlug("");
@@ -191,15 +132,15 @@ export function useProductForm(
     setVariants([
       {
         uid: generateUid(),
-        name: "Mặc định",
+        name: "Default",
         price: 0,
         is_active: true,
         sort_order: 0,
       },
     ]);
-    setImages([]);
+    imageUpload.reset();
     setSelectedGroupIds([]);
-  }, []);
+  }, [imageUpload]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -225,7 +166,7 @@ export function useProductForm(
           is_active: v.is_active,
           sort_order: i,
         })),
-        imageUrls: images.map((img) => img.url),
+        imageUrls: imageUpload.getImageUrls(),
         optionGroupIds: selectedGroupIds,
       };
 
@@ -234,11 +175,16 @@ export function useProductForm(
         : await createProduct(payload);
 
       if (result.error) {
-        toast.error(
-          typeof result.error === "string"
-            ? result.error
-            : "Failed to save product",
-        );
+        if (typeof result.error === "string") {
+          toast.error(result.error);
+        } else {
+          // Schema validation errors — show each field error
+          const messages = Object.entries(result.error)
+            .map(([field, msgs]) => `${field}: ${(msgs as string[]).join(", ")}`)
+            .join("\n");
+          toast.error(`Validation failed:\n${messages}`);
+          console.error("Validation errors:", result.error);
+        }
       } else {
         toast.success(product ? "Product updated" : "Product created");
         if (onOpenChange) onOpenChange(false);
@@ -270,11 +216,11 @@ export function useProductForm(
       isActive,
       sortOrder,
       variants,
-      images,
+      images: imageUpload.images,
       selectedGroupIds,
       localGroups,
-      uploading,
-      newImageUrl,
+      uploading: imageUpload.uploading,
+      newImageUrl: imageUpload.newImageUrl,
       isPending,
     },
     actions: {
@@ -286,16 +232,16 @@ export function useProductForm(
       setIsActive,
       setSortOrder,
       setVariants,
-      setImages,
-      setNewImageUrl,
+      setImages: imageUpload.setImages,
+      setNewImageUrl: imageUpload.setNewImageUrl,
       addVariant,
       removeVariant,
       updateVariant,
       handleVariantDragEnd,
-      handleImageDragEnd,
-      removeImage,
-      handleFileUpload,
-      handleUrlAdd,
+      handleImageDragEnd: imageUpload.handleDragEnd,
+      removeImage: imageUpload.removeImage,
+      handleFileUpload: imageUpload.handleFileUpload,
+      handleUrlAdd: imageUpload.handleUrlAdd,
       handleOptionGroupCreated,
       toggleOptionGroup,
       handleSubmit,
@@ -303,7 +249,7 @@ export function useProductForm(
       resetForm,
     },
     refs: {
-      fileInputRef,
+      fileInputRef: imageUpload.fileInputRef,
     },
   };
 }
