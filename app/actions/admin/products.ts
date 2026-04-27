@@ -3,10 +3,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 
-import {
-  productBaseSchema,
-  variantSchema,
-} from "@/schemas/products";
+import { productBaseSchema, variantSchema } from "@/schemas/products";
 
 export async function createProduct(data: {
   product: any;
@@ -19,7 +16,6 @@ export async function createProduct(data: {
   const parsed = productBaseSchema.safeParse(data.product);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
-  // Shift existing sort_order values to prevent collision
   const sortOrder = parsed.data.sort_order ?? 0;
   try {
     await (supabase as any).rpc("shift_sort_order", {
@@ -36,7 +32,7 @@ export async function createProduct(data: {
     .single();
 
   if (productError || !product)
-    return { error: productError?.message ?? "Lỗi tạo sản phẩm" };
+    return { error: productError?.message ?? "Error creating product" };
 
   if (data.variants.length > 0) {
     const parsedVariants = data.variants.map((v, i) =>

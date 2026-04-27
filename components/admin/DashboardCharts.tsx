@@ -40,12 +40,12 @@ const formatCurrency = (v: number) => {
 
 export function RevenueChart({ data }: { data: RevenueDataPoint[] }) {
   return (
-    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)]">
+    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] min-w-0">
       <h3 className="text-lg font-bold font-headline mb-1">Doanh thu 30 ngày</h3>
       <p className="text-xs text-on-surface-variant mb-4">
         Tổng doanh thu theo ngày (đơn đã thanh toán)
       </p>
-      <div className="h-[240px]">
+      <div className="h-[240px] min-w-0">
         {data.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
@@ -106,15 +106,15 @@ export function OrdersByStatusChart({ data }: { data: StatusDataPoint[] }) {
   const total = data.reduce((s, d) => s + d.value, 0);
 
   return (
-    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)]">
+    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] min-w-0">
       <h3 className="text-lg font-bold font-headline mb-1">Đơn theo trạng thái</h3>
       <p className="text-xs text-on-surface-variant mb-4">
         Phân bổ trạng thái đơn hàng
       </p>
-      <div className="h-[240px] flex items-center gap-4">
+      <div className="h-auto sm:h-[240px] flex flex-col sm:flex-row items-center gap-4">
         {total > 0 ? (
           <>
-            <div className="w-1/2 h-full">
+            <div className="w-full sm:w-1/2 h-[200px] sm:h-full min-w-0">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -144,21 +144,21 @@ export function OrdersByStatusChart({ data }: { data: StatusDataPoint[] }) {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-            <div className="w-1/2 space-y-2">
+            <div className="w-full sm:w-1/2 flex flex-wrap sm:flex-col gap-2 sm:gap-0 sm:space-y-2 justify-center sm:justify-start">
               {data.map((d) => (
-                <div key={d.name} className="flex items-center gap-2 text-sm">
+                <div key={d.name} className="flex items-center gap-2 text-sm w-auto sm:w-full">
                   <div
                     className="w-3 h-3 rounded-full shrink-0"
                     style={{ backgroundColor: d.color }}
                   />
-                  <span className="text-on-surface-variant flex-1">{d.name}</span>
+                  <span className="text-on-surface-variant flex-1 min-w-[80px] sm:min-w-0">{d.name}</span>
                   <span className="font-bold">{d.value}</span>
                 </div>
               ))}
             </div>
           </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-on-surface-variant/50 text-sm">
+          <div className="w-full h-[200px] sm:h-full flex items-center justify-center text-on-surface-variant/50 text-sm">
             Chưa có dữ liệu
           </div>
         )}
@@ -169,12 +169,12 @@ export function OrdersByStatusChart({ data }: { data: StatusDataPoint[] }) {
 
 export function TopProductsChart({ data }: { data: TopProductPoint[] }) {
   return (
-    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)]">
+    <div className="bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0_20px_40px_rgba(43,48,45,0.06)] min-w-0">
       <h3 className="text-lg font-bold font-headline mb-1">Sản phẩm bán chạy</h3>
       <p className="text-xs text-on-surface-variant mb-4">
         Top 8 sản phẩm theo doanh thu (30 ngày)
       </p>
-      <div className="h-[280px]">
+      <div className="h-[280px] min-w-0">
         {data.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} layout="vertical" margin={{ top: 0, right: 10, left: 0, bottom: 0 }}>
