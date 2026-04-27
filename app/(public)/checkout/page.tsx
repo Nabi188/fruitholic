@@ -94,7 +94,7 @@ export default function CheckoutPage() {
 
   if (!mounted) return null;
 
-  if (items.length === 0) {
+  if (items.length === 0 && !isOrderPlaced.current) {
     return null;
   }
 
@@ -545,49 +545,49 @@ export default function CheckoutPage() {
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-6 h-6 animate-spin" /> Đang chốt đơn...
+                  <Loader2 className="w-6 h-6 animate-spin" /> Processing...
                 </>
               ) : (
-                "Đặt Hàng Ngay"
+                "Place Order"
               )}
             </button>
 
             <p className="mt-4 text-xs text-center text-slate-500 leading-relaxed px-4">
-              Bằng việc bấm Đặt Hàng, bạn xác nhận đã đồng ý với{" "}
+              By clicking Place Order, you confirm that you agree to our{" "}
               <Link
                 href="/policies/shipping"
                 className="text-emerald-600 underline hover:text-emerald-800"
               >
-                Điều khoản & Chính sách
+                Terms & Policies
               </Link>{" "}
-              của chúng tôi.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Bank Transfer QR Modal */}
-      {qrModal?.show && <BankTransferModal
-        orderCode={qrModal.orderCode}
-        orderId={qrModal.orderId}
-        amount={qrModal.amount}
-        paymentConfirmed={paymentConfirmed}
-        copied={copied}
-        onCopy={(text: string, label: string) => {
-          navigator.clipboard.writeText(text);
-          setCopied(label);
-          setTimeout(() => setCopied(""), 2000);
-        }}
-        onClose={() => router.push(`/orders/track?code=${qrModal.orderCode}`)}
-        supabase={supabase}
-        channelRef={channelRef}
-        onPaymentConfirmed={() => {
-          setPaymentConfirmed(true);
-          setTimeout(() => {
-            router.push(`/thank-you?code=${qrModal.orderCode}`);
-          }, 3000);
-        }}
-      />}
+      {qrModal?.show && (
+        <BankTransferModal
+          orderCode={qrModal.orderCode}
+          orderId={qrModal.orderId}
+          amount={qrModal.amount}
+          paymentConfirmed={paymentConfirmed}
+          copied={copied}
+          onCopy={(text: string, label: string) => {
+            navigator.clipboard.writeText(text);
+            setCopied(label);
+            setTimeout(() => setCopied(""), 2000);
+          }}
+          onClose={() => router.push(`/orders/track?code=${qrModal.orderCode}`)}
+          supabase={supabase}
+          channelRef={channelRef}
+          onPaymentConfirmed={() => {
+            setPaymentConfirmed(true);
+            setTimeout(() => {
+              router.push(`/thank-you?code=${qrModal.orderCode}`);
+            }, 3000);
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -620,7 +620,6 @@ function BankTransferModal({
   const BANK_NAME = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || "";
   const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${BANK_ACCOUNT}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(orderCode)}&accountName=${encodeURIComponent(BANK_NAME).replace(/%20/g, "+")}`;
 
-  // Supabase realtime subscription
   useEffect(() => {
     const channel = supabase
       .channel(`checkout-pay-${orderId}`)
@@ -650,7 +649,6 @@ function BankTransferModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden animate-in fade-in zoom-in-95 duration-300">
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 p-2 rounded-full hover:bg-slate-100 transition-colors"
@@ -659,31 +657,39 @@ function BankTransferModal({
         </button>
 
         {paymentConfirmed ? (
-          // Success state
           <div className="p-10 text-center">
             <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500">
               <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">Payment Confirmed!</h3>
-            <p className="text-slate-500 mb-4">Your transfer has been received successfully.</p>
+            <h3 className="text-2xl font-bold text-slate-800 mb-2">
+              Payment Confirmed!
+            </h3>
+            <p className="text-slate-500 mb-4">
+              Your transfer has been received successfully.
+            </p>
             <p className="text-sm text-slate-400">Redirecting...</p>
           </div>
         ) : (
-          // QR Payment state
           <>
             <div className="bg-gradient-to-b from-emerald-50 to-white p-6 sm:p-8 text-center border-b border-emerald-100">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold mb-4">
                 <QrCode className="w-3.5 h-3.5" />
                 BANK TRANSFER
               </div>
-              <h3 className="text-xl font-bold text-slate-800 mb-1">Scan to Pay</h3>
+              <h3 className="text-xl font-bold text-slate-800 mb-1">
+                Scan to Pay
+              </h3>
               <p className="text-sm text-slate-500">Order #{orderCode}</p>
             </div>
 
             <div className="p-6 sm:p-8">
               {/* QR Code */}
               <div className="mx-auto w-48 h-48 rounded-2xl bg-white border-2 border-slate-100 p-2 mb-6 shadow-sm">
-                <img src={qrUrl} alt="QR Code" className="w-full h-full object-contain" />
+                <img
+                  src={qrUrl}
+                  alt="QR Code"
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               {/* Bank details */}
@@ -699,7 +705,11 @@ function BankTransferModal({
                     className="font-bold text-slate-800 flex items-center gap-1.5 hover:text-emerald-600 transition-colors"
                   >
                     {BANK_ACCOUNT}
-                    {copied === "account" ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                    {copied === "account" ? (
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3 h-3" />
+                    )}
                   </button>
                 </div>
                 <div className="flex justify-between items-center">
@@ -707,18 +717,26 @@ function BankTransferModal({
                   <strong className="text-slate-800">{BANK_NAME}</strong>
                 </div>
                 <div className="flex justify-between items-center bg-emerald-50 -mx-2 px-2 py-2 rounded-xl">
-                  <span className="text-emerald-700 font-semibold">Transfer Note</span>
+                  <span className="text-emerald-700 font-semibold">
+                    Transfer Note
+                  </span>
                   <button
                     onClick={() => onCopy(orderCode, "ref")}
                     className="font-bold text-emerald-700 flex items-center gap-1.5 tracking-wider"
                   >
                     {orderCode}
-                    {copied === "ref" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3 h-3" />}
+                    {copied === "ref" ? (
+                      <Check className="w-3.5 h-3.5" />
+                    ) : (
+                      <Copy className="w-3 h-3" />
+                    )}
                   </button>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t border-slate-100">
                   <span className="font-semibold text-slate-700">Amount</span>
-                  <strong className="text-emerald-600 text-lg">{formatVND(amount)}</strong>
+                  <strong className="text-emerald-600 text-lg">
+                    {formatVND(amount)}
+                  </strong>
                 </div>
               </div>
 

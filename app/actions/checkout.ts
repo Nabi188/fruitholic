@@ -3,7 +3,10 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { checkoutSchema, type CheckoutInput } from "@/schemas/orders";
 import { ZodError } from "zod";
-import { sendOrderNotification, sendCustomerOrderConfirmation } from "@/lib/mailer";
+import {
+  sendOrderNotification,
+  sendCustomerOrderConfirmation,
+} from "@/lib/mailer";
 import type { CartItem } from "@/stores/cartStore";
 
 export async function placeOrder(
@@ -14,10 +17,9 @@ export async function placeOrder(
     const itemsData = formData.items;
 
     if (!itemsData || itemsData.length === 0) {
-      return { success: false, error: "Giỏ hàng trống!" };
+      return { success: false, error: "Cart is empty!" };
     }
 
-    // Compute total from items
     let computedTotal = 0;
     itemsData.forEach((item) => {
       let unitPrice = item.variantPrice || 0;
@@ -31,7 +33,6 @@ export async function placeOrder(
 
     const supabase = await createSupabaseServerClient();
 
-    // Generate order code via RPC
     const { data: codeData } = await supabase.rpc("generate_order_code");
     const orderCode = codeData ?? `FH${Date.now()}`;
 
@@ -65,13 +66,12 @@ export async function placeOrder(
       console.error("Insert Order Error:", orderError);
       return {
         success: false,
-        error: "Không thể tạo đơn hàng. Vui lòng thử lại.",
+        error: "Failed to create order. Please try again.",
       };
     }
 
     const orderId = orderParams.id;
 
-    // Insert order items with snapshot fields
     const lineItemsToInsert = itemsData.map((item) => ({
       order_id: orderId,
       product_id: item.productId,
@@ -91,11 +91,10 @@ export async function placeOrder(
       console.error("Insert Items Error:", itemsError);
       return {
         success: false,
-        error: "Lỗi ghi nhận sản phẩm. Khách hàng vui lòng liên hệ hotline!",
+        error: "Error recording products. Please contact hotline!",
       };
     }
 
-    // Insert order item options (snapshots)
     const optionRows: any[] = [];
     itemsData.forEach((item, idx) => {
       const orderItemId = insertedItems?.[idx]?.id;
@@ -116,7 +115,6 @@ export async function placeOrder(
       await (supabase as any).from("order_item_options").insert(optionRows);
     }
 
-    // Send notification email (fire-and-forget)
     sendOrderNotification({
       code: orderParams.code,
       customerName: payload.customer_name,
@@ -138,7 +136,6 @@ export async function placeOrder(
       })),
     }).catch((e) => console.error("Mail error:", e));
 
-    // Send confirmation email to customer (fire-and-forget)
     if (payload.customer_email) {
       sendCustomerOrderConfirmation({
         code: orderParams.code,
@@ -165,11 +162,9 @@ export async function placeOrder(
     return { success: true, orderId, orderCode: orderParams.code };
   } catch (error) {
     if (error instanceof ZodError) {
-      return { success: false, error: "Dữ liệu không hợp lệ!" };
+      return { success: false, error: "Invalid data!" };
     }
     console.error("Place Order Exception:", error);
-    return { success: false, error: "Đã có lỗi hệ thống xảy ra." };
+    return { success: false, error: "Internal Server Error!" };
   }
 }
-
-// CartItem type imported from cartStore

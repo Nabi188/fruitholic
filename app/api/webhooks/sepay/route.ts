@@ -54,7 +54,6 @@ export async function POST(req: Request) {
       .from("orders")
       .update({
         payment_status: "PAID",
-        status: "CONFIRMED",
       })
       .eq("id", order.id);
 
