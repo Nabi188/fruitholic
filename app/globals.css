@@ -183,3 +183,81 @@
     @apply font-sans;
   }
 }
+
+/* ── Prose styles for TipTap rendered content ── */
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+  font-family: var(--font-headline);
+  color: var(--color-on-surface);
+}
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  line-height: 1.35;
+  font-family: var(--font-headline);
+  color: var(--color-on-surface);
+}
+.prose p {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  line-height: 1.8;
+}
+.prose strong {
+  font-weight: 700;
+  color: var(--color-on-surface);
+}
+.prose em {
+  font-style: italic;
+}
+.prose ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  line-height: 1.7;
+}
+.prose blockquote {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--color-on-surface-variant);
+  font-style: italic;
+}
+.prose code {
+  background: var(--color-surface-container-high);
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--color-outline-variant);
+  margin: 1.5em 0;
+}
+
+/* ── TipTap Editor ── */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--color-outline);
+  pointer-events: none;
+  height: 0;
+}
+

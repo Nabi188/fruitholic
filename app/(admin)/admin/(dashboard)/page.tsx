@@ -10,6 +10,11 @@ import {
   XCircle,
   ArrowRight,
 } from "lucide-react";
+import {
+  RevenueChart,
+  OrdersByStatusChart,
+  TopProductsChart,
+} from "@/components/admin/DashboardCharts";
 
 export const dynamic = "force-dynamic";
 
@@ -26,23 +31,77 @@ async function getDashboardStats() {
   if (!orders) return null;
 
   const total = orders.length;
-  const pending = orders.filter((o) => o.status === "pending").length;
-  const delivering = orders.filter((o) => o.status === "delivering").length;
-  const completed = orders.filter((o) => o.status === "completed").length;
-  const cancelled = orders.filter((o) => o.status === "cancelled").length;
+  const pending = orders.filter(
+    (o) => o.status?.toUpperCase() === "PENDING",
+  ).length;
+  const delivering = orders.filter(
+    (o) => o.status?.toUpperCase() === "DELIVERING",
+  ).length;
+  const completed = orders.filter(
+    (o) => o.status?.toUpperCase() === "COMPLETED",
+  ).length;
+  const cancelled = orders.filter(
+    (o) => o.status?.toUpperCase() === "CANCELLED",
+  ).length;
+  const confirmed = orders.filter(
+    (o) => o.status?.toUpperCase() === "CONFIRMED",
+  ).length;
 
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
   const todayRevenue = orders
     .filter(
       (o) =>
-        new Date(o.created_at) >= todayStart && o.payment_status === "paid",
+        new Date(o.created_at) >= todayStart &&
+        o.payment_status?.toUpperCase() === "PAID",
     )
     .reduce((sum: number, o: any) => sum + (o.total_amount ?? 0), 0);
 
   const monthRevenue = orders
-    .filter((o) => o.payment_status === "paid")
+    .filter((o) => o.payment_status?.toUpperCase() === "PAID")
     .reduce((sum: number, o: any) => sum + (o.total_amount ?? 0), 0);
+
+  // Revenue per day (last 30 days)
+  const now = new Date();
+  const thirtyDaysAgo = new Date(now);
+  thirtyDaysAgo.setDate(now.getDate() - 30);
+
+  const paidOrders = orders.filter(
+    (o) =>
+      o.payment_status?.toUpperCase() === "PAID" &&
+      new Date(o.created_at) >= thirtyDaysAgo,
+  );
+
+  const revenueByDay: Record<string, number> = {};
+  for (let d = new Date(thirtyDaysAgo); d <= now; d.setDate(d.getDate() + 1)) {
+    const key = d.toLocaleDateString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+    });
+    revenueByDay[key] = 0;
+  }
+  paidOrders.forEach((o) => {
+    const key = new Date(o.created_at).toLocaleDateString("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+    });
+    if (revenueByDay[key] !== undefined) {
+      revenueByDay[key] += o.total_amount ?? 0;
+    }
+  });
+
+  const revenueData = Object.entries(revenueByDay).map(([day, revenue]) => ({
+    day,
+    revenue,
+  }));
+
+  const statusData = [
+    { name: "Chờ xử lý", value: pending, color: "#8d8d8d" },
+    { name: "Đã xác nhận", value: confirmed, color: "#006b1b" },
+    { name: "Đang giao", value: delivering, color: "#8d4a00" },
+    { name: "Hoàn thành", value: completed, color: "#176a21" },
+    { name: "Đã hủy", value: cancelled, color: "#b02500" },
+  ].filter((d) => d.value > 0);
 
   return {
     total,
@@ -52,6 +111,8 @@ async function getDashboardStats() {
     cancelled,
     todayRevenue,
     monthRevenue,
+    revenueData,
+    statusData,
   };
 }
 
@@ -67,37 +128,52 @@ async function getRecentOrders() {
   return data ?? [];
 }
 
+async function getTopProducts() {
+  const supabase = await createSupabaseServerClient();
+  const { data } = await (supabase as any).rpc("get_revenue_by_product");
+  if (!data) return [];
+  return (data as any[]).slice(0, 8).map((p: any) => ({
+    name:
+      p.product_name?.length > 15
+        ? p.product_name.substring(0, 15) + "…"
+        : p.product_name,
+    revenue: Number(p.total_revenue) || 0,
+    qty: Number(p.total_qty) || 0,
+  }));
+}
+
 const statusConfig: Record<
   string,
   { label: string; bg: string; text: string }
 > = {
-  pending: {
+  PENDING: {
     label: "Chờ xử lý",
     bg: "bg-surface-container-high",
     text: "text-on-surface-variant",
   },
-  confirmed: {
+  CONFIRMED: {
     label: "Đã xác nhận",
     bg: "bg-primary/10",
     text: "text-primary",
   },
-  delivering: {
+  DELIVERING: {
     label: "Đang giao",
     bg: "bg-secondary/10",
     text: "text-secondary",
   },
-  completed: {
+  COMPLETED: {
     label: "Hoàn thành",
     bg: "bg-tertiary-container/30",
     text: "text-tertiary",
   },
-  cancelled: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
+  CANCELLED: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
 };
 
 export default async function AdminDashboard() {
-  const [stats, recentOrders] = await Promise.all([
+  const [stats, recentOrders, topProducts] = await Promise.all([
     getDashboardStats(),
     getRecentOrders(),
+    getTopProducts(),
   ]);
 
   const metricCards = [
@@ -186,6 +262,7 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
+      {/* Revenue cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mb-10">
         <div className="lg:col-span-2 bg-surface-container-lowest p-8 rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
           <h3 className="text-xl font-extrabold font-headline mb-2">
@@ -218,6 +295,17 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+        <RevenueChart data={stats?.revenueData ?? []} />
+        <OrdersByStatusChart data={stats?.statusData ?? []} />
+      </div>
+
+      <div className="mb-10">
+        <TopProductsChart data={topProducts} />
+      </div>
+
+      {/* Recent Orders Table */}
       <div className="bg-surface-container-lowest rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
         <div className="px-8 py-6 flex justify-between items-center border-b border-outline-variant/10">
           <h3 className="text-xl font-extrabold font-headline">
@@ -247,20 +335,24 @@ export default async function AdminDashboard() {
                 <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
                   Trạng thái
                 </th>
-                <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">
-                  Chi tiết
-                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
               {recentOrders.map((order: any) => {
-                const cfg = statusConfig[order.status] ?? statusConfig.pending;
+                const cfg =
+                  statusConfig[order.status?.toUpperCase()] ??
+                  statusConfig.PENDING;
                 return (
                   <tr
                     key={order.id}
-                    className="hover:bg-surface-container-low/30 transition-colors"
+                    className="hover:bg-primary/5 transition-colors relative cursor-pointer"
                   >
                     <td className="px-8 py-4 font-bold text-primary">
+                      <Link
+                        href={`/admin/orders/${order.id}`}
+                        className="absolute inset-0 z-10"
+                        aria-label={`Xem đơn #${order.code}`}
+                      />
                       #{order.code}
                     </td>
                     <td className="px-8 py-4">{order.customer_name}</td>
@@ -274,21 +366,13 @@ export default async function AdminDashboard() {
                         {cfg.label}
                       </span>
                     </td>
-                    <td className="px-8 py-4 text-right">
-                      <Link
-                        href={`/admin/orders/${order.id}`}
-                        className="text-primary text-sm font-semibold hover:underline"
-                      >
-                        Xem
-                      </Link>
-                    </td>
                   </tr>
                 );
               })}
               {recentOrders.length === 0 && (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={4}
                     className="px-8 py-12 text-center text-on-surface-variant text-sm"
                   >
                     Chưa có đơn hàng nào.

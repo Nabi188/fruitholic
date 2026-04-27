@@ -3,7 +3,7 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { checkoutSchema, type CheckoutInput } from "@/schemas/orders";
 import { ZodError } from "zod";
-import { sendOrderNotification } from "@/lib/mailer";
+import { sendOrderNotification, sendCustomerOrderConfirmation } from "@/lib/mailer";
 import type { CartItem } from "@/stores/cartStore";
 
 export async function placeOrder(
@@ -137,6 +137,30 @@ export async function placeOrder(
         })),
       })),
     }).catch((e) => console.error("Mail error:", e));
+
+    // Send confirmation email to customer (fire-and-forget)
+    if (payload.customer_email) {
+      sendCustomerOrderConfirmation({
+        code: orderParams.code,
+        customerName: payload.customer_name,
+        customerPhone: payload.customer_phone,
+        customerEmail: payload.customer_email,
+        address: payload.address ?? "",
+        deliveryType: payload.delivery_type,
+        paymentMethod: payload.payment_method,
+        totalAmount: computedTotal,
+        items: itemsData.map((item) => ({
+          productName: item.productName,
+          variantName: item.variantName,
+          variantPrice: item.variantPrice,
+          quantity: item.quantity,
+          options: item.options?.map((opt) => ({
+            name: opt.optionValueName,
+            price: opt.price,
+          })),
+        })),
+      }).catch((e) => console.error("Customer mail error:", e));
+    }
 
     return { success: true, orderId, orderCode: orderParams.code };
   } catch (error) {

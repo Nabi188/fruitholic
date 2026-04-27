@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +27,7 @@ export default function CheckoutPage() {
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
+  const isOrderPlaced = useRef(false);
 
   const form = useForm<CheckoutInput & { items?: any[] }>({
     resolver: zodResolver(checkoutSchema),
@@ -64,7 +65,7 @@ export default function CheckoutPage() {
   }, [items, form]);
 
   useEffect(() => {
-    if (items.length === 0) {
+    if (items.length === 0 && !isOrderPlaced.current) {
       router.replace("/cart");
     }
   }, [items.length, router]);
@@ -97,6 +98,7 @@ export default function CheckoutPage() {
       const result = await placeOrder({ ...data, items });
 
       if (result.success && result.orderId) {
+        isOrderPlaced.current = true;
         clearCart();
         router.push(`/thank-you?code=${result.orderCode}`);
       } else {

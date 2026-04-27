@@ -24,7 +24,8 @@ export default async function HomePage() {
         `
         id, name, slug, category_id,
         product_images(url, sort_order),
-        product_variants(price, is_active)
+        product_variants(price, is_active),
+        product_option_groups(option_groups(min_select))
       `,
       )
       .eq("is_active", true),
@@ -62,10 +63,16 @@ export default async function HomePage() {
 
     const thumbnailUrl = images[0]?.url;
 
+    // Check if any linked option group has min_select > 0 (required)
+    const hasRequiredOptions = (p.product_option_groups || []).some(
+      (pog: any) => pog.option_groups?.min_select > 0,
+    );
+
     return {
       ...p,
       price: basePrice,
       image_url: thumbnailUrl,
+      hasRequiredOptions,
     };
   });
 
@@ -179,6 +186,7 @@ export default async function HomePage() {
                   slug={p.slug}
                   price={p.price}
                   imageUrl={p.image_url}
+                  hasRequiredOptions={p.hasRequiredOptions}
                   discountPercentage={i === 0 ? 30 : i === 1 ? 15 : undefined}
                 />
               ))}
@@ -207,6 +215,7 @@ export default async function HomePage() {
                     slug={p.slug}
                     price={p.price}
                     imageUrl={p.image_url}
+                    hasRequiredOptions={p.hasRequiredOptions}
                     isMix={group.category.name.toLowerCase().includes("mix")}
                     isPremium={false}
                   />

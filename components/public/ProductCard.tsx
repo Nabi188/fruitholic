@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { formatVND } from "@/lib/formatters";
 import { Plus } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
 
 type ProductCardProps = {
   id: string;
@@ -14,6 +16,7 @@ type ProductCardProps = {
   isMix?: boolean;
   isPremium?: boolean;
   discountPercentage?: number;
+  hasRequiredOptions?: boolean;
 };
 
 export function ProductCard({
@@ -25,8 +28,10 @@ export function ProductCard({
   isMix,
   isPremium,
   discountPercentage,
+  hasRequiredOptions,
 }: ProductCardProps) {
   const { addItem } = useCartStore();
+  const router = useRouter();
 
   const displayImage =
     imageUrl ||
@@ -34,6 +39,15 @@ export function ProductCard({
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    if (hasRequiredOptions) {
+      // Redirect to product detail page for required option selection
+      router.push(`/products/${slug}`);
+      toast.info("Vui lòng chọn tuỳ chọn bắt buộc cho sản phẩm này");
+      return;
+    }
+
     addItem(
       {
         productId: id,
@@ -47,6 +61,7 @@ export function ProductCard({
       },
       1,
     );
+    toast.success("Đã thêm vào giỏ hàng!");
   };
 
   return (

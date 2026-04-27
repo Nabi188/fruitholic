@@ -110,15 +110,14 @@ export default async function OrdersPage({
                 <th className="py-4 px-4">Khách hàng</th>
                 <th className="py-4 px-4">Tổng tiền</th>
                 <th className="py-4 px-4">Thanh toán</th>
-                <th className="py-4 px-4">Trạng thái</th>
-                <th className="py-4 px-6 text-right">Chi tiết</th>
+                <th className="py-4 px-6">Trạng thái</th>
               </tr>
             </thead>
             <tbody className="text-sm font-medium divide-y divide-outline-variant/10">
               {allOrders.length === 0 && (
                 <tr>
                   <td
-                    colSpan={7}
+                    colSpan={6}
                     className="px-8 py-12 text-center text-on-surface-variant"
                   >
                     Không có đơn hàng nào.
@@ -151,9 +150,14 @@ export default async function OrdersPage({
                 return (
                   <tr
                     key={order.id}
-                    className="border-b border-outline-variant/10 hover:bg-surface/30 transition-colors group"
+                    className="border-b border-outline-variant/10 hover:bg-primary/5 transition-colors group relative cursor-pointer"
                   >
                     <td className="py-3 px-6 font-bold text-primary">
+                      <Link
+                        href={`/admin/orders/${order.id}`}
+                        className="absolute inset-0 z-10"
+                        aria-label={`Xem đơn #${order.code}`}
+                      />
                       #{order.code}
                     </td>
                     <td className="py-3 px-4 text-on-surface-variant text-xs">
@@ -185,20 +189,12 @@ export default async function OrdersPage({
                         {paymentCfg.label}
                       </span>
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-6">
                       <span
                         className={`px-3 py-1 rounded-full text-[11px] font-bold ${statusCfg.bg} ${statusCfg.text}`}
                       >
                         {statusCfg.label}
                       </span>
-                    </td>
-                    <td className="py-3 px-6 text-right">
-                      <Link
-                        href={`/admin/orders/${order.id}`}
-                        className="text-primary text-sm font-semibold hover:underline opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        Xem
-                      </Link>
                     </td>
                   </tr>
                 );

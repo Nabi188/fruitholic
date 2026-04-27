@@ -29,7 +29,8 @@ export default async function CategoryPage({ params }: Props) {
       `
       id, name, slug, short_description,
       product_images(url, sort_order),
-      product_variants(price, is_active)
+      product_variants(price, is_active),
+      product_option_groups(option_groups(min_select))
     `,
     )
     .eq("category_id", categoryData.id)
@@ -61,6 +62,10 @@ export default async function CategoryPage({ params }: Props) {
             images.sort((a: any, b: any) => a.sort_order - b.sort_order);
             const thumbnailUrl = images[0]?.url;
 
+            const hasRequiredOptions = (p.product_option_groups || []).some(
+              (pog: any) => pog.option_groups?.min_select > 0,
+            );
+
             return (
               <ProductCard
                 key={p.id}
@@ -69,6 +74,7 @@ export default async function CategoryPage({ params }: Props) {
                 slug={p.slug}
                 price={basePrice}
                 imageUrl={thumbnailUrl}
+                hasRequiredOptions={hasRequiredOptions}
               />
             );
           })}

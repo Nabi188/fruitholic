@@ -30,6 +30,14 @@ export async function createCategory(formData: FormData) {
     return { error: parsed.error.flatten().fieldErrors };
   }
 
+  // Shift existing sort_order values to prevent collision
+  const sortOrder = parsed.data.sort_order ?? 0;
+  await (supabase.rpc as any)("shift_sort_order", {
+    p_table: "categories",
+    p_sort_order: sortOrder,
+    p_exclude_id: null,
+  }).catch(() => {});
+
   const { error } = await (supabase.from("categories") as any).insert(
     parsed.data,
   );
@@ -53,6 +61,14 @@ export async function updateCategory(id: string, formData: FormData) {
   if (!parsed.success) {
     return { error: parsed.error.flatten().fieldErrors };
   }
+
+  // Shift existing sort_order values to prevent collision
+  const sortOrder = parsed.data.sort_order ?? 0;
+  await (supabase.rpc as any)("shift_sort_order", {
+    p_table: "categories",
+    p_sort_order: sortOrder,
+    p_exclude_id: id,
+  }).catch(() => {});
 
   const { error } = await (supabase.from("categories") as any)
     .update(parsed.data)

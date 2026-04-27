@@ -67,14 +67,15 @@ export default async function ProductDetailPage({ params }: Props) {
           </button>
         </div>
         <div className="grid grid-cols-1 gap-12">
-          {product.description && !product.description.startsWith("{") && (
+          {product.description && (
             <div className="space-y-6">
               <h3 className="text-2xl font-bold font-headline text-on-background">
                 Câu chuyện đằng sau
               </h3>
-              <p className="text-on-surface-variant leading-relaxed font-body text-lg">
-                {product.description}
-              </p>
+              <div
+                className="prose prose-fruitholic max-w-none text-on-surface-variant leading-relaxed font-body text-lg"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
             </div>
           )}
         </div>

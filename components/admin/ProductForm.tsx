@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Plus, Loader2, Save, Trash2, ArrowLeft } from "lucide-react";
+import { TipTapEditor } from "@/components/admin/TipTapEditor";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -227,11 +228,9 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                 <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
                   Detailed Description
                 </label>
-                <textarea
+                <TipTapEditor
                   value={desc ?? ""}
-                  onChange={(e) => actions.setDesc(e.target.value)}
-                  rows={5}
-                  className="w-full px-5 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+                  onChange={(html) => actions.setDesc(html)}
                   placeholder="Full product description..."
                 />
               </div>

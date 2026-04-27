@@ -1,13 +1,23 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Copy, Check } from "lucide-react";
+import {
+  Plus,
+  Pencil,
+  Copy,
+  Check,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 import { formatVND } from "@/lib/formatters";
 import { toast } from "sonner";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { toggleProductActive } from "@/app/actions/admin/products";
+import {
+  toggleProductActive,
+  toggleVariantActive,
+} from "@/app/actions/admin/products";
 import { AdminProduct, AdminCategory, AdminOptionGroup } from "@/types/admin";
 
 type Props = {
@@ -74,8 +84,49 @@ function ActiveSwitch({ product }: { product: AdminProduct }) {
   );
 }
 
+function VariantActiveSwitch({
+  variantId,
+  isActive,
+}: {
+  variantId: string;
+  isActive: boolean;
+}) {
+  const [isPending, startTransition] = useTransition();
+  const [optimistic, setOptimistic] = useState(isActive);
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const next = !optimistic;
+    setOptimistic(next);
+    startTransition(async () => {
+      const result = await toggleVariantActive(variantId, next);
+      if (result.error) {
+        setOptimistic(!next);
+        toast.error("Failed to update variant");
+      }
+    });
+  };
+
+  return (
+    <div onClick={(e) => e.stopPropagation()}>
+      <Switch
+        checked={optimistic}
+        onCheckedChange={() => {}}
+        onClick={handleToggle}
+        disabled={isPending}
+      />
+    </div>
+  );
+}
+
 export function ProductsClient({ products, siteUrl }: Props) {
   const router = useRouter();
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const toggleExpand = (e: React.MouseEvent, productId: string) => {
+    e.stopPropagation();
+    setExpandedId(expandedId === productId ? null : productId);
+  };
 
   return (
     <>
@@ -105,11 +156,11 @@ export function ProductsClient({ products, siteUrl }: Props) {
             <thead>
               <tr className="bg-surface-container-low border-b border-outline-variant/10">
                 {[
+                  "",
                   "Image",
                   "Product",
                   "Category",
-                  "Short desc",
-                  "Long desc",
+                  "Variants",
                   "Price from",
                   "Active",
                   "Actions",
@@ -144,98 +195,155 @@ export function ProductsClient({ products, siteUrl }: Props) {
                 const thumb = product.product_images?.sort(
                   (a, b) => a.sort_order - b.sort_order,
                 )?.[0]?.url;
-                const minPrice = product.product_variants
-                  ?.filter((v) => v.is_active)
-                  .reduce((min, v) => Math.min(min, v.price), Infinity);
+                const activeVariants = product.product_variants?.filter(
+                  (v) => v.is_active,
+                );
+                const minPrice = activeVariants?.reduce(
+                  (min, v) => Math.min(min, v.price),
+                  Infinity,
+                );
+                const hasMultipleVariants =
+                  (product.product_variants?.length ?? 0) > 1;
+                const isExpanded = expandedId === product.id;
 
                 return (
-                  <tr
-                    key={product.id}
-                    className="hover:bg-surface-container/30 transition-colors group cursor-pointer"
-                    onClick={() => router.push(`/admin/products/${product.id}`)}
-                  >
-                    <td className="px-4 py-3">
-                      <div className="w-11 h-11 rounded-xl bg-surface-container overflow-hidden shrink-0">
-                        {thumb && (
-                          <img
-                            src={thumb}
-                            alt={product.name}
-                            className="w-full h-full object-cover"
-                          />
+                  <React.Fragment key={product.id}>
+                    <tr
+                      className="hover:bg-surface-container/30 transition-colors group cursor-pointer"
+                      onClick={() =>
+                        router.push(`/admin/products/${product.id}`)
+                      }
+                    >
+                      {/* Expand toggle */}
+                      <td className="px-2 py-3 w-8">
+                        {hasMultipleVariants ? (
+                          <button
+                            onClick={(e) => toggleExpand(e, product.id)}
+                            className="p-1 rounded hover:bg-surface-container-high transition-colors"
+                          >
+                            {isExpanded ? (
+                              <ChevronDown className="w-4 h-4 text-on-surface-variant" />
+                            ) : (
+                              <ChevronRight className="w-4 h-4 text-on-surface-variant" />
+                            )}
+                          </button>
+                        ) : (
+                          <div className="w-6" />
                         )}
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className="px-4 py-3 min-w-[160px]">
-                      <div className="font-bold text-on-surface">
-                        {product.name}
-                      </div>
-                      <div className="text-xs font-mono text-on-surface-variant opacity-50 mt-0.5">
-                        /{product.slug}
-                      </div>
-                    </td>
+                      <td className="px-4 py-3">
+                        <div className="w-11 h-11 rounded-xl bg-surface-container overflow-hidden shrink-0">
+                          {thumb && (
+                            <img
+                              src={thumb}
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                        </div>
+                      </td>
 
-                    <td className="px-4 py-3">
-                      {product.categories?.name ? (
-                        <span className="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-medium">
-                          {product.categories.name}
-                        </span>
-                      ) : (
-                        <span className="text-on-surface-variant opacity-30 text-xs">
-                          —
-                        </span>
-                      )}
-                    </td>
+                      <td className="px-4 py-3 min-w-[160px]">
+                        <div className="font-bold text-on-surface">
+                          {product.name}
+                        </div>
+                        <div className="text-xs font-mono text-on-surface-variant opacity-50 mt-0.5">
+                          /{product.slug}
+                        </div>
+                      </td>
 
-                    <td className="px-4 py-3 max-w-[150px]">
-                      {product.short_description ? (
-                        <span className="text-xs text-on-surface-variant line-clamp-2 opacity-60">
-                          {product.short_description}
-                        </span>
-                      ) : (
-                        <span className="text-on-surface-variant opacity-30 text-xs">
-                          —
-                        </span>
-                      )}
-                    </td>
+                      <td className="px-4 py-3">
+                        {product.categories?.name ? (
+                          <span className="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-medium">
+                            {product.categories.name}
+                          </span>
+                        ) : (
+                          <span className="text-on-surface-variant opacity-30 text-xs">
+                            —
+                          </span>
+                        )}
+                      </td>
 
-                    <td className="px-4 py-3 max-w-[150px]">
-                      {product.description ? (
-                        <span className="text-xs text-on-surface-variant line-clamp-2 opacity-60">
-                          {product.description}
+                      <td className="px-4 py-3">
+                        <span className="bg-surface-container px-2.5 py-1 rounded-full text-xs font-semibold text-on-surface-variant">
+                          {product.product_variants?.length ?? 0} variants
                         </span>
-                      ) : (
-                        <span className="text-on-surface-variant opacity-30 text-xs">
-                          —
-                        </span>
-                      )}
-                    </td>
+                      </td>
 
-                    <td className="px-4 py-3 font-semibold whitespace-nowrap">
-                      {minPrice && isFinite(minPrice)
-                        ? formatVND(minPrice)
-                        : "—"}
-                    </td>
+                      <td className="px-4 py-3 font-semibold whitespace-nowrap">
+                        {minPrice && isFinite(minPrice)
+                          ? formatVND(minPrice)
+                          : "—"}
+                      </td>
 
-                    <td className="px-4 py-3">
-                      <ActiveSwitch product={product} />
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center gap-1">
-                        <Button
-                          variant="ghost"
-                          size="icon-sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(`/admin/products/${product.id}`);
-                          }}
-                        >
-                          <Pencil className="w-4 h-4" />
-                        </Button>
-                        <CopyLinkButton slug={product.slug} siteUrl={siteUrl} />
-                      </div>
-                    </td>
-                  </tr>
+                      <td className="px-4 py-3">
+                        <ActiveSwitch product={product} />
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon-sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(`/admin/products/${product.id}`);
+                            }}
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                          <CopyLinkButton
+                            slug={product.slug}
+                            siteUrl={siteUrl}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+
+                    {/* Expanded variant rows */}
+                    {isExpanded && hasMultipleVariants && (
+                      <tr className="bg-surface-container/15">
+                        <td colSpan={8} className="px-6 py-4">
+                          <div className="ml-8 space-y-0">
+                            <div className="grid grid-cols-[1fr_auto_auto] gap-4 mb-2 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/60 px-3">
+                              <span>Variant name</span>
+                              <span className="w-24 text-right">Price</span>
+                              <span className="w-16 text-center">Active</span>
+                            </div>
+                            {product.product_variants
+                              ?.sort((a, b) => a.sort_order - b.sort_order)
+                              .map((v, vi) => (
+                                <div
+                                  key={v.id ?? v.uid ?? vi}
+                                  className="grid grid-cols-[1fr_auto_auto] gap-4 items-center px-3 py-2 rounded-lg hover:bg-surface-container/30 transition-colors"
+                                >
+                                  <span className="text-sm font-medium text-on-surface">
+                                    {v.name}
+                                  </span>
+                                  <span className="w-24 text-right text-sm font-bold text-primary">
+                                    {formatVND(v.price)}
+                                  </span>
+                                  <div className="w-16 flex justify-center">
+                                    {v.id ? (
+                                      <VariantActiveSwitch
+                                        variantId={v.id}
+                                        isActive={v.is_active}
+                                      />
+                                    ) : (
+                                      <span
+                                        className={`text-xs ${v.is_active ? "text-primary" : "text-on-surface-variant/50"}`}
+                                      >
+                                        {v.is_active ? "On" : "Off"}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 );
               })}
             </tbody>

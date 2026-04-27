@@ -20,6 +20,14 @@ export async function createProduct(data: {
   const parsed = productSchema.safeParse(data.product);
   if (!parsed.success) return { error: parsed.error.flatten().fieldErrors };
 
+  // Shift existing sort_order values to prevent collision
+  const sortOrder = parsed.data.sort_order ?? 0;
+  await (supabase as any).rpc("shift_sort_order", {
+    p_table: "products",
+    p_sort_order: sortOrder,
+    p_exclude_id: null,
+  }).catch(() => {});
+
   const { data: product, error: productError } = await (supabase as any)
     .from("products")
     .insert(parsed.data)
@@ -147,6 +155,19 @@ export async function toggleProductActive(
     .from("products")
     .update({ is_active: isActive })
     .eq("id", productId);
+  if (error) return { error: error.message };
+  revalidatePath("/admin/products");
+  return { success: true };
+}
+export async function toggleVariantActive(
+  variantId: string,
+  isActive: boolean,
+) {
+  const supabase = await createSupabaseServerClient();
+  const { error } = await (supabase as any)
+    .from("product_variants")
+    .update({ is_active: isActive })
+    .eq("id", variantId);
   if (error) return { error: error.message };
   revalidatePath("/admin/products");
   return { success: true };
