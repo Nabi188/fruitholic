@@ -21,11 +21,13 @@ export async function createProduct(data: {
 
   // Shift existing sort_order values to prevent collision
   const sortOrder = parsed.data.sort_order ?? 0;
-  await (supabase as any).rpc("shift_sort_order", {
-    p_table: "products",
-    p_sort_order: sortOrder,
-    p_exclude_id: null,
-  }).catch(() => {});
+  try {
+    await (supabase as any).rpc("shift_sort_order", {
+      p_table: "products",
+      p_sort_order: sortOrder,
+      p_exclude_id: null,
+    });
+  } catch (err) {}
 
   const { data: product, error: productError } = await (supabase as any)
     .from("products")
