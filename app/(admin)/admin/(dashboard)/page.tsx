@@ -74,16 +74,16 @@ async function getDashboardStats() {
 
   const revenueByDay: Record<string, number> = {};
   for (let d = new Date(thirtyDaysAgo); d <= now; d.setDate(d.getDate() + 1)) {
-    const key = d.toLocaleDateString("vi-VN", {
+    const key = d.toLocaleDateString("en-US", {
       day: "2-digit",
-      month: "2-digit",
+      month: "short",
     });
     revenueByDay[key] = 0;
   }
   paidOrders.forEach((o) => {
-    const key = new Date(o.created_at).toLocaleDateString("vi-VN", {
+    const key = new Date(o.created_at).toLocaleDateString("en-US", {
       day: "2-digit",
-      month: "2-digit",
+      month: "short",
     });
     if (revenueByDay[key] !== undefined) {
       revenueByDay[key] += o.total_amount ?? 0;
@@ -96,11 +96,11 @@ async function getDashboardStats() {
   }));
 
   const statusData = [
-    { name: "Chờ xử lý", value: pending, color: "#8d8d8d" },
-    { name: "Đã xác nhận", value: confirmed, color: "#006b1b" },
-    { name: "Đang giao", value: delivering, color: "#8d4a00" },
-    { name: "Hoàn thành", value: completed, color: "#176a21" },
-    { name: "Đã hủy", value: cancelled, color: "#b02500" },
+    { name: "Pending", value: pending, color: "#8d8d8d" },
+    { name: "Confirmed", value: confirmed, color: "#006b1b" },
+    { name: "Delivering", value: delivering, color: "#8d4a00" },
+    { name: "Completed", value: completed, color: "#176a21" },
+    { name: "Cancelled", value: cancelled, color: "#b02500" },
   ].filter((d) => d.value > 0);
 
   return {
@@ -147,26 +147,26 @@ const statusConfig: Record<
   { label: string; bg: string; text: string }
 > = {
   PENDING: {
-    label: "Chờ xử lý",
+    label: "Pending",
     bg: "bg-surface-container-high",
     text: "text-on-surface-variant",
   },
   CONFIRMED: {
-    label: "Đã xác nhận",
+    label: "Confirmed",
     bg: "bg-primary/10",
     text: "text-primary",
   },
   DELIVERING: {
-    label: "Đang giao",
+    label: "Delivering",
     bg: "bg-secondary/10",
     text: "text-secondary",
   },
   COMPLETED: {
-    label: "Hoàn thành",
+    label: "Completed",
     bg: "bg-tertiary-container/30",
     text: "text-tertiary",
   },
-  CANCELLED: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
+  CANCELLED: { label: "Cancelled", bg: "bg-error/10", text: "text-error" },
 };
 
 export default async function AdminDashboard() {
@@ -178,14 +178,14 @@ export default async function AdminDashboard() {
 
   const metricCards = [
     {
-      label: "Tổng đơn hàng",
+      label: "Total Orders",
       value: stats?.total ?? 0,
       icon: ListTodo,
       color: "text-primary",
       bg: "bg-primary/10",
     },
     {
-      label: "Chờ xử lý",
+      label: "Pending",
       value: stats?.pending ?? 0,
       icon: Clock,
       color: "text-secondary",
@@ -193,21 +193,21 @@ export default async function AdminDashboard() {
       highlight: true,
     },
     {
-      label: "Đang giao",
+      label: "Delivering",
       value: stats?.delivering ?? 0,
       icon: Truck,
       color: "text-tertiary",
       bg: "bg-tertiary-container/30",
     },
     {
-      label: "Hoàn thành",
+      label: "Completed",
       value: stats?.completed ?? 0,
       icon: CheckCircle2,
       color: "text-primary",
       bg: "bg-primary-container/30",
     },
     {
-      label: "Đã hủy",
+      label: "Cancelled",
       value: stats?.cancelled ?? 0,
       icon: XCircle,
       color: "text-error",
@@ -217,13 +217,13 @@ export default async function AdminDashboard() {
 
   return (
     <div className=" mx-auto">
-      <div className="mb-10 flex justify-between items-end">
+      <div className="mb-6 sm:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-extrabold font-headline tracking-tight text-on-surface">
-            Tổng quan
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-headline tracking-tight text-on-surface">
+            Dashboard Overview
           </h2>
-          <p className="text-on-surface-variant font-body mt-1">
-            Số liệu thời gian thực của Fruitholic.
+          <p className="text-on-surface-variant font-body mt-1 text-sm sm:text-base">
+            Real-time data for Fruitholic.
           </p>
         </div>
         <Link
@@ -231,15 +231,15 @@ export default async function AdminDashboard() {
           className="bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2 shadow-sm hover:shadow-md transition-all"
         >
           <ShoppingCart className="w-5 h-5" />
-          Xem đơn hàng
+          View Orders
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-10">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-6 mb-6 sm:mb-10">
         {metricCards.map((card) => (
           <div
             key={card.label}
-            className={`bg-surface-container-lowest p-6 rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between ${card.highlight ? "border-l-4 border-secondary" : ""}`}
+            className={`bg-surface-container-lowest p-4 sm:p-6 rounded-[1.25rem] sm:rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex flex-col justify-between ${card.highlight ? "border-l-4 border-secondary" : ""}`}
           >
             <div className="flex justify-between items-start mb-4">
               <span className={`p-2 ${card.bg} rounded-full`}>
@@ -255,21 +255,20 @@ export default async function AdminDashboard() {
               <p
                 className={`text-2xl font-extrabold font-headline mt-1 ${card.highlight ? card.color : ""}`}
               >
-                {card.value.toLocaleString("vi-VN")}
+                {card.value.toLocaleString("en-US")}
               </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Revenue cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mb-10">
         <div className="lg:col-span-2 bg-surface-container-lowest p-8 rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)]">
           <h3 className="text-xl font-extrabold font-headline mb-2">
-            Doanh thu tháng này
+            Revenue This Month
           </h3>
           <p className="text-on-surface-variant text-sm mb-6">
-            Tổng thanh toán thành công trong tháng
+            Total successful payments this month
           </p>
           <p className="text-4xl font-extrabold font-headline text-primary">
             {formatVND(stats?.monthRevenue ?? 0)}
@@ -278,7 +277,9 @@ export default async function AdminDashboard() {
 
         <div className="bg-primary p-8 rounded-[1.5rem] text-on-primary shadow-lg overflow-hidden relative">
           <div className="relative z-10">
-            <p className="text-sm font-medium opacity-80">Doanh thu hôm nay</p>
+            <p className="text-sm font-medium opacity-80">
+              Today&apos;s Revenue
+            </p>
             <h4 className="text-3xl font-extrabold font-headline mt-2">
               {formatVND(stats?.todayRevenue ?? 0)}
             </h4>
@@ -287,7 +288,7 @@ export default async function AdminDashboard() {
               className="mt-6 inline-flex items-center gap-2 bg-on-primary/20 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-bold hover:bg-on-primary/30 transition-colors"
             >
               <ArrowRight className="w-4 h-4" />
-              Quản lý đơn hàng
+              Manage Orders
             </Link>
           </div>
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-on-primary/10 rounded-full blur-3xl" />
@@ -295,7 +296,6 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
         <RevenueChart data={stats?.revenueData ?? []} />
         <OrdersByStatusChart data={stats?.statusData ?? []} />
@@ -305,17 +305,16 @@ export default async function AdminDashboard() {
         <TopProductsChart data={topProducts} />
       </div>
 
-      {/* Recent Orders Table */}
       <div className="bg-surface-container-lowest rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
         <div className="px-8 py-6 flex justify-between items-center border-b border-outline-variant/10">
           <h3 className="text-xl font-extrabold font-headline">
-            Đơn hàng mới nhất
+            Recent Orders
           </h3>
           <Link
             href="/admin/orders"
             className="text-primary text-sm font-bold flex items-center gap-1 hover:underline"
           >
-            Xem tất cả
+            View All
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -324,16 +323,16 @@ export default async function AdminDashboard() {
             <thead>
               <tr className="bg-surface-container-low/50">
                 <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                  Mã đơn
+                  Order ID
                 </th>
                 <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                  Khách hàng
+                  Customer
                 </th>
                 <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                  Tổng tiền
+                  Total
                 </th>
                 <th className="px-8 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                  Trạng thái
+                  Status
                 </th>
               </tr>
             </thead>
@@ -351,7 +350,7 @@ export default async function AdminDashboard() {
                       <Link
                         href={`/admin/orders/${order.id}`}
                         className="absolute inset-0 z-10"
-                        aria-label={`Xem đơn #${order.code}`}
+                        aria-label={`View order #${order.code}`}
                       />
                       #{order.code}
                     </td>
@@ -375,7 +374,7 @@ export default async function AdminDashboard() {
                     colSpan={4}
                     className="px-8 py-12 text-center text-on-surface-variant text-sm"
                   >
-                    Chưa có đơn hàng nào.
+                    No orders found.
                   </td>
                 </tr>
               )}

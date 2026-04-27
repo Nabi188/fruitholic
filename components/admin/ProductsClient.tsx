@@ -130,9 +130,9 @@ export function ProductsClient({ products, siteUrl }: Props) {
 
   return (
     <>
-      <div className="flex items-end justify-between mb-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 sm:mb-8 gap-4">
         <div>
-          <h2 className="font-headline text-3xl font-extrabold text-on-surface tracking-tight">
+          <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
             Products
           </h2>
           <div className="mt-2 flex items-center gap-2">
@@ -143,7 +143,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
         </div>
         <Button
           onClick={() => router.push("/admin/products/new")}
-          className="font-headline font-bold px-6 h-11 rounded-full shadow-lg shadow-primary/20"
+          className="font-headline font-bold px-5 sm:px-6 h-10 sm:h-11 rounded-full shadow-lg shadow-primary/20 text-sm"
         >
           <Plus className="w-5 h-5" />
           Add product
@@ -167,7 +167,9 @@ export function ProductsClient({ products, siteUrl }: Props) {
                 ].map((h) => (
                   <th
                     key={h}
-                    className="px-4 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant whitespace-nowrap"
+                    className={`px-2 sm:px-4 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-on-surface-variant whitespace-nowrap ${
+                      h === "Category" || h === "Variants" ? "hidden md:table-cell" : ""
+                    } ${h === "Actions" ? "hidden sm:table-cell" : ""}`}
                   >
                     {h}
                   </th>
@@ -232,7 +234,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
                         )}
                       </td>
 
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3">
                         <div className="w-11 h-11 rounded-xl bg-surface-container overflow-hidden shrink-0">
                           {thumb && (
                             <img
@@ -244,7 +246,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
                         </div>
                       </td>
 
-                      <td className="px-4 py-3 min-w-[160px]">
+                      <td className="px-2 sm:px-4 py-3 min-w-[120px] sm:min-w-[160px]">
                         <div className="font-bold text-on-surface">
                           {product.name}
                         </div>
@@ -253,7 +255,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
                         </div>
                       </td>
 
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3 hidden md:table-cell">
                         {product.categories?.name ? (
                           <span className="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-medium">
                             {product.categories.name}
@@ -265,22 +267,22 @@ export function ProductsClient({ products, siteUrl }: Props) {
                         )}
                       </td>
 
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3 hidden md:table-cell">
                         <span className="bg-surface-container px-2.5 py-1 rounded-full text-xs font-semibold text-on-surface-variant">
                           {product.product_variants?.length ?? 0} variants
                         </span>
                       </td>
 
-                      <td className="px-4 py-3 font-semibold whitespace-nowrap">
+                      <td className="px-2 sm:px-4 py-3 font-semibold whitespace-nowrap text-sm">
                         {minPrice && isFinite(minPrice)
                           ? formatVND(minPrice)
                           : "—"}
                       </td>
 
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3">
                         <ActiveSwitch product={product} />
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-2 sm:px-4 py-3 hidden sm:table-cell">
                         <div className="flex items-center gap-1">
                           <Button
                             variant="ghost"

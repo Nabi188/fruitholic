@@ -182,7 +182,7 @@ export async function sendCustomerOrderConfirmation(
       </table>
 
       <div style="margin-top:24px;text-align:center;">
-        <a href="${appUrl}/thank-you?code=${order.code}"
+        <a href="${appUrl}/orders/track?code=${order.code}"
           style="display:inline-block;background:#006b1b;color:#fff;padding:12px 32px;border-radius:999px;text-decoration:none;font-weight:700;font-size:14px;">
           Xem đơn hàng
         </a>

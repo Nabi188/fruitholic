@@ -5,7 +5,7 @@ import { formatVND } from "@/lib/formatters";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Đơn hàng | Fruitholic Admin",
+  title: "Orders | Fruitholic Admin",
 };
 
 const statusConfig: Record<
@@ -13,32 +13,32 @@ const statusConfig: Record<
   { label: string; bg: string; text: string }
 > = {
   PENDING: {
-    label: "Chờ xử lý",
+    label: "Pending",
     bg: "bg-surface-container-high",
     text: "text-on-surface-variant",
   },
   CONFIRMED: {
-    label: "Đã xác nhận",
+    label: "Confirmed",
     bg: "bg-primary/10",
     text: "text-primary",
   },
   DELIVERING: {
-    label: "Đang giao",
+    label: "Delivering",
     bg: "bg-secondary/10",
     text: "text-secondary",
   },
   COMPLETED: {
-    label: "Hoàn thành",
+    label: "Completed",
     bg: "bg-tertiary-container/30",
     text: "text-tertiary",
   },
-  CANCELLED: { label: "Đã hủy", bg: "bg-error/10", text: "text-error" },
+  CANCELLED: { label: "Cancelled", bg: "bg-error/10", text: "text-error" },
 };
 
 const paymentConfig: Record<string, { label: string; color: string }> = {
-  paid: { label: "Đã thanh toán", color: "text-primary" },
-  unpaid: { label: "Chưa thanh toán", color: "text-secondary" },
-  refunded: { label: "Hoàn tiền", color: "text-outline" },
+  paid: { label: "Paid", color: "text-primary" },
+  unpaid: { label: "Unpaid", color: "text-secondary" },
+  refunded: { label: "Refunded", color: "text-outline" },
 };
 
 export default async function OrdersPage({
@@ -65,26 +65,26 @@ export default async function OrdersPage({
   const allOrders = (orders as any[]) ?? [];
 
   const tabs = [
-    { key: "ALL", label: "Tất cả" },
-    { key: "PENDING", label: "Chờ xử lý" },
-    { key: "CONFIRMED", label: "Xác nhận" },
-    { key: "DELIVERING", label: "Đang giao" },
-    { key: "COMPLETED", label: "Hoàn thành" },
-    { key: "CANCELLED", label: "Đã hủy" },
+    { key: "ALL", label: "All" },
+    { key: "PENDING", label: "Pending" },
+    { key: "CONFIRMED", label: "Confirmed" },
+    { key: "DELIVERING", label: "Delivering" },
+    { key: "COMPLETED", label: "Completed" },
+    { key: "CANCELLED", label: "Cancelled" },
   ];
 
   return (
     <div className="container mx-auto space-y-6">
       <div>
-        <h2 className="text-3xl font-extrabold font-headline tracking-tight text-on-surface">
-          Quản lý đơn hàng
+        <h2 className="text-2xl sm:text-3xl font-extrabold font-headline tracking-tight text-on-surface">
+          Order Management
         </h2>
-        <p className="text-on-surface-variant font-body mt-1">
-          Xem và xử lý đơn hàng theo thời gian thực.
+        <p className="text-on-surface-variant font-body mt-1 text-sm sm:text-base">
+          View and process orders in real-time.
         </p>
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+      <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none -mx-2 px-2">
         {tabs.map((tab) => (
           <Link
             key={tab.key}
@@ -103,14 +103,18 @@ export default async function OrdersPage({
       <div className="bg-surface-container-lowest rounded-[1.5rem] shadow-[0px_20px_40px_rgba(43,48,45,0.06)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
-            <thead className="bg-surface-container-low/50 text-on-surface-variant text-[11px] uppercase tracking-widest font-bold">
+            <thead className="bg-surface-container-low/50 text-on-surface-variant text-[10px] sm:text-[11px] uppercase tracking-widest font-bold">
               <tr>
-                <th className="py-4 px-6">Mã đơn</th>
-                <th className="py-4 px-4">Ngày đặt</th>
-                <th className="py-4 px-4">Khách hàng</th>
-                <th className="py-4 px-4">Tổng tiền</th>
-                <th className="py-4 px-4">Thanh toán</th>
-                <th className="py-4 px-6">Trạng thái</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-6">Order ID</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4 hidden sm:table-cell">
+                  Date
+                </th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4">Customer</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4">Total</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4 hidden md:table-cell">
+                  Payment
+                </th>
+                <th className="py-3 sm:py-4 px-3 sm:px-6">Status</th>
               </tr>
             </thead>
             <tbody className="text-sm font-medium divide-y divide-outline-variant/10">
@@ -120,7 +124,7 @@ export default async function OrdersPage({
                     colSpan={6}
                     className="px-8 py-12 text-center text-on-surface-variant"
                   >
-                    Không có đơn hàng nào.
+                    No orders found.
                   </td>
                 </tr>
               )}
@@ -132,13 +136,15 @@ export default async function OrdersPage({
                   paymentConfig[order.payment_status?.toLowerCase()] ??
                   paymentConfig.unpaid;
                 const date = new Date(order.created_at);
-                const dateStr = date.toLocaleDateString("vi-VN", {
+                // Đổi định dạng ngày sang quốc tế (hoặc giữ en-US)
+                const dateStr = date.toLocaleDateString("en-US", {
                   day: "2-digit",
-                  month: "2-digit",
+                  month: "short",
                 });
-                const timeStr = date.toLocaleTimeString("vi-VN", {
+                const timeStr = date.toLocaleTimeString("en-US", {
                   hour: "2-digit",
                   minute: "2-digit",
+                  hour12: true,
                 });
                 const initials = order.customer_name
                   ?.split(" ")
@@ -152,18 +158,18 @@ export default async function OrdersPage({
                     key={order.id}
                     className="border-b border-outline-variant/10 hover:bg-primary/5 transition-colors group relative cursor-pointer"
                   >
-                    <td className="py-3 px-6 font-bold text-primary">
+                    <td className="py-3 px-3 sm:px-6 font-bold text-primary">
                       <Link
                         href={`/admin/orders/${order.id}`}
                         className="absolute inset-0 z-10"
-                        aria-label={`Xem đơn #${order.code}`}
+                        aria-label={`View order #${order.code}`}
                       />
                       #{order.code}
                     </td>
-                    <td className="py-3 px-4 text-on-surface-variant text-xs">
+                    <td className="py-3 px-3 sm:px-4 text-on-surface-variant text-xs hidden sm:table-cell">
                       {dateStr}, {timeStr}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-3 sm:px-4">
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-[10px] font-bold text-on-secondary-container">
                           {initials}
@@ -176,10 +182,10 @@ export default async function OrdersPage({
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 font-bold">
+                    <td className="py-3 px-3 sm:px-4 font-bold text-sm">
                       {formatVND(order.total_amount)}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-3 sm:px-4 hidden md:table-cell">
                       <span
                         className={`inline-flex items-center gap-1 text-[11px] font-bold ${paymentCfg.color}`}
                       >
@@ -189,7 +195,7 @@ export default async function OrdersPage({
                         {paymentCfg.label}
                       </span>
                     </td>
-                    <td className="py-3 px-6">
+                    <td className="py-3 px-3 sm:px-6">
                       <span
                         className={`px-3 py-1 rounded-full text-[11px] font-bold ${statusCfg.bg} ${statusCfg.text}`}
                       >

@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkoutSchema, type CheckoutInput } from "@/schemas/orders";
 import { useCartStore } from "@/stores/cartStore";
 import { formatVND } from "@/lib/formatters";
+import { createBrowserClient } from "@supabase/ssr";
 import {
   ArrowLeft,
   Loader2,
@@ -15,6 +16,11 @@ import {
   Banknote,
   Clock,
   Store,
+  QrCode,
+  Copy,
+  Check,
+  CheckCircle2,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -28,6 +34,22 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const isOrderPlaced = useRef(false);
+
+  // Bank transfer QR modal state
+  const [qrModal, setQrModal] = useState<{
+    show: boolean;
+    orderCode: string;
+    orderId: string;
+    amount: number;
+  } | null>(null);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const [copied, setCopied] = useState("");
+  const channelRef = useRef<any>(null);
+
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+  );
 
   const form = useForm<CheckoutInput & { items?: any[] }>({
     resolver: zodResolver(checkoutSchema),
@@ -94,13 +116,23 @@ export default function CheckoutPage() {
     }
 
     try {
-      // Use items directly from cartStore (in scope) — form data strips unknown fields
       const result = await placeOrder({ ...data, items });
 
       if (result.success && result.orderId) {
         isOrderPlaced.current = true;
         clearCart();
-        router.push(`/thank-you?code=${result.orderCode}`);
+
+        if (data.payment_method === "BANK_TRANSFER") {
+          // Show QR modal instead of redirect
+          setQrModal({
+            show: true,
+            orderCode: result.orderCode || "",
+            orderId: result.orderId,
+            amount: totalAmount(),
+          });
+        } else {
+          router.push(`/thank-you?code=${result.orderCode}`);
+        }
       } else {
         setServerError(result.error || "Lỗi không xác định.");
       }
@@ -532,6 +564,180 @@ export default function CheckoutPage() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Bank Transfer QR Modal */}
+      {qrModal?.show && <BankTransferModal
+        orderCode={qrModal.orderCode}
+        orderId={qrModal.orderId}
+        amount={qrModal.amount}
+        paymentConfirmed={paymentConfirmed}
+        copied={copied}
+        onCopy={(text: string, label: string) => {
+          navigator.clipboard.writeText(text);
+          setCopied(label);
+          setTimeout(() => setCopied(""), 2000);
+        }}
+        onClose={() => router.push(`/orders/track?code=${qrModal.orderCode}`)}
+        supabase={supabase}
+        channelRef={channelRef}
+        onPaymentConfirmed={() => {
+          setPaymentConfirmed(true);
+          setTimeout(() => {
+            router.push(`/thank-you?code=${qrModal.orderCode}`);
+          }, 3000);
+        }}
+      />}
+    </div>
+  );
+}
+
+function BankTransferModal({
+  orderCode,
+  orderId,
+  amount,
+  paymentConfirmed,
+  copied,
+  onCopy,
+  onClose,
+  supabase,
+  channelRef,
+  onPaymentConfirmed,
+}: {
+  orderCode: string;
+  orderId: string;
+  amount: number;
+  paymentConfirmed: boolean;
+  copied: string;
+  onCopy: (text: string, label: string) => void;
+  onClose: () => void;
+  supabase: any;
+  channelRef: React.MutableRefObject<any>;
+  onPaymentConfirmed: () => void;
+}) {
+  const BANK_ID = process.env.NEXT_PUBLIC_BANK_ID || "";
+  const BANK_ACCOUNT = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NO || "";
+  const BANK_NAME = process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || "";
+  const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${BANK_ACCOUNT}-qr_only.png?amount=${amount}&addInfo=${encodeURIComponent(orderCode)}&accountName=${encodeURIComponent(BANK_NAME).replace(/%20/g, "+")}`;
+
+  // Supabase realtime subscription
+  useEffect(() => {
+    const channel = supabase
+      .channel(`checkout-pay-${orderId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "orders",
+          filter: `id=eq.${orderId}`,
+        },
+        (payload: any) => {
+          if (payload.new?.payment_status?.toUpperCase() === "PAID") {
+            onPaymentConfirmed();
+          }
+        },
+      )
+      .subscribe();
+
+    channelRef.current = channel;
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [orderId, supabase, channelRef, onPaymentConfirmed]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full relative overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2 rounded-full hover:bg-slate-100 transition-colors"
+        >
+          <X className="w-5 h-5 text-slate-400" />
+        </button>
+
+        {paymentConfirmed ? (
+          // Success state
+          <div className="p-10 text-center">
+            <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-6 animate-in zoom-in duration-500">
+              <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-800 mb-2">Payment Confirmed!</h3>
+            <p className="text-slate-500 mb-4">Your transfer has been received successfully.</p>
+            <p className="text-sm text-slate-400">Redirecting...</p>
+          </div>
+        ) : (
+          // QR Payment state
+          <>
+            <div className="bg-gradient-to-b from-emerald-50 to-white p-6 sm:p-8 text-center border-b border-emerald-100">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold mb-4">
+                <QrCode className="w-3.5 h-3.5" />
+                BANK TRANSFER
+              </div>
+              <h3 className="text-xl font-bold text-slate-800 mb-1">Scan to Pay</h3>
+              <p className="text-sm text-slate-500">Order #{orderCode}</p>
+            </div>
+
+            <div className="p-6 sm:p-8">
+              {/* QR Code */}
+              <div className="mx-auto w-48 h-48 rounded-2xl bg-white border-2 border-slate-100 p-2 mb-6 shadow-sm">
+                <img src={qrUrl} alt="QR Code" className="w-full h-full object-contain" />
+              </div>
+
+              {/* Bank details */}
+              <div className="space-y-3 text-sm mb-6">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-500">Bank</span>
+                  <strong className="text-slate-800">{BANK_ID}</strong>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-500">Account</span>
+                  <button
+                    onClick={() => onCopy(BANK_ACCOUNT, "account")}
+                    className="font-bold text-slate-800 flex items-center gap-1.5 hover:text-emerald-600 transition-colors"
+                  >
+                    {BANK_ACCOUNT}
+                    {copied === "account" ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-500">Name</span>
+                  <strong className="text-slate-800">{BANK_NAME}</strong>
+                </div>
+                <div className="flex justify-between items-center bg-emerald-50 -mx-2 px-2 py-2 rounded-xl">
+                  <span className="text-emerald-700 font-semibold">Transfer Note</span>
+                  <button
+                    onClick={() => onCopy(orderCode, "ref")}
+                    className="font-bold text-emerald-700 flex items-center gap-1.5 tracking-wider"
+                  >
+                    {orderCode}
+                    {copied === "ref" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3 h-3" />}
+                  </button>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-slate-100">
+                  <span className="font-semibold text-slate-700">Amount</span>
+                  <strong className="text-emerald-600 text-lg">{formatVND(amount)}</strong>
+                </div>
+              </div>
+
+              {/* Waiting indicator */}
+              <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-5">
+                <Loader2 className="w-4 h-4 animate-spin text-emerald-500" />
+                Waiting for payment...
+              </div>
+
+              {/* Action button */}
+              <button
+                onClick={onClose}
+                className="w-full py-3.5 rounded-2xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm"
+              >
+                Track My Order
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
