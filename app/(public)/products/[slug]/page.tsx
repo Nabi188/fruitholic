@@ -1,13 +1,9 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
+import { getProductDetail } from "@/lib/data/products";
 import { AddToCartForm } from "@/components/public/AddToCartForm";
-import type { ProductDetail } from "@/types/app";
+import { ProductImageGallery } from "@/components/public/ProductImageGallery";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-
-import { ProductImageGallery } from "@/components/public/ProductImageGallery";
-
-export const revalidate = 30;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -15,17 +11,12 @@ type Props = {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const supabase = await createSupabaseServerClient();
+  const productDetail = await getProductDetail(slug);
 
-  const { data, error } = await supabase.rpc("get_product_detail", {
-    p_slug: slug,
-  } as any);
-
-  if (error || !data) {
+  if (!productDetail) {
     notFound();
   }
 
-  const productDetail = data as unknown as ProductDetail;
   const { product, images } = productDetail;
 
   return (
@@ -36,7 +27,7 @@ export default async function ProductDetailPage({ params }: Props) {
         </Link>
         <ChevronRight strokeWidth={2} className="w-3 h-3 opacity-30" />
         <Link
-          href={`/${product.category_slug}`}
+          href={`/category/${product.category_slug}`}
           className="hover:text-primary transition-colors"
         >
           {product.category_name}

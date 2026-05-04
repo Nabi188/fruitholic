@@ -1,6 +1,16 @@
 import Link from "next/link";
 import { HeaderCartButton } from "./HeaderCartButton";
-import { UserCircle, Menu } from "lucide-react";
+import {
+  UserCircle,
+  Menu,
+  ChevronDown,
+  Shield,
+  Truck,
+  RefreshCw,
+  CreditCard,
+  Lock,
+  FileText,
+} from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -8,11 +18,44 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import type { Category } from "@/lib/data/categories";
 
-export function Header() {
+type Props = {
+  categories: Category[];
+};
+
+const policyLinks = [
+  {
+    href: "/policies/shipping",
+    label: "Vận chuyển",
+    icon: Truck,
+  },
+  {
+    href: "/policies/returns",
+    label: "Đổi trả",
+    icon: RefreshCw,
+  },
+  {
+    href: "/policies/payment",
+    label: "Thanh toán",
+    icon: CreditCard,
+  },
+  {
+    href: "/policies/privacy",
+    label: "Bảo mật",
+    icon: Lock,
+  },
+  {
+    href: "/policies/terms",
+    label: "Điều khoản",
+    icon: FileText,
+  },
+];
+
+export function Header({ categories }: Props) {
   const navLinks = [
+    { href: "/products", label: "Cửa hàng" },
     { href: "/about", label: "Giới thiệu" },
-    { href: "/policies", label: "Chính sách" },
     { href: "/orders/track", label: "Kiểm tra đơn" },
     { href: "/contact", label: "Liên hệ" },
   ];
@@ -30,16 +73,72 @@ export function Header() {
           Fruitholic
         </Link>
 
-        <div className="hidden md:flex gap-8 font-headline text-sm tracking-wide">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex gap-1 font-headline text-sm tracking-wide items-center">
+          {/* Category dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors duration-300 font-medium rounded-lg hover:bg-primary/5">
+              Danh mục
+              <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
+            </button>
+            <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-outline-variant/10 py-2 min-w-[200px]">
+                <Link
+                  href="/products"
+                  className="flex items-center gap-3 px-5 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
+                >
+                  Tất cả sản phẩm
+                </Link>
+                <div className="h-px bg-outline-variant/10 mx-4 my-1" />
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/category/${cat.slug}`}
+                    className="flex items-center gap-3 px-5 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors font-medium"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Main nav links */}
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-on-surface-variant hover:text-primary transition-colors duration-300 font-medium"
+              className="px-3 py-2 text-on-surface-variant hover:text-primary transition-colors duration-300 font-medium rounded-lg hover:bg-primary/5"
             >
               {link.label}
             </Link>
           ))}
+
+          {/* Policy dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 px-3 py-2 text-on-surface-variant hover:text-primary transition-colors duration-300 font-medium rounded-lg hover:bg-primary/5">
+              <Shield className="w-3.5 h-3.5" />
+              Chính sách
+              <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
+            </button>
+            <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-outline-variant/10 py-2 min-w-[220px]">
+                {policyLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-3 px-5 py-3 text-sm text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-colors font-medium"
+                    >
+                      <Icon className="w-4 h-4 text-outline" />
+                      {link.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-2 md:gap-4 text-primary-dim">
@@ -51,6 +150,7 @@ export function Header() {
             </button>
           </div>
 
+          {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger
@@ -70,17 +170,68 @@ export function Header() {
                   </SheetTitle>
                 </SheetHeader>
 
-                <div className="flex-1 overflow-y-auto py-6">
-                  <div className="flex flex-col px-6 space-y-1">
+                <div className="flex-1 overflow-y-auto py-4">
+                  {/* Categories section */}
+                  <div className="px-6 mb-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 mb-3">
+                      Danh mục sản phẩm
+                    </p>
+                    <div className="flex flex-col space-y-0.5">
+                      <Link
+                        href="/products"
+                        className="py-3 px-4 text-base font-semibold text-primary hover:bg-primary/5 rounded-xl transition-colors"
+                      >
+                        Tất cả sản phẩm
+                      </Link>
+                      {categories.map((cat) => (
+                        <Link
+                          key={cat.id}
+                          href={`/category/${cat.slug}`}
+                          className="py-3 px-4 text-base font-medium text-on-surface hover:text-primary hover:bg-primary/5 rounded-xl transition-colors"
+                        >
+                          {cat.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-outline-variant/10 mx-6 my-4" />
+
+                  {/* Main nav */}
+                  <div className="flex flex-col px-6 space-y-0.5">
                     {navLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="py-4 text-lg font-medium text-on-surface hover:text-primary border-b border-outline-variant/5 transition-colors"
+                        className="py-3 px-4 text-base font-medium text-on-surface hover:text-primary hover:bg-primary/5 rounded-xl transition-colors"
                       >
                         {link.label}
                       </Link>
                     ))}
+                  </div>
+
+                  <div className="h-px bg-outline-variant/10 mx-6 my-4" />
+
+                  {/* Policies section */}
+                  <div className="px-6">
+                    <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 mb-3">
+                      Chính sách
+                    </p>
+                    <div className="flex flex-col space-y-0.5">
+                      {policyLinks.map((link) => {
+                        const Icon = link.icon;
+                        return (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            className="py-3 px-4 text-sm font-medium text-on-surface-variant hover:text-primary hover:bg-primary/5 rounded-xl transition-colors flex items-center gap-3"
+                          >
+                            <Icon className="w-4 h-4 text-outline" />
+                            {link.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 

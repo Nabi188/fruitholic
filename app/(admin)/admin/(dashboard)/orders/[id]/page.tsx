@@ -5,7 +5,6 @@ import { formatVND, formatDateTime } from "@/lib/formatters";
 import { OrderStatusActions } from "@/components/admin/OrderStatusActions";
 import { ArrowLeft, User, CreditCard, ShoppingBag } from "lucide-react";
 
-export const dynamic = "force-dynamic";
 
 export default async function AdminOrderDetailPage({
   params,

@@ -1,7 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { CategoryManager } from "@/components/admin/CategoryManager";
 
-export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Danh mục",

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { formatVND } from "@/lib/formatters";
 import {
   Plus,
   Pencil,
@@ -272,7 +273,7 @@ export function OptionGroupManager({ groups }: Props) {
                                   {v.name}
                                   {v.price > 0 && (
                                     <span className="text-primary font-semibold">
-                                      +{v.price.toLocaleString("vi-VN")}₫
+                                      {formatVND(v.price)}
                                     </span>
                                   )}
                                 </span>

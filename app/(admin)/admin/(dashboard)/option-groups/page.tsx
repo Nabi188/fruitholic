@@ -1,7 +1,6 @@
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { OptionGroupManager } from "@/components/admin/OptionGroupManager";
 
-export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Option Groups | Fruitholic Admin",

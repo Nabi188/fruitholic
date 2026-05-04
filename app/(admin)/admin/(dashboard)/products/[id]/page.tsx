@@ -2,7 +2,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

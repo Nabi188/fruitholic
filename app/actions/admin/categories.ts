@@ -1,7 +1,7 @@
 "use server";
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 const categorySchema = z.object({
@@ -44,6 +44,7 @@ export async function createCategory(formData: FormData) {
   if (error) return { error: error.message };
 
   revalidatePath("/admin/categories");
+  revalidateTag("categories", "max");
   return { success: true };
 }
 
@@ -76,6 +77,7 @@ export async function updateCategory(id: string, formData: FormData) {
   if (error) return { error: error.message };
 
   revalidatePath("/admin/categories");
+  revalidateTag("categories", "max");
   return { success: true };
 }
 
@@ -87,6 +89,7 @@ export async function deleteCategory(id: string) {
   if (error) return { error: error.message };
 
   revalidatePath("/admin/categories");
+  revalidateTag("categories", "max");
   return { success: true };
 }
 
@@ -98,5 +101,6 @@ export async function toggleCategoryActive(id: string, is_active: boolean) {
   if (error) return { error: error.message };
 
   revalidatePath("/admin/categories");
+  revalidateTag("categories", "max");
   return { success: true };
 }

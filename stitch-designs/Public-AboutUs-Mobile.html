@@ -1,0 +1,378 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About Us | Verdant Squeeze</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#6f3900",
+              "on-tertiary": "#d1ffc8",
+              surface: "#f3f7f3",
+              "primary-fixed-dim": "#8ded89",
+              secondary: "#8d4a00",
+              "on-primary-container": "#006218",
+              "surface-dim": "#cfd6d1",
+              "on-secondary": "#fff0e7",
+              "on-error": "#ffefec",
+              "on-error-container": "#520c00",
+              "surface-container-low": "#edf2ee",
+              "tertiary-fixed-dim": "#90e28a",
+              "on-surface": "#2b302d",
+              "error-dim": "#b92902",
+              error: "#b02500",
+              "on-primary-fixed": "#004d11",
+              primary: "#006b1b",
+              "on-primary": "#d1ffc8",
+              "outline-variant": "#aaaeab",
+              "inverse-on-surface": "#999e9b",
+              "inverse-primary": "#9bfc96",
+              "on-tertiary-fixed": "#00460e",
+              "tertiary-container": "#9df197",
+              "on-background": "#2b302d",
+              "tertiary-fixed": "#9df197",
+              "secondary-fixed-dim": "#ffb377",
+              "primary-container": "#9bfc96",
+              "on-tertiary-container": "#005c15",
+              "on-tertiary-fixed-variant": "#12661e",
+              "on-surface-variant": "#585d5a",
+              "tertiary-dim": "#025d16",
+              "surface-container-highest": "#d8deda",
+              "on-primary-fixed-variant": "#006d1c",
+              "secondary-container": "#ffc69c",
+              "primary-dim": "#005d16",
+              background: "#f3f7f3",
+              "secondary-fixed": "#ffc69c",
+              "surface-bright": "#f3f7f3",
+              "error-container": "#f95630",
+              outline: "#737875",
+              "surface-container": "#e4e9e5",
+              "surface-container-high": "#dee4df",
+              "primary-fixed": "#9bfc96",
+              "surface-variant": "#d8deda",
+              "surface-container-lowest": "#ffffff",
+              "secondary-dim": "#7c4000",
+              "surface-tint": "#006b1b",
+              tertiary: "#176a21",
+              "inverse-surface": "#0b0f0d",
+              "on-secondary-fixed": "#532900",
+              "on-secondary-fixed-variant": "#7d4100",
+            },
+            fontFamily: {
+              headline: ["Plus Jakarta Sans"],
+              body: ["Be Vietnam Pro"],
+              label: ["Be Vietnam Pro"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body class="bg-surface font-body text-on-surface antialiased">
+    <!-- TopAppBar -->
+    <nav
+      class="fixed top-0 w-full z-50 bg-[#f3f7f3]/80 dark:bg-slate-900/80 backdrop-blur-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] flex justify-between items-center px-6 py-4 w-full"
+    >
+      <div class="flex items-center gap-4">
+        <button
+          class="text-green-700 dark:text-green-400 hover:opacity-80 transition-opacity scale-95 active:transition-all"
+        >
+          <span class="material-symbols-outlined" data-icon="search"
+            >search</span
+          >
+        </button>
+      </div>
+      <span
+        class="font-['Plus_Jakarta_Sans'] font-extrabold text-xl tracking-tight text-[#006b1b] dark:text-green-500"
+        >Verdant Squeeze</span
+      >
+      <div class="flex items-center gap-4">
+        <button
+          class="text-green-700 dark:text-green-400 hover:opacity-80 transition-opacity scale-95 active:transition-all"
+        >
+          <span class="material-symbols-outlined" data-icon="shopping_basket"
+            >shopping_basket</span
+          >
+        </button>
+      </div>
+    </nav>
+    <main class="pt-24 pb-32 px-6 overflow-x-hidden">
+      <!-- Hero Section: Editorial Asymmetry -->
+      <section class="mb-16">
+        <div class="relative">
+          <h1
+            class="font-headline font-extrabold text-[3.5rem] leading-[1.1] tracking-tighter text-on-surface mb-6"
+          >
+            The Living <br />
+            <span class="text-primary italic">Pantry.</span>
+          </h1>
+          <div
+            class="w-full h-80 rounded-lg overflow-hidden shadow-2xl relative mb-8"
+          >
+            <img
+              alt="Fresh vibrant fruits"
+              class="w-full h-full object-cover"
+              data-alt="Macro close-up of vibrant orange slices and fresh green kale leaves with water droplets, bright studio lighting, organic feel"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyY49x7OaDZTbnUdMvZJKZ3ikW4BB6tl-Jn-fo5BLBqk3Nm-kVgcesa8IRHukzNnmu3Gs6A4X6YLp1bMn2XzB9HzgqQDSRUOrp3KNJD_wsDcXjA2WC-oaqOeQIf_CcqpSxDE304AsgOpWO65alOCMtdM0VlpgfBIllI0BfEGFs0voCMGkPTIBeXnXqHSNZ4eu5HwjbCEyIS1MUHpWRfQPclCgrg6vgSBWE5a_lkWyJV2aXiz1MBrYuXyzqwoifmpI-6OSlt4yPBgc"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+            ></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <p class="text-on-tertiary font-medium text-lg leading-snug">
+                Our mission is simple: To bottle the raw energy of the earth.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p class="text-on-surface-variant leading-relaxed text-lg max-w-sm">
+          We believe health shouldn't be a chore. It should be a vibrant,
+          sensory celebration of nature's best harvests.
+        </p>
+      </section>
+      <!-- Process Section: The 3-Step Journey -->
+      <section class="mb-20">
+        <div class="flex items-end justify-between mb-10">
+          <h2 class="font-headline font-bold text-3xl tracking-tight">
+            How we <br />Squeeze.
+          </h2>
+          <div class="h-[2px] w-20 bg-secondary/30 mb-2"></div>
+        </div>
+        <!-- Step 1 -->
+        <div class="relative flex flex-col gap-6 mb-16">
+          <div
+            class="absolute -left-4 top-0 text-[10rem] font-black text-surface-container font-headline leading-none -z-10 opacity-50"
+          >
+            1
+          </div>
+          <div class="pl-12">
+            <div
+              class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-6 shadow-lg rotate-1"
+            >
+              <img
+                alt="Ethical Sourcing"
+                class="w-full h-full object-cover"
+                data-alt="An organic farmer holding a basket of fresh leafy greens and bright citrus in a sun-drenched orchard, soft golden hour light"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7a1jP4mAQ-iHZY3RmW89_UiYWbOh7cp33xjx9cYzh6bobOM_ygzYNfBTUSSiiKLixrJLID7sUW5zY36eWhhzyB5cxaze18zkE4IjZkiInhOCOySsmsyZEKyKWtKpWM8K6DR-VFgfrQZDb4OkIQALybytsoqruLd4FxwRJ9YC70puIkBJvC_HbW0QAqYhv0bgCJh6CAntgRzk_CggIyYd4uwjyqSpqQ4QmXLjseHnyEJiHixiRdAWhxMcQ6HU0xf_e_-KbsODYjhg"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl mb-2 text-primary">
+              Ethical Sourcing
+            </h3>
+            <p class="text-on-surface-variant font-body">
+              We partner exclusively with regenerative farms that treat the soil
+              with the same respect we treat our bodies.
+            </p>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="relative flex flex-col gap-6 mb-16">
+          <div
+            class="absolute -right-4 top-0 text-[10rem] font-black text-surface-container font-headline leading-none -z-10 opacity-50"
+          >
+            2
+          </div>
+          <div class="pr-12 text-right">
+            <div
+              class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-6 shadow-lg -rotate-1"
+            >
+              <img
+                alt="Cold Press Tech"
+                class="w-full h-full object-cover"
+                data-alt="Sleek modern cold-press juicing machine extracting vibrant green juice, focus on the liquid flow, bright clean minimalist setting"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0UlWiR8Iau8iE5V6l8BcXG0MoRbJMm11rc63SJamJfxMN00frK69fV8DFYVTMgthfI9tf0u2mhrmm3gT2m0RrgyaVZLr1nXu4HOPqbkEZU6lGbf3rzcw2yojD96nrHSwoZ8ybVIdd9zH1w3zGa0fxPUcqIeWBzOFZI-YKdtLZgqot8PZJau599w3Zxwb2s2SBJfitMyn0M-MJMppaf0GTqQicuqGeeGsqk3Tc2bcm5EC8F7D7ZghlMtJUcIHDN1gIqWJXZQjm9KE"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl mb-2 text-secondary">
+              Cold-Press Mastery
+            </h3>
+            <p class="text-on-surface-variant font-body">
+              No heat. No pasteurization. Just pure hydraulic pressure to keep
+              every enzyme and vitamin alive and active.
+            </p>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="relative flex flex-col gap-6">
+          <div
+            class="absolute -left-4 top-0 text-[10rem] font-black text-surface-container font-headline leading-none -z-10 opacity-50"
+          >
+            3
+          </div>
+          <div class="pl-12">
+            <div
+              class="w-full aspect-[4/3] rounded-lg overflow-hidden mb-6 shadow-lg rotate-2"
+            >
+              <img
+                alt="Glass Bottling"
+                class="w-full h-full object-cover"
+                data-alt="Close up of a row of minimalist glass bottles filled with colorful juices, morning light casting soft shadows on a white marble surface"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8WqC26u2QRI6m5UwNouwknjtq2bmhvqtkCl6chYV04922-K90Yfo3WXtofxhAC5i4-Xt1MR7RHxplZJ6I6RBYVW2xRvcOCsDOpTtbtJqgHJ-M7bMmvx2nGdeK5tB9IB75PUTdVzQF4r3lTx9hQaXXroN0mPQplNrdunuVWIxmbJGwJRzRfmTGY0j7yIupZhkPYNNgy7dGPKPQslDtIm8-pEQhqf-NpeBoOOjgrN-pT3O9bm4ZJCeSdpukkLGZniGFTa8_hHwW2OU"
+              />
+            </div>
+            <h3 class="font-headline font-bold text-xl mb-2 text-primary">
+              Glass Only
+            </h3>
+            <p class="text-on-surface-variant font-body">
+              Plastic-free and planet-first. We bottle in high-grade glass to
+              preserve the crisp, untainted flavor of the squeeze.
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- Commitment Section: Tonal Layering -->
+      <section class="bg-surface-container-low -mx-6 px-6 py-16 mb-20">
+        <div class="max-w-xs mx-auto text-center">
+          <span
+            class="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-[10px] uppercase tracking-widest font-bold mb-4"
+            >The Commitment</span
+          >
+          <h2 class="font-headline font-extrabold text-3xl mb-6">
+            Zero Shortcuts. <br />All Flavor.
+          </h2>
+          <div class="space-y-4">
+            <div
+              class="flex items-center gap-3 text-left p-4 bg-surface-container-lowest rounded-lg shadow-sm"
+            >
+              <span
+                class="material-symbols-outlined text-secondary"
+                data-icon="energy_savings_leaf"
+                >energy_savings_leaf</span
+              >
+              <p class="font-medium text-sm">100% Carbon Neutral Logistics</p>
+            </div>
+            <div
+              class="flex items-center gap-3 text-left p-4 bg-surface-container-lowest rounded-lg shadow-sm"
+            >
+              <span
+                class="material-symbols-outlined text-secondary"
+                data-icon="no_drinks"
+                >no_drinks</span
+              >
+              <p class="font-medium text-sm">
+                Zero Added Sugars or Preservatives
+              </p>
+            </div>
+            <div
+              class="flex items-center gap-3 text-left p-4 bg-surface-container-lowest rounded-lg shadow-sm"
+            >
+              <span
+                class="material-symbols-outlined text-secondary"
+                data-icon="local_mall"
+                >local_mall</span
+              >
+              <p class="font-medium text-sm">Reusable Glass Return Program</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CTA Section -->
+      <section class="text-center mb-10">
+        <h3 class="font-headline font-bold text-2xl mb-8">
+          Ready to taste the difference?
+        </h3>
+        <button
+          class="w-full py-5 bg-gradient-to-r from-primary to-primary-dim text-on-primary rounded-full font-headline font-bold text-lg shadow-xl active:scale-95 transition-transform"
+        >
+          Explore Seasonal Picks
+        </button>
+      </section>
+    </main>
+    <!-- NavigationDrawer (Implicitly linked via 'About Us') -->
+    <!-- Shown only as part of the navigation ecosystem logic, hidden by default -->
+    <!-- BottomNavBar -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center pt-3 pb-8 px-4 bg-[#f3f7f3]/80 dark:bg-slate-900/80 backdrop-blur-lg rounded-t-[32px] shadow-[0px_-10px_30px_rgba(43,48,45,0.04)]"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 tap-highlight-none active:scale-90 transition-transform duration-200"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="home">home</span>
+        <span
+          class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1"
+          >Home</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 tap-highlight-none active:scale-90 transition-transform duration-200"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="potted_plant"
+          >potted_plant</span
+        >
+        <span
+          class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1"
+          >Shop</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-500 opacity-60 tap-highlight-none active:scale-90 transition-transform duration-200"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="shopping_cart"
+          >shopping_cart</span
+        >
+        <span
+          class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1"
+          >Cart</span
+        >
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-[#006b1b] dark:text-green-400 after:content-[''] after:w-1 after:h-1 after:bg-[#8d4a00] after:rounded-full after:mt-1 tap-highlight-none active:scale-90 transition-transform duration-200"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-icon="person">person</span>
+        <span
+          class="font-['Be_Vietnam_Pro'] text-[10px] uppercase tracking-widest font-semibold mt-1"
+          >Profile</span
+        >
+      </a>
+    </nav>
+  </body>
+</html>

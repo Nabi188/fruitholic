@@ -2,7 +2,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { ProductsClient } from "@/components/admin/ProductsClient";
 import { headers } from "next/headers";
 
-export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Products | Fruitholic Admin",

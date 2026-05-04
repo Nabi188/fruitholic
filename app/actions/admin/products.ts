@@ -1,7 +1,7 @@
 "use server";
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { productBaseSchema, variantSchema } from "@/schemas/products";
 
@@ -64,6 +64,7 @@ export async function createProduct(data: {
   }
 
   revalidatePath("/admin/products");
+  revalidateTag("products", "max");
   return { success: true, productId: product.id };
 }
 
@@ -129,6 +130,7 @@ export async function updateProduct(
   }
 
   revalidatePath("/admin/products");
+  revalidateTag("products", "max");
   return { success: true };
 }
 
@@ -140,6 +142,7 @@ export async function deleteProduct(productId: string) {
     .eq("id", productId);
   if (error) return { error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products", "max");
   return { success: true };
 }
 
@@ -154,6 +157,7 @@ export async function toggleProductActive(
     .eq("id", productId);
   if (error) return { error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products", "max");
   return { success: true };
 }
 export async function toggleVariantActive(
@@ -167,5 +171,6 @@ export async function toggleVariantActive(
     .eq("id", variantId);
   if (error) return { error: error.message };
   revalidatePath("/admin/products");
+  revalidateTag("products", "max");
   return { success: true };
 }

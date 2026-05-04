@@ -1,0 +1,510 @@
+<!doctype html>
+
+<html class="light" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#585d5a",
+              "primary-fixed": "#9bfc96",
+              surface: "#f3f7f3",
+              "on-surface": "#2b302d",
+              "secondary-container": "#ffc69c",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#f3f7f3",
+              "surface-tint": "#006b1b",
+              "primary-fixed-dim": "#8ded89",
+              "secondary-fixed": "#ffc69c",
+              "tertiary-fixed-dim": "#90e28a",
+              "surface-dim": "#cfd6d1",
+              "inverse-primary": "#9bfc96",
+              "error-container": "#f95630",
+              "surface-container-highest": "#d8deda",
+              "on-tertiary-fixed": "#00460e",
+              tertiary: "#176a21",
+              "on-tertiary-container": "#005c15",
+              "on-secondary-container": "#6f3900",
+              "secondary-fixed-dim": "#ffb377",
+              "on-primary": "#d1ffc8",
+              "on-tertiary-fixed-variant": "#12661e",
+              "on-background": "#2b302d",
+              "surface-container": "#e4e9e5",
+              outline: "#737875",
+              primary: "#006b1b",
+              "inverse-surface": "#0b0f0d",
+              "surface-container-high": "#dee4df",
+              "primary-container": "#9bfc96",
+              background: "#f3f7f3",
+              "on-error-container": "#520c00",
+              "on-primary-container": "#006218",
+              "on-error": "#ffefec",
+              "on-secondary": "#fff0e7",
+              "on-secondary-fixed": "#532900",
+              "primary-dim": "#005d16",
+              secondary: "#8d4a00",
+              error: "#b02500",
+              "on-secondary-fixed-variant": "#7d4100",
+              "tertiary-fixed": "#9df197",
+              "secondary-dim": "#7c4000",
+              "inverse-on-surface": "#999e9b",
+              "on-tertiary": "#d1ffc8",
+              "outline-variant": "#aaaeab",
+              "tertiary-container": "#9df197",
+              "surface-variant": "#d8deda",
+              "error-dim": "#b92902",
+              "tertiary-dim": "#025d16",
+              "surface-container-low": "#edf2ee",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-primary-fixed": "#004d11",
+            },
+            fontFamily: {
+              headline: ["Plus Jakarta Sans"],
+              body: ["Be Vietnam Pro"],
+              label: ["Be Vietnam Pro"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background-color: #f3f7f3;
+        color: #2b302d;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .glass-nav {
+        backdrop-filter: blur(16px);
+      }
+    </style>
+  </head>
+  <body class="bg-surface text-on-surface overflow-x-hidden">
+    <!-- TopNavBar -->
+    <nav
+      class="sticky top-0 w-full z-50 bg-emerald-50/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-sm dark:shadow-none font-['Plus_Jakarta_Sans'] tracking-tight"
+    >
+      <div
+        class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto"
+      >
+        <div
+          class="text-2xl font-bold tracking-tighter text-emerald-900 dark:text-emerald-50"
+        >
+          The Organic Editorial
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Cửa hàng</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Nước ép</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Sinh tố</a
+          >
+          <a
+            class="text-emerald-700 dark:text-emerald-400 font-semibold after:content-[''] after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto"
+            href="#"
+            >Về chúng tôi</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Liên hệ</a
+          >
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            class="p-2 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 rounded-full transition-all active:scale-95 duration-200"
+          >
+            <span
+              class="material-symbols-outlined text-emerald-800 dark:text-emerald-400"
+              >shopping_cart</span
+            >
+          </button>
+          <button
+            class="p-2 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 rounded-full transition-all active:scale-95 duration-200"
+          >
+            <span
+              class="material-symbols-outlined text-emerald-800 dark:text-emerald-400"
+              >account_circle</span
+            >
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <!-- Hero Section: Editorial Asymmetry -->
+      <section
+        class="relative px-8 pt-20 pb-32 max-w-screen-2xl mx-auto overflow-hidden"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 z-10">
+            <span
+              class="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-label text-sm font-semibold mb-6"
+              >Câu Chuyện Của Chúng Tôi</span
+            >
+            <h1
+              class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] text-primary mb-8"
+            >
+              Gói Trọn <br />
+              <span class="text-secondary italic">Tinh Túy</span> Từ Mẹ Thiên
+              Nhiên.
+            </h1>
+            <p
+              class="text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed font-body"
+            >
+              Tại The Organic Editorial, chúng tôi không chỉ cung cấp trái cây.
+              Chúng tôi kiến tạo một lối sống xanh thông qua những sản phẩm tinh
+              khiết nhất, được chăm chút từ nông trại đến tận bàn ăn của bạn.
+            </p>
+          </div>
+          <div class="lg:col-span-5 relative">
+            <div
+              class="w-full aspect-[4/5] rounded-xl overflow-hidden shadow-2xl rotate-3 transform hover:rotate-0 transition-transform duration-700"
+            >
+              <img
+                alt="Fresh Fruits"
+                class="w-full h-full object-cover"
+                data-alt="Close-up of fresh vibrant dragon fruit and kiwi slices on a minimalist white ceramic plate with soft natural morning sunlight"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgm_rclMHswjaUeIKVpKBTAp2jSHJRLEUPjgO07261Oi8hE9DDEonLN2uvXKhKkSnh7HngILhOBj9t-9BDtaXrBQfvDhX4HIa7fAFg6ZPbMNvznZGwZZGriRXtqT5z7Zm14DSt8qNFmPctF5EXQ3OTcA9L097Aa2TLoq1uGtzlPGxpk3EA8Vw2n3dvqcERDLO9G0GIwuingz-zWS4DAfu7fZi8QutR7UZoNH5NsEtyUy52OugaImc-IH6z7mYvhgU6oj56hqUA5q8"
+              />
+            </div>
+            <!-- Overlapping element -->
+            <div
+              class="absolute -bottom-10 -left-10 w-64 h-64 bg-primary-container/40 rounded-full blur-3xl -z-10"
+            ></div>
+          </div>
+        </div>
+      </section>
+      <!-- Brand Story: Quality Process -->
+      <section class="bg-surface-container-low py-32 rounded-xl mx-4">
+        <div class="max-w-screen-2xl mx-auto px-8">
+          <div class="flex flex-col md:flex-row gap-16 items-start">
+            <div class="md:w-1/2">
+              <h2 class="text-4xl font-bold mb-8 text-on-surface">
+                Nguồn Gốc &amp; Quy Trình
+              </h2>
+              <div class="space-y-12">
+                <div class="flex gap-6">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold"
+                  >
+                    01
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">Canh Tác Hữu Cơ</h3>
+                    <p class="text-on-surface-variant">
+                      Trái cây được tuyển chọn từ các vùng nguyên liệu đạt chuẩn
+                      GlobalGAP, đảm bảo không hóa chất độc hại và phát triển tự
+                      nhiên.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-6">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold"
+                  >
+                    02
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">
+                      Công Nghệ Cắt Sẵn Chuẩn Vệ Sinh
+                    </h3>
+                    <p class="text-on-surface-variant">
+                      Quy trình cắt và đóng gói thực hiện trong môi trường vô
+                      trùng, khép kín, giữ trọn độ giòn và dưỡng chất trong suốt
+                      24h.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-6">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold"
+                  >
+                    03
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold mb-2">Giao Hàng Siêu Tốc</h3>
+                    <p class="text-on-surface-variant">
+                      Hệ thống vận chuyển chuyên dụng giúp trái cây luôn giữ
+                      được nhiệt độ lý tưởng khi đến tay khách hàng.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-2 gap-4">
+              <div class="rounded-lg overflow-hidden h-80">
+                <img
+                  alt="Production Process"
+                  class="w-full h-full object-cover"
+                  data-alt="Professional chef with clean white gloves meticulously slicing fresh mango on a stainless steel commercial kitchen counter"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkriqWX2u4V3XoBVM5qGt9Jdz5MiXuDu8I8yqE6jeCPTsPf2uSLFy_burxQMx2EDnyFe0j948VfueAladHXQKoYwLhG6aq7qQAijptHmuPd_Ch7NX6tvtuj7UPfW85CyoyD4yGEXGaFC8ylYLFZF0ztS5RLRZNmFbWQMTn-zt288Tsoyl3xNCP51D1ISzreR2zjqngWFgOlA4pLHOggwTW3m_KjrrEJ1Yx757d7zbgq1Y0FlNb1ZjilaG_xD6Af14qEFPYDcUZV4I"
+                />
+              </div>
+              <div class="rounded-lg overflow-hidden h-80 mt-12">
+                <img
+                  alt="Clean Packaging"
+                  class="w-full h-full object-cover"
+                  data-alt="Aerial view of colorful pre-cut fruit platters including watermelon, pineapple, and berries arranged neatly in eco-friendly packaging"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjk76lX2GYAD1Jv1CPyftn-yLKnOj_Ae0IksztUmC51IWcaqN0Vq98u7UplDUHxHYmSNfRqc9PVxPM-G9gmvShE39VhB9rT_joYVzzjD_OwHk7psz7dREdF8f5Ad1GBhFu6aOAl6a0jqStw3iYod1AwYuiy5epbMUNN_HIF2dQ6a2R_Ujl8LI4JICZaNSHj5P1ErrnigdnLTTEbuOvL7UuE2u6uEkUnNdoHcilMyaKb4AiMPu4chJxhzi2f3_S22kQM3S-AosYRBE"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Mission Statement: Bento Grid Layout -->
+      <section class="py-32 max-w-screen-2xl mx-auto px-8">
+        <div class="mb-16 text-center max-w-2xl mx-auto">
+          <h2 class="text-4xl font-bold mb-4">Sứ Mệnh Của Chúng Tôi</h2>
+          <p class="text-on-surface-variant">
+            Chúng tôi tin rằng sức khỏe là nền tảng của hạnh phúc, và thiên
+            nhiên đã ban tặng cho chúng ta những liều thuốc tốt nhất.
+          </p>
+        </div>
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-full md:h-[600px]"
+        >
+          <!-- Bento Item 1 -->
+          <div
+            class="md:col-span-2 md:row-span-2 bg-primary rounded-lg p-12 text-on-primary flex flex-col justify-end relative overflow-hidden group"
+          >
+            <div
+              class="absolute inset-0 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-110"
+            >
+              <img
+                alt="Nature"
+                class="w-full h-full object-cover"
+                data-alt="Vibrant close-up of lush tropical orange orchard with sun rays filtering through green leaves and ripe fruit"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2WAwrn6e64D6C_D0a6ewBJFwrDTHXQh4RSlkJ5kzVopBr-dhpYMOWwnrW-89sHotYijJSOH-zjmWl3VtTBVx6SowhPkqffgt3CYSZ1ztW4TPlibpQNjylPr8FFM1M5aequtZbPtYe_sjY5L0PunbTfzjWXPFwBcP8X-e9hFCcWRv2v5MfI0Molyf1GogvEGNtl0RnuU0HSNBRRiedY_XbC0409viFDWMcRalwbuuEuZUrfq6UroW8VlQycgjJQXotcxMS5dWh9Bc"
+              />
+            </div>
+            <div class="relative z-10">
+              <span class="material-symbols-outlined text-5xl mb-6">eco</span>
+              <h3 class="text-3xl font-bold mb-4 tracking-tight">
+                Vì Sức Khỏe Cộng Đồng
+              </h3>
+              <p class="text-lg opacity-90 leading-relaxed font-light">
+                Mọi quy trình đều hướng tới việc tối đa hóa hàm lượng vitamin và
+                khoáng chất tự nhiên, mang đến nguồn năng lượng sạch cho mỗi bữa
+                ăn.
+              </p>
+            </div>
+          </div>
+          <!-- Bento Item 2 -->
+          <div
+            class="bg-surface-container-highest rounded-lg p-8 flex flex-col justify-center items-center text-center"
+          >
+            <span class="material-symbols-outlined text-secondary text-4xl mb-4"
+              >volunteer_activism</span
+            >
+            <h4 class="font-bold mb-2">Trách Nhiệm</h4>
+            <p class="text-sm text-on-surface-variant">
+              Hỗ trợ nông dân Việt Nam và cam kết phát triển bền vững.
+            </p>
+          </div>
+          <!-- Bento Item 3 -->
+          <div
+            class="bg-secondary-container rounded-lg p-8 flex flex-col justify-center items-center text-center"
+          >
+            <span
+              class="material-symbols-outlined text-on-secondary-container text-4xl mb-4"
+              >temp_preferences_custom</span
+            >
+            <h4 class="font-bold mb-2 text-on-secondary-container">
+              Chất Lượng
+            </h4>
+            <p class="text-sm text-on-secondary-container opacity-80">
+              Kiểm soát 100% đầu vào và quy trình chế biến khắt khe.
+            </p>
+          </div>
+          <!-- Bento Item 4 -->
+          <div
+            class="md:col-span-2 bg-surface-container-low rounded-lg p-8 flex items-center gap-8 group"
+          >
+            <div
+              class="w-1/3 aspect-square rounded-full overflow-hidden shrink-0 shadow-lg"
+            >
+              <img
+                alt="Teamwork"
+                class="w-full h-full object-cover"
+                data-alt="A smiling young Vietnamese team working together in a bright modern workspace, looking positive and collaborative"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn6w1aX2xXotRnyEBuzEaDK06x3_AJBsBCnem8Sazt_7BUSeyK6hboV-2YG09jTtAwbzoebrm4LfroynW9cSzgjrMZnIlFBdd5gYX2i5Mwk_lgV-dKGXkLGdTmBcazr6gKus-WQlWUKFk5pCpsjeT42o_51DhRIb3tyva4sbCDJa6z7kWB-FX_oAtta1TWd5DQpgOILca3M-BaLZJcMT3Z4LcQ3gaKV0Uaz-HBUhWfk1tKQ7sndPasag3gJlAGxJqGd6xo7fjBCJ8"
+              />
+            </div>
+            <div>
+              <h4 class="text-xl font-bold mb-2">Đội Ngũ Tâm Huyết</h4>
+              <p class="text-on-surface-variant text-sm">
+                Những con người yêu nông sản Việt, luôn nỗ lực vì sự hài lòng
+                của bạn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CTA Section -->
+      <section class="max-w-screen-xl mx-auto px-8 mb-20">
+        <div
+          class="bg-primary-dim rounded-xl py-16 px-12 text-center relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-primary-container/20 rounded-full blur-3xl"
+          ></div>
+          <h2 class="text-3xl md:text-5xl font-bold text-on-primary mb-6">
+            Sẵn sàng để thưởng thức?
+          </h2>
+          <p class="text-on-primary opacity-80 max-w-lg mx-auto mb-10">
+            Khám phá bộ sưu tập trái cây tươi mới và nước ép nguyên chất mỗi
+            ngày từ chúng tôi.
+          </p>
+          <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button
+              class="px-8 py-4 bg-secondary text-on-secondary font-bold rounded-full shadow-lg hover:shadow-xl transition-all active:scale-95"
+            >
+              Đến Cửa Hàng
+            </button>
+            <button
+              class="px-8 py-4 bg-transparent border border-on-primary text-on-primary font-bold rounded-full hover:bg-on-primary hover:text-primary transition-all active:scale-95"
+            >
+              Nhận Tư Vấn
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="w-full rounded-t-[3rem] mt-20 bg-zinc-100 dark:bg-zinc-950">
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-screen-2xl mx-auto"
+      >
+        <div class="flex flex-col gap-4">
+          <span
+            class="font-['Plus_Jakarta_Sans'] font-bold text-emerald-900 dark:text-emerald-100 text-xl"
+            >The Organic Editorial</span
+          >
+          <p
+            class="font-['Be_Vietnam_Pro'] text-sm text-zinc-500 dark:text-zinc-400"
+          >
+            Nơi khởi đầu của hành trình sống xanh và trân quý sức khỏe tự nhiên.
+          </p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h4 class="text-emerald-800 dark:text-emerald-400 font-bold">
+            Khám phá
+          </h4>
+          <div class="flex flex-col gap-2 font-['Be_Vietnam_Pro'] text-sm">
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Sản phẩm mới</a
+            >
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Gói định kỳ</a
+            >
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Khuyến mãi</a
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h4 class="text-emerald-800 dark:text-emerald-400 font-bold">
+            Hỗ trợ
+          </h4>
+          <div class="flex flex-col gap-2 font-['Be_Vietnam_Pro'] text-sm">
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Chính sách bảo mật</a
+            >
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Hướng dẫn mua hàng</a
+            >
+            <a
+              class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+              href="#"
+              >Điều khoản dịch vụ</a
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h4 class="text-emerald-800 dark:text-emerald-400 font-bold">
+            Liên hệ
+          </h4>
+          <div class="flex flex-col gap-2 font-['Be_Vietnam_Pro'] text-sm">
+            <p class="text-zinc-500 dark:text-zinc-400">
+              Hệ thống cửa hàng: TP. Hồ Chí Minh &amp; Hà Nội
+            </p>
+            <p class="text-zinc-500 dark:text-zinc-400">Hotline: 1900 8888</p>
+            <div class="flex gap-4 mt-2">
+              <span
+                class="material-symbols-outlined text-emerald-800 dark:text-emerald-400 cursor-pointer"
+                >social_leaderboard</span
+              >
+              <span
+                class="material-symbols-outlined text-emerald-800 dark:text-emerald-400 cursor-pointer"
+                >photo_camera</span
+              >
+              <span
+                class="material-symbols-outlined text-emerald-800 dark:text-emerald-400 cursor-pointer"
+                >mail</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="px-12 py-8 border-t border-zinc-200/50 dark:border-zinc-900 text-center font-['Be_Vietnam_Pro'] text-xs text-zinc-400"
+      >
+        © 2026 Fruitholic. Tươi mới mỗi ngày.
+      </div>
+    </footer>
+  </body>
+</html>

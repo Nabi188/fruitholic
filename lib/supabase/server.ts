@@ -39,3 +39,22 @@ export function createSupabaseAdminClient() {
     },
   );
 }
+
+/**
+ * Cookie-free Supabase client for use inside `'use cache'` scopes.
+ * Uses the anon/publishable key for public reads only.
+ * DO NOT use this for auth-gated queries.
+ */
+export function createSupabasePublicClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    },
+  );
+}
+

@@ -7,6 +7,7 @@ import {
   sendOrderNotification,
   sendCustomerOrderConfirmation,
 } from "@/lib/mailer";
+import { generateOrderCode } from "@/lib/data/orders";
 import type { CartItem } from "@/stores/cartStore";
 
 export async function placeOrder(
@@ -33,8 +34,7 @@ export async function placeOrder(
 
     const supabase = await createSupabaseServerClient();
 
-    const { data: codeData } = await supabase.rpc("generate_order_code");
-    const orderCode = codeData ?? `FH${Date.now()}`;
+    const orderCode = await generateOrderCode();
 
     const { data: orderParams, error: orderError } = await (supabase as any)
       .from("orders")

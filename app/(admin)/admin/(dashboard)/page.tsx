@@ -16,7 +16,6 @@ import {
   TopProductsChart,
 } from "@/components/admin/DashboardCharts";
 
-export const dynamic = "force-dynamic";
 
 async function getDashboardStats() {
   const supabase = await createSupabaseServerClient();

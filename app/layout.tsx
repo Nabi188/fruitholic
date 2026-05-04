@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Plus_Jakarta_Sans, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-sans", // Overriding Tailwind's default sans var to Plus Jakarta Sans for ease, but we have custom font-headline
+  variable: "--font-sans",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -32,7 +33,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-surface font-body text-on-background selection:bg-primary-container selection:text-on-primary-container">
-        <TooltipProvider>{children}</TooltipProvider>
+        <Suspense>
+          <TooltipProvider>{children}</TooltipProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -1,0 +1,535 @@
+<!doctype html>
+
+<html class="light" lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#585d5a",
+              "primary-fixed": "#9bfc96",
+              surface: "#f3f7f3",
+              "on-surface": "#2b302d",
+              "secondary-container": "#ffc69c",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#f3f7f3",
+              "surface-tint": "#006b1b",
+              "primary-fixed-dim": "#8ded89",
+              "secondary-fixed": "#ffc69c",
+              "tertiary-fixed-dim": "#90e28a",
+              "surface-dim": "#cfd6d1",
+              "inverse-primary": "#9bfc96",
+              "error-container": "#f95630",
+              "surface-container-highest": "#d8deda",
+              "on-tertiary-fixed": "#00460e",
+              tertiary: "#176a21",
+              "on-tertiary-container": "#005c15",
+              "on-secondary-container": "#6f3900",
+              "secondary-fixed-dim": "#ffb377",
+              "on-primary": "#d1ffc8",
+              "on-tertiary-fixed-variant": "#12661e",
+              "on-background": "#2b302d",
+              "surface-container": "#e4e9e5",
+              outline: "#737875",
+              primary: "#006b1b",
+              "inverse-surface": "#0b0f0d",
+              "surface-container-high": "#dee4df",
+              "primary-container": "#9bfc96",
+              background: "#f3f7f3",
+              "on-error-container": "#520c00",
+              "on-primary-container": "#006218",
+              "on-error": "#ffefec",
+              "on-secondary": "#fff0e7",
+              "on-secondary-fixed": "#532900",
+              "primary-dim": "#005d16",
+              secondary: "#8d4a00",
+              error: "#b02500",
+              "on-secondary-fixed-variant": "#7d4100",
+              "tertiary-fixed": "#9df197",
+              "secondary-dim": "#7c4000",
+              "inverse-on-surface": "#999e9b",
+              "on-tertiary": "#d1ffc8",
+              "outline-variant": "#aaaeab",
+              "tertiary-container": "#9df197",
+              "surface-variant": "#d8deda",
+              "error-dim": "#b92902",
+              "tertiary-dim": "#025d16",
+              "surface-container-low": "#edf2ee",
+              "on-primary-fixed-variant": "#006d1c",
+              "on-primary-fixed": "#004d11",
+            },
+            fontFamily: {
+              headline: ["Plus Jakarta Sans"],
+              body: ["Be Vietnam Pro"],
+              label: ["Be Vietnam Pro"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "2rem",
+              xl: "3rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        background-color: #f3f7f3;
+        color: #2b302d;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-surface text-on-surface">
+    <!-- TopNavBar (Shared Component) -->
+    <nav
+      class="sticky top-0 w-full z-50 bg-emerald-50/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-sm dark:shadow-none font-['Plus_Jakarta_Sans'] tracking-tight"
+    >
+      <div
+        class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto"
+      >
+        <div
+          class="text-2xl font-bold tracking-tighter text-emerald-900 dark:text-emerald-50"
+        >
+          The Organic Editorial
+        </div>
+        <div class="hidden md:flex space-x-8 items-center">
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Cửa hàng</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Nước ép</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Sinh tố</a
+          >
+          <a
+            class="text-zinc-600 dark:text-zinc-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+            href="#"
+            >Về chúng tôi</a
+          >
+          <a
+            class="text-emerald-700 dark:text-emerald-400 font-semibold after:content-[''] after:block after:w-1 after:h-1 after:bg-orange-600 after:rounded-full after:mx-auto"
+            href="#"
+            >Liên hệ</a
+          >
+        </div>
+        <div class="flex items-center space-x-4">
+          <button
+            class="p-2 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 rounded-full transition-all active:scale-95 duration-200"
+          >
+            <span
+              class="material-symbols-outlined text-emerald-800 dark:text-emerald-400"
+              data-icon="shopping_cart"
+              >shopping_cart</span
+            >
+          </button>
+          <button
+            class="p-2 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30 rounded-full transition-all active:scale-95 duration-200"
+          >
+            <span
+              class="material-symbols-outlined text-emerald-800 dark:text-emerald-400"
+              data-icon="account_circle"
+              >account_circle</span
+            >
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main class="max-w-screen-2xl mx-auto px-8 pt-16 pb-24">
+      <!-- Hero Section / Header -->
+      <header class="mb-20 text-center md:text-left max-w-3xl">
+        <span
+          class="text-secondary font-bold tracking-widest uppercase text-xs mb-4 block"
+          >Kết nối với chúng tôi</span
+        >
+        <h1
+          class="text-5xl md:text-7xl font-extrabold text-on-surface tracking-tighter leading-none mb-6"
+        >
+          Hãy để thiên nhiên <br />
+          <span class="text-primary italic">lên tiếng.</span>
+        </h1>
+        <p class="text-on-surface-variant text-lg leading-relaxed font-light">
+          Chúng tôi luôn sẵn sàng lắng nghe những thắc mắc, đóng góp hoặc chỉ
+          đơn giản là một lời chào từ bạn. Mỗi phản hồi là một hạt mầm giúp The
+          Organic Editorial phát triển tốt hơn.
+        </p>
+      </header>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Contact Form Section -->
+        <section
+          class="lg:col-span-7 bg-surface-container-lowest p-8 md:p-12 rounded-lg shadow-[0px_20px_40px_rgba(43,48,45,0.06)] relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl"
+          ></div>
+          <form class="space-y-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-on-surface ml-1"
+                  >Tên của bạn</label
+                >
+                <input
+                  class="w-full bg-surface-container-low border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant transition-all"
+                  placeholder="Nguyễn Văn A"
+                  type="text"
+                />
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-semibold text-on-surface ml-1"
+                  >Email liên hệ</label
+                >
+                <input
+                  class="w-full bg-surface-container-low border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant transition-all"
+                  placeholder="example@email.com"
+                  type="email"
+                />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-on-surface ml-1"
+                >Số điện thoại</label
+              >
+              <input
+                class="w-full bg-surface-container-low border-none rounded-full px-6 py-4 focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant transition-all"
+                placeholder="0901 234 567"
+                type="tel"
+              />
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-on-surface ml-1"
+                >Nội dung tin nhắn</label
+              >
+              <textarea
+                class="w-full bg-surface-container-low border-none rounded-lg px-6 py-4 focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant transition-all resize-none"
+                placeholder="Bạn đang nghĩ gì?"
+                rows="5"
+              ></textarea>
+            </div>
+            <button
+              class="w-full md:w-auto px-12 py-5 bg-gradient-to-r from-primary to-primary-dim text-on-primary font-bold rounded-full shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
+              type="submit"
+            >
+              Gửi tin nhắn ngay
+            </button>
+          </form>
+        </section>
+        <!-- Info & Map Section -->
+        <aside class="lg:col-span-5 space-y-8">
+          <!-- Contact Info Cards -->
+          <div class="grid grid-cols-1 gap-6">
+            <div
+              class="bg-surface-container-low p-8 rounded-lg flex items-start gap-6 border border-white/50"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary-container"
+                  data-icon="location_on"
+                  >location_on</span
+                >
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Địa chỉ cửa hàng</h3>
+                <p class="text-on-surface-variant leading-relaxed">
+                  123 Đường Thảo Điền, Phường Thảo Điền, TP. Thủ Đức, TP. Hồ Chí
+                  Minh
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-surface-container-low p-8 rounded-lg flex items-start gap-6 border border-white/50"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-on-secondary-container"
+                  data-icon="call"
+                  >call</span
+                >
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Hotline hỗ trợ</h3>
+                <p class="text-on-surface-variant leading-relaxed">
+                  1900 6789 (8:00 - 21:00)
+                </p>
+              </div>
+            </div>
+            <div
+              class="bg-surface-container-low p-8 rounded-lg flex items-start gap-6 border border-white/50"
+            >
+              <div
+                class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary-container"
+                  data-icon="mail"
+                  >mail</span
+                >
+              </div>
+              <div>
+                <h3 class="font-bold text-lg mb-1">Email liên hệ</h3>
+                <p class="text-on-surface-variant leading-relaxed">
+                  hello@theorganic.editorial.com
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Social Connect -->
+          <div
+            class="bg-primary text-on-primary p-8 rounded-lg overflow-hidden relative group"
+          >
+            <div
+              class="absolute top-0 right-0 p-4 opacity-10 scale-150 rotate-12 group-hover:rotate-45 transition-transform duration-700"
+            >
+              <span
+                class="material-symbols-outlined text-[120px]"
+                data-icon="share"
+                >share</span
+              >
+            </div>
+            <h3 class="font-bold text-xl mb-6 relative z-10">
+              Kết nối cộng đồng
+            </h3>
+            <div class="flex gap-4 relative z-10">
+              <a
+                class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center hover:bg-on-primary/20 transition-all border border-on-primary/20"
+                href="#"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary"
+                  data-icon="facebook"
+                  >social_leaderboard</span
+                >
+              </a>
+              <a
+                class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center hover:bg-on-primary/20 transition-all border border-on-primary/20"
+                href="#"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary"
+                  data-icon="photo_camera"
+                  >photo_camera</span
+                >
+              </a>
+              <a
+                class="w-12 h-12 rounded-full bg-on-primary/10 flex items-center justify-center hover:bg-on-primary/20 transition-all border border-on-primary/20"
+                href="#"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary"
+                  data-icon="chat_bubble"
+                  >chat_bubble</span
+                >
+              </a>
+            </div>
+            <p class="mt-6 text-sm opacity-80 italic">
+              Theo dõi chúng tôi để nhận những công thức nước ép mới nhất hàng
+              tuần.
+            </p>
+          </div>
+        </aside>
+      </div>
+      <!-- Map Section (Bento Style Placeholder) -->
+      <section class="mt-20">
+        <div
+          class="w-full h-[500px] rounded-xl overflow-hidden shadow-2xl relative"
+        >
+          <div class="absolute inset-0 bg-zinc-200">
+            <img
+              class="w-full h-full object-cover filter grayscale opacity-40 mix-blend-multiply"
+              data-alt="stylized architectural map showing urban streets and green parks in a minimalist design aesthetic with soft mint and grey tones"
+              data-location="Ho Chi Minh City"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0kokdz1UX1NQSZMVlUo_zFd2xhBk-gEpnI4y4rsuZ1_Bf0NIG0cJvUU7RhYN0LIVsBTlbep3RKq5HnXdt2-Khg8qsEHUsKtj4eOALm1lUt2UXpEeE77DdvKou9Z60ZAfp6mLPAulXwKyAYjEAPWZLfKBifhEVNetI1R500RJ7pcsYJVbQ4ulRsrUAtB08MxLcT8PQiAB7F7vKnsynCX_r3N8BucHWtRQia8YcZtMLFxytWaXl3zl5VDAsbkbAkjyFTWKrBbwM-xc"
+            />
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div
+              class="bg-surface-container-lowest/90 backdrop-blur-md p-6 rounded-lg shadow-xl border border-white flex items-center gap-4 max-w-sm"
+            >
+              <div
+                class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shrink-0 animate-pulse"
+              >
+                <span
+                  class="material-symbols-outlined text-on-primary"
+                  data-icon="location_on"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >location_on</span
+                >
+              </div>
+              <div>
+                <p class="font-bold text-on-surface">The Organic Editorial</p>
+                <p class="text-sm text-on-surface-variant">
+                  Chi nhánh Thảo Điền đang mở cửa • Đóng lúc 21:00
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Interactive Elements Over Map -->
+          <div class="absolute bottom-8 right-8 flex flex-col gap-2">
+            <button
+              class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg text-primary hover:bg-primary hover:text-white transition-all"
+            >
+              <span class="material-symbols-outlined" data-icon="add">add</span>
+            </button>
+            <button
+              class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg text-primary hover:bg-primary hover:text-white transition-all"
+            >
+              <span class="material-symbols-outlined" data-icon="remove"
+                >remove</span
+              >
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- Newsletter / Secondary CTA -->
+      <section
+        class="mt-32 bg-secondary-container p-12 rounded-xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center overflow-hidden relative"
+      >
+        <div
+          class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"
+        ></div>
+        <div class="relative z-10">
+          <h2
+            class="text-4xl font-extrabold text-on-secondary-container tracking-tighter mb-4"
+          >
+            Nhận bản tin sức khỏe.
+          </h2>
+          <p class="text-on-secondary-container/80 max-w-md">
+            Chúng tôi chia sẻ những kiến thức về lối sống xanh, hữu cơ và các ưu
+            đãi đặc quyền hàng tháng.
+          </p>
+        </div>
+        <div class="flex gap-2 relative z-10">
+          <input
+            class="flex-grow rounded-full border-none px-6 py-4 bg-white/50 backdrop-blur-sm focus:ring-2 focus:ring-secondary/50"
+            placeholder="Email của bạn"
+            type="email"
+          />
+          <button
+            class="px-8 py-4 bg-secondary text-on-secondary rounded-full font-bold hover:shadow-lg transition-all"
+          >
+            Đăng ký
+          </button>
+        </div>
+      </section>
+    </main>
+    <!-- Footer (Shared Component) -->
+    <footer
+      class="w-full rounded-t-[3rem] mt-20 bg-zinc-100 dark:bg-zinc-950 font-['Be_Vietnam_Pro'] text-sm"
+    >
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-screen-2xl mx-auto"
+      >
+        <div class="space-y-4">
+          <div
+            class="font-['Plus_Jakarta_Sans'] font-bold text-emerald-900 dark:text-emerald-100 text-xl"
+          >
+            The Organic Editorial
+          </div>
+          <p class="text-zinc-500 dark:text-zinc-400">
+            Tươi mới mỗi ngày từ nguồn nguyên liệu hữu cơ chọn lọc.
+          </p>
+        </div>
+        <div class="flex flex-col space-y-4">
+          <h4 class="font-bold text-emerald-800 dark:text-emerald-400">
+            Liên kết nhanh
+          </h4>
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+            href="#"
+            >Chính sách bảo mật</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+            href="#"
+            >Hướng dẫn mua hàng</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+            href="#"
+            >Điều khoản dịch vụ</a
+          >
+          <a
+            class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+            href="#"
+            >Hệ thống cửa hàng</a
+          >
+        </div>
+        <div class="flex flex-col space-y-4">
+          <h4 class="font-bold text-emerald-800 dark:text-emerald-400">
+            Hỗ trợ
+          </h4>
+          <p class="text-zinc-500 dark:text-zinc-400">Câu hỏi thường gặp</p>
+          <p class="text-zinc-500 dark:text-zinc-400">
+            Vận chuyển &amp; Giao hàng
+          </p>
+          <p class="text-zinc-500 dark:text-zinc-400">
+            Hoàn trả &amp; Hoàn tiền
+          </p>
+        </div>
+        <div class="flex flex-col space-y-4">
+          <h4 class="font-bold text-emerald-800 dark:text-emerald-400">
+            Bản tin
+          </h4>
+          <p class="text-zinc-500 dark:text-zinc-400">
+            Nhận thông báo về sản phẩm mới và ưu đãi.
+          </p>
+          <div class="flex gap-2">
+            <input
+              class="w-full bg-zinc-200/50 dark:bg-zinc-900 rounded-lg px-4 py-2 border-none focus:ring-2 focus:ring-emerald-500"
+              placeholder="Email"
+              type="text"
+            />
+            <button class="bg-emerald-800 text-white px-4 rounded-lg">
+              Gửi
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="text-center pb-8 text-zinc-400 border-t border-zinc-200/50 dark:border-zinc-800 pt-8"
+      >
+        © 2024 The Organic Editorial. Tươi mới mỗi ngày.
+      </div>
+    </footer>
+  </body>
+</html>

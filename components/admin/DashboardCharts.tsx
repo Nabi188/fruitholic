@@ -1,5 +1,7 @@
 "use client";
 
+import { formatVND } from "@/lib/formatters";
+
 import {
   AreaChart,
   Area,
@@ -78,7 +80,7 @@ export function RevenueChart({ data }: { data: RevenueDataPoint[] }) {
                   fontWeight: 600,
                 }}
                 formatter={(value: any) => [
-                  new Intl.NumberFormat("vi-VN").format(value) + "₫",
+                  formatVND(value),
                   "Doanh thu",
                 ]}
                 labelStyle={{ fontWeight: 700, marginBottom: 4 }}
@@ -204,7 +206,7 @@ export function TopProductsChart({ data }: { data: TopProductPoint[] }) {
                 }}
                 formatter={(value: any, name: any) => {
                   if (name === "revenue")
-                    return [new Intl.NumberFormat("vi-VN").format(value) + "₫", "Doanh thu"];
+                    return [formatVND(value), "Doanh thu"];
                   return [value, "Số lượng"];
                 }}
               />

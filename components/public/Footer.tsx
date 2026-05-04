@@ -64,7 +64,7 @@ export function Footer() {
             <ul className="space-y-2 text-on-surface-variant">
               <li>
                 <Link
-                  href="/policies"
+                  href="/policies/shipping"
                   className="hover:text-primary underline-offset-4 hover:underline transition-all"
                 >
                   Chính sách giao hàng
@@ -72,10 +72,18 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/policies"
+                  href="/policies/returns"
                   className="hover:text-primary underline-offset-4 hover:underline transition-all"
                 >
                   Chính sách đổi trả
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/policies/privacy"
+                  className="hover:text-primary underline-offset-4 hover:underline transition-all"
+                >
+                  Chính sách bảo mật
                 </Link>
               </li>
               <li>

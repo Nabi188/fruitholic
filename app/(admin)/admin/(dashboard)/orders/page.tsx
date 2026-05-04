@@ -2,7 +2,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { formatVND } from "@/lib/formatters";
 
-export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Orders | Fruitholic Admin",
