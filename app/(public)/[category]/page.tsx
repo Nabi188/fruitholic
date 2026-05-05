@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 
 /**
@@ -8,7 +9,15 @@ type Props = {
   params: Promise<{ category: string }>;
 };
 
-export default async function OldCategoryRedirect({ params }: Props) {
+export default function OldCategoryRedirect({ params }: Props) {
+  return (
+    <Suspense fallback={null}>
+      <RedirectHandler params={params} />
+    </Suspense>
+  );
+}
+
+async function RedirectHandler({ params }: { params: Promise<{ category: string }> }) {
   const { category: slug } = await params;
 
   // Don't redirect known static routes that might conflict

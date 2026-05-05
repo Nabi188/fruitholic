@@ -120,6 +120,8 @@ export default function CheckoutPage() {
 
       if (result.success && result.orderId) {
         isOrderPlaced.current = true;
+        // Capture total BEFORE clearing cart (clearCart empties store → totalAmount() would return 0)
+        const capturedTotal = totalAmount();
         clearCart();
 
         if (data.payment_method === "BANK_TRANSFER") {
@@ -128,7 +130,7 @@ export default function CheckoutPage() {
             show: true,
             orderCode: result.orderCode || "",
             orderId: result.orderId,
-            amount: totalAmount(),
+            amount: capturedTotal,
           });
         } else {
           router.push(`/thank-you?code=${result.orderCode}`);

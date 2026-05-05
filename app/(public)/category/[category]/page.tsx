@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getCategoryBySlug } from "@/lib/data/categories";
 import { getProductsByCategory } from "@/lib/data/products";
 import { ProductCard } from "@/components/public/ProductCard";
@@ -19,7 +20,32 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function CategoryPage({ params }: Props) {
+export default function CategoryPage({ params }: Props) {
+  return (
+    <Suspense
+      fallback={
+        <div className="px-6 lg:px-12 py-16 max-w-[1400px] mx-auto min-h-[60vh]">
+          <div className="animate-pulse space-y-8">
+            <div className="h-4 w-48 bg-slate-200 rounded" />
+            <div className="space-y-4">
+              <div className="h-12 w-1/3 bg-slate-200 rounded" />
+              <div className="h-6 w-2/3 bg-slate-200 rounded" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="aspect-square bg-slate-200 rounded-2xl" />
+              ))}
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <CategoryContent params={params} />
+    </Suspense>
+  );
+}
+
+async function CategoryContent({ params }: { params: Promise<{ category: string }> }) {
   const { category: slug } = await params;
   const categoryData = await getCategoryBySlug(slug);
 

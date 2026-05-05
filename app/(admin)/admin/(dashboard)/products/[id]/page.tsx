@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { notFound } from "next/navigation";
@@ -12,7 +13,26 @@ export async function generateMetadata({
   return { title: `Edit Product #${id.slice(0, 8)} | Fruitholic Admin` };
 }
 
-export default async function EditProductPage({
+export default function EditProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <div className="animate-pulse p-8 space-y-6">
+          <div className="h-8 w-1/3 bg-slate-200 rounded" />
+          <div className="h-64 bg-slate-200 rounded-xl" />
+        </div>
+      }
+    >
+      <EditProductContent params={params} />
+    </Suspense>
+  );
+}
+
+async function EditProductContent({
   params,
 }: {
   params: Promise<{ id: string }>;

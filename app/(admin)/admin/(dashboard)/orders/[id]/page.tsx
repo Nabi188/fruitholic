@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -6,7 +7,34 @@ import { OrderStatusActions } from "@/components/admin/OrderStatusActions";
 import { ArrowLeft, User, CreditCard, ShoppingBag } from "lucide-react";
 
 
-export default async function AdminOrderDetailPage({
+export default function AdminOrderDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <Suspense
+      fallback={
+        <div className="animate-pulse p-8 space-y-6 max-w-[1200px] mx-auto">
+          <div className="h-8 w-1/3 bg-slate-200 rounded" />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-7 space-y-6">
+              <div className="h-48 bg-slate-200 rounded-[2rem]" />
+              <div className="h-36 bg-slate-200 rounded-[2rem]" />
+            </div>
+            <div className="lg:col-span-5">
+              <div className="h-64 bg-slate-200 rounded-[2rem]" />
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <OrderDetailContent params={params} />
+    </Suspense>
+  );
+}
+
+async function OrderDetailContent({
   params,
 }: {
   params: Promise<{ id: string }>;
