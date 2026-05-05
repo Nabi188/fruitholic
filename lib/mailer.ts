@@ -37,13 +37,13 @@ export async function sendOrderNotification(order: OrderNotificationData) {
   await transporter.sendMail({
     from: `"Fruitholic Orders" <${SMTP_FROM}>`,
     to: NOTIFICATION_EMAIL,
-    subject: `🛍️ Đơn hàng mới #${order.code} — ${order.customerName}`,
+    subject: `🛍️ New Order Received #${order.code} — ${order.customerName}`,
     html,
   });
 }
 
 export async function sendCustomerOrderConfirmation(
-  order: OrderNotificationData,
+  order: OrderNotificationData
 ) {
   if (!order.customerEmail) return;
   const transporter = createTransporter();
@@ -64,7 +64,7 @@ export async function sendCustomerOrderConfirmation(
     await transporter.sendMail({
       from: `"Fruitholic" <${SMTP_FROM}>`,
       to: order.customerEmail,
-      subject: `✅ Xác nhận đơn hàng #${order.code} — Fruitholic`,
+      subject: `✅ Order Confirm #${order.code} — Fruitholic`,
       html,
     });
   } catch (err) {
