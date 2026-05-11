@@ -17,7 +17,8 @@ export async function POST(req: Request) {
       });
     }
 
-    const match = content.match(/FH\s*(\d+)/i);
+    const match = content.match(/(FH[A-Z0-9]+)/i);
+
     if (!match || !match[1]) {
       return NextResponse.json({
         success: true,
