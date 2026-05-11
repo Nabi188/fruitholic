@@ -86,11 +86,11 @@ export function OptionGroupManager({ groups }: Props) {
       <div className="flex items-end justify-between mb-8">
         <div>
           <h2 className="font-headline text-3xl font-extrabold text-on-surface tracking-tight">
-            Option Groups
+            Nhóm tùy chọn
           </h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="text-xs font-medium text-primary bg-primary-container px-3 py-1 rounded-full">
-              Total: {groups.length} groups
+              Tổng cộng: {groups.length} nhóm
             </span>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function OptionGroupManager({ groups }: Props) {
           onClick={openCreate}
           className="font-headline font-bold px-6 h-11 rounded-full shadow-lg shadow-primary/20"
         >
-          <Plus className="w-5 h-5" /> Add group
+          <Plus className="w-5 h-5" /> Thêm nhóm tuỳ chọn
         </Button>
       </div>
 
@@ -107,11 +107,11 @@ export function OptionGroupManager({ groups }: Props) {
           <thead>
             <tr className="bg-surface-container-low border-b border-outline-variant/10">
               {[
-                "Group name",
-                "Selection",
-                "Values",
-                "Linked products",
-                "Actions",
+                "Nhóm tùy chọn",
+                "Tuỳ chọn",
+                "Giá trị",
+                "Sản phẩm liên kết",
+                "Thao tác",
               ].map((h) => (
                 <th
                   key={h}
@@ -129,12 +129,12 @@ export function OptionGroupManager({ groups }: Props) {
                   colSpan={5}
                   className="px-8 py-12 text-center text-on-surface-variant"
                 >
-                  No option groups yet.{" "}
+                  Chưa có nhóm tùy chọn.{" "}
                   <button
                     onClick={openCreate}
                     className="text-primary font-semibold underline"
                   >
-                    Create one
+                    Tạo nhóm tùy chọn ngay
                   </button>
                 </td>
               </tr>
@@ -142,7 +142,6 @@ export function OptionGroupManager({ groups }: Props) {
             {groups.map((g) => (
               <React.Fragment key={g.id}>
                 <tr className="hover:bg-surface-container/30 transition-colors">
-                  {/* Name (expand toggle) */}
                   <td className="px-6 py-4">
                     <button
                       onClick={() =>
@@ -167,7 +166,7 @@ export function OptionGroupManager({ groups }: Props) {
                   {/* Values count */}
                   <td className="px-6 py-4">
                     <span className="bg-surface-container px-2.5 py-1 rounded-full text-xs font-semibold text-on-surface-variant">
-                      {g.option_values.length} values
+                      {g.option_values.length} giá trị
                     </span>
                   </td>
 
@@ -186,18 +185,17 @@ export function OptionGroupManager({ groups }: Props) {
                         ))}
                         {g.linked_products.length > 3 && (
                           <span className="px-2 py-0.5 bg-surface-container text-on-surface-variant text-xs font-medium rounded-full">
-                            +{g.linked_products.length - 3} more
+                            +{g.linked_products.length - 3} thêm
                           </span>
                         )}
                       </div>
                     ) : (
                       <span className="text-on-surface-variant opacity-40 text-xs">
-                        Not linked
+                        Chưa liên kết
                       </span>
                     )}
                   </td>
 
-                  {/* Actions */}
                   <td className="px-6 py-4">
                     <div className="flex gap-1">
                       <Button
@@ -222,16 +220,17 @@ export function OptionGroupManager({ groups }: Props) {
                         <AlertDialogContent>
                           <AlertDialogHeader>
                             <AlertDialogTitle>
-                              Delete option group?
+                              Xoá nhóm tùy chọn?
                             </AlertDialogTitle>
                             <AlertDialogDescription>
-                              This will permanently delete{" "}
-                              <strong>{g.name}</strong> and all its values.
-                              Products using this group will lose access to it.
+                              Hành động này sẽ xoá vĩnh viễn{" "}
+                              <strong>{g.name}</strong> và tất cả các giá trị
+                              của nó. Sản phẩm đang liên kết với nhóm này sẽ
+                              không thể sử dụng được nữa.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogCancel>Hủy</AlertDialogCancel>
                             <AlertDialogAction
                               variant="destructive"
                               onClick={() => actions.handleDelete(g)}
@@ -240,7 +239,7 @@ export function OptionGroupManager({ groups }: Props) {
                               {isPending ? (
                                 <Loader2 className="w-4 h-4 animate-spin" />
                               ) : (
-                                "Delete"
+                                "Xoá nhóm tùy chọn"
                               )}
                             </AlertDialogAction>
                           </AlertDialogFooter>
@@ -283,7 +282,7 @@ export function OptionGroupManager({ groups }: Props) {
 
                         <div>
                           <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">
-                            Linked products
+                            Sản phẩm liên kết
                           </p>
                           {g.linked_products && g.linked_products.length > 0 ? (
                             <div className="flex flex-wrap gap-1.5">
@@ -299,7 +298,7 @@ export function OptionGroupManager({ groups }: Props) {
                             </div>
                           ) : (
                             <p className="text-xs text-on-surface-variant italic">
-                              Not linked to any product
+                              Chưa liên kết với sản phẩm nào
                             </p>
                           )}
                         </div>
@@ -319,7 +318,7 @@ export function OptionGroupManager({ groups }: Props) {
           <div className="bg-surface-container-lowest rounded-[2rem] w-full max-w-lg shadow-[0_40px_80px_rgba(0,0,0,0.15)] flex flex-col max-h-[90vh]">
             <div className="flex items-center justify-between px-8 pt-8 pb-4 shrink-0">
               <h3 className="text-xl font-extrabold font-headline text-on-surface">
-                {editing ? "Edit option group" : "Add option group"}
+                {editing ? "Chỉnh sửa nhóm tùy chọn" : "Thêm nhóm tùy chọn"}
               </h3>
               <Button
                 variant="ghost"
@@ -344,14 +343,14 @@ export function OptionGroupManager({ groups }: Props) {
               >
                 <div>
                   <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                    Group name *
+                    Tên nhóm *
                   </label>
                   <input
                     type="text"
                     required
                     value={formName}
                     onChange={(e) => actions.setFormName(e.target.value)}
-                    placeholder="E.g: Ice level, Toppings, Size"
+                    placeholder="E.g: Mức đá, Mức đường, Topping, Kích cỡ"
                     className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                   />
                 </div>
@@ -359,7 +358,7 @@ export function OptionGroupManager({ groups }: Props) {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                      Min select
+                      Chọn tối thiểu
                     </label>
                     <select
                       value={formMinSelect}
@@ -374,7 +373,7 @@ export function OptionGroupManager({ groups }: Props) {
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                      Max select
+                      Chọn tối đa
                     </label>
                     <select
                       value={formMaxSelect}
@@ -388,7 +387,7 @@ export function OptionGroupManager({ groups }: Props) {
                       <option value={3}>3</option>
                       <option value={5}>5</option>
                       <option value={10}>10</option>
-                      <option value={99}>Unlimited</option>
+                      <option value={99}>Không giới hạn</option>
                     </select>
                   </div>
                 </div>
@@ -400,7 +399,7 @@ export function OptionGroupManager({ groups }: Props) {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <label className="text-sm font-semibold text-on-surface-variant">
-                      Values *
+                      Các tùy chọn *
                     </label>
                     <Button
                       type="button"
@@ -455,12 +454,12 @@ export function OptionGroupManager({ groups }: Props) {
                   >
                     {isPending ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin" /> Saving...
+                        <Loader2 className="w-4 h-4 animate-spin" /> Đang lưu...
                       </>
                     ) : editing ? (
-                      "Update"
+                      "Cập nhật"
                     ) : (
-                      "Create"
+                      "Tạo"
                     )}
                   </Button>
                 </div>

@@ -34,7 +34,11 @@ export default function ProductDetailPage({ params }: Props) {
   );
 }
 
-async function ProductContent({ params }: { params: Promise<{ slug: string }> }) {
+async function ProductContent({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const productDetail = await getProductDetail(slug);
 
@@ -45,7 +49,7 @@ async function ProductContent({ params }: { params: Promise<{ slug: string }> })
   const { product, images } = productDetail;
 
   return (
-    <main className="pt-10 pb-16 px-6 lg:px-12 max-w-[1400px] mx-auto min-h-screen">
+    <main className="pt-10 pb-16 px-6 lg:px-12 max-w-[1400px] mx-auto">
       <div className="mb-10 flex items-center gap-2 text-xs text-outline uppercase tracking-widest font-headline">
         <Link href="/" className="hover:text-primary transition-colors">
           Trang chủ
@@ -85,9 +89,6 @@ async function ProductContent({ params }: { params: Promise<{ slug: string }> })
         <div className="grid grid-cols-1 gap-12">
           {product.description && (
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold font-headline text-on-background">
-                Câu chuyện đằng sau
-              </h3>
               <div
                 className="prose prose-fruitholic max-w-none text-on-surface-variant leading-relaxed font-body text-lg"
                 dangerouslySetInnerHTML={{ __html: product.description }}

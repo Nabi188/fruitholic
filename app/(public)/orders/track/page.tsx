@@ -86,11 +86,11 @@ function SearchForm() {
       </div>
 
       <h1 className="text-4xl md:text-5xl font-extrabold text-primary-dim mb-4 tracking-tighter font-headline">
-        Order Tracking
+        Theo dõi đơn hàng
       </h1>
       <p className="text-on-surface-variant font-body mb-10 max-w-sm mx-auto text-lg leading-relaxed">
-        Enter your <strong>Order Code</strong> to check the current status of
-        your order.
+        Nhập <strong>Mã đơn hàng</strong> của bạn để kiểm tra trạng thái hiện tại của
+        đơn hàng.
       </p>
 
       <form
@@ -328,10 +328,10 @@ function OrderDetail({ code }: { code: string }) {
                   <div className="flex-grow space-y-3 font-body text-sm text-on-surface-variant w-full">
                     <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-on-surface mb-4 font-headline flex items-center gap-2">
                       <QrCode className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-                      Scan to Pay
+                      Quét mã để thanh toán
                     </h2>
                     <div className="flex justify-between">
-                      <span>Bank</span>
+                      <span>Ngân hàng</span>
                       <strong className="text-on-surface">{BANK_ID}</strong>
                     </div>
                     <div className="flex justify-between items-center">
@@ -349,7 +349,7 @@ function OrderDetail({ code }: { code: string }) {
                       </button>
                     </div>
                     <div className="flex justify-between">
-                      <span>Account Name</span>
+                      <span>Tên tài khoản</span>
                       <strong className="text-on-surface">{BANK_NAME}</strong>
                     </div>
                     <div className="flex justify-between items-center">
@@ -369,7 +369,7 @@ function OrderDetail({ code }: { code: string }) {
                       </button>
                     </div>
                     <div className="flex justify-between items-center pt-2 border-t border-outline-variant/15">
-                      <span className="font-semibold">Amount</span>
+                      <span className="font-semibold">Số tiền</span>
                       <strong className="text-primary text-lg">
                         {formatVND(order.total_amount)}
                       </strong>
@@ -594,7 +594,7 @@ function OrderDetail({ code }: { code: string }) {
                 </span>
               </div>
               <div className="flex justify-between items-center text-lg font-extrabold">
-                <span>Total</span>
+                <span>Tổng cộng</span>
                 <span className="text-primary-dim text-2xl">
                   {formatVND(order.total_amount)}
                 </span>

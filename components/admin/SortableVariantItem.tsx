@@ -47,7 +47,7 @@ export function SortableVariantItem({
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
         <div>
           <label className="block text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 ml-1 opacity-60">
-            Variant Name
+            Tên biến thể
           </label>
           <input
             type="text"
@@ -60,7 +60,7 @@ export function SortableVariantItem({
         <div className="flex gap-3">
           <div className="flex-1">
             <label className="block text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 ml-1 opacity-60">
-              Price (₫)
+              Giá (₫)
             </label>
             <input
               type="number"
@@ -71,7 +71,7 @@ export function SortableVariantItem({
           </div>
           <div className="shrink-0 flex flex-col items-center">
             <label className="block text-[10px] font-bold text-on-surface-variant uppercase tracking-wider mb-1 opacity-60">
-              Active
+              Hiển thị
             </label>
             <div className="h-8 flex items-center">
               <Switch

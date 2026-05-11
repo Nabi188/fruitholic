@@ -2,7 +2,6 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { formatVND } from "@/lib/formatters";
 
-
 export const metadata = {
   title: "Orders | Fruitholic Admin",
 };
@@ -104,16 +103,16 @@ export default async function OrdersPage({
           <table className="w-full text-left border-collapse">
             <thead className="bg-surface-container-low/50 text-on-surface-variant text-[10px] sm:text-[11px] uppercase tracking-widest font-bold">
               <tr>
-                <th className="py-3 sm:py-4 px-3 sm:px-6">Order ID</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-6">Mã đơn</th>
                 <th className="py-3 sm:py-4 px-3 sm:px-4 hidden sm:table-cell">
-                  Date
+                  Ngày
                 </th>
-                <th className="py-3 sm:py-4 px-3 sm:px-4">Customer</th>
-                <th className="py-3 sm:py-4 px-3 sm:px-4">Total</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4">Khách hàng</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-4">Tổng tiền</th>
                 <th className="py-3 sm:py-4 px-3 sm:px-4 hidden md:table-cell">
-                  Payment
+                  Thanh toán
                 </th>
-                <th className="py-3 sm:py-4 px-3 sm:px-6">Status</th>
+                <th className="py-3 sm:py-4 px-3 sm:px-6">Trạng thái</th>
               </tr>
             </thead>
             <tbody className="text-sm font-medium divide-y divide-outline-variant/10">

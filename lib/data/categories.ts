@@ -28,7 +28,7 @@ export async function getCategories(): Promise<Category[]> {
 
   if (error) {
     console.error("getCategories error:", error);
-    return [];
+    throw new Error(`Failed to fetch categories: ${error.message}`);
   }
 
   return (data ?? []) as Category[];
@@ -54,7 +54,12 @@ export async function getCategoryBySlug(
     .eq("is_active", true)
     .single();
 
-  if (error || !data) return null;
+  if (error) {
+    console.error("getCategoryBySlug error:", error);
+    throw new Error(`Failed to fetch category by slug ${slug}: ${error.message}`);
+  }
+
+  if (!data) return null;
 
   return data as Category;
 }

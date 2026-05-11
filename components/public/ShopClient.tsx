@@ -46,7 +46,9 @@ export function ShopClient({ categories, products }: Props) {
   const [selectedPriceRange, setSelectedPriceRange] = useState(0);
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<"default" | "price-asc" | "price-desc" | "name">("default");
+  const [sortBy, setSortBy] = useState<
+    "default" | "price-asc" | "price-desc" | "name"
+  >("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const filteredProducts = useMemo(() => {
@@ -90,7 +92,14 @@ export function ShopClient({ categories, products }: Props) {
     }
 
     return result;
-  }, [products, searchQuery, selectedCategory, selectedPriceRange, showAvailableOnly, sortBy]);
+  }, [
+    products,
+    searchQuery,
+    selectedCategory,
+    selectedPriceRange,
+    showAvailableOnly,
+    sortBy,
+  ]);
 
   const activeFilterCount =
     (selectedCategory !== "ALL" ? 1 : 0) +
@@ -124,7 +133,9 @@ export function ShopClient({ categories, products }: Props) {
             Tất cả ({products.length})
           </button>
           {categories.map((cat) => {
-            const count = products.filter((p) => p.categoryId === cat.id).length;
+            const count = products.filter(
+              (p) => p.categoryId === cat.id,
+            ).length;
             return (
               <button
                 key={cat.id}
@@ -136,7 +147,9 @@ export function ShopClient({ categories, products }: Props) {
                 }`}
               >
                 <span>{cat.name}</span>
-                <span className={`text-xs ${selectedCategory === cat.id ? "opacity-80" : "opacity-50"}`}>
+                <span
+                  className={`text-xs ${selectedCategory === cat.id ? "opacity-80" : "opacity-50"}`}
+                >
                   {count}
                 </span>
               </button>
@@ -179,9 +192,7 @@ export function ShopClient({ categories, products }: Props) {
             onChange={(e) => setShowAvailableOnly(e.target.checked)}
             className="w-4 h-4 rounded text-primary focus:ring-primary accent-[var(--color-primary)]"
           />
-          <span className="text-sm font-medium text-on-surface">
-            Chỉ hiện sản phẩm còn hàng
-          </span>
+          <span className="text-sm font-medium text-on-surface">Còn hàng</span>
         </label>
       </div>
 
@@ -206,12 +217,13 @@ export function ShopClient({ categories, products }: Props) {
             Tất cả sản phẩm
           </h1>
           <p className="mt-3 text-on-surface-variant font-body text-lg max-w-xl">
-            Khám phá {products.length} sản phẩm trái cây tươi ngon, nước ép hữu cơ 100% từ thiên nhiên.
+            Khám phá {products.length} sản phẩm trái cây tươi ngon, nước ép hữu
+            cơ 100% từ thiên nhiên.
           </p>
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-8">
+      <div className="max-w-[1900px] mx-auto px-6 lg:px-12 py-8">
         {/* Top Controls */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
           {/* Search */}
@@ -333,7 +345,11 @@ export function ShopClient({ categories, products }: Props) {
             {/* Results count */}
             <div className="mb-4 flex items-center gap-3">
               <span className="text-sm text-on-surface-variant font-body">
-                Hiển thị <strong className="text-on-surface">{filteredProducts.length}</strong> / {products.length} sản phẩm
+                Hiển thị{" "}
+                <strong className="text-on-surface">
+                  {filteredProducts.length}
+                </strong>{" "}
+                / {products.length} sản phẩm
               </span>
               {searchQuery && (
                 <span className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-medium">
@@ -365,7 +381,7 @@ export function ShopClient({ categories, products }: Props) {
                       href={`/products/${p.slug}`}
                       className="flex items-center gap-5 bg-surface-container-lowest rounded-2xl p-4 border border-outline-variant/10 hover:border-primary/20 hover:shadow-sm transition-all group"
                     >
-                      <div className="w-20 h-20 rounded-xl overflow-hidden bg-surface-container-low shrink-0">
+                      <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-surface-container-low shrink-0">
                         <img
                           src={
                             p.imageUrl ||
@@ -376,14 +392,15 @@ export function ShopClient({ categories, products }: Props) {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-on-surface line-clamp-1 font-body group-hover:text-primary transition-colors">
+                        <h3 className="font-bold text-lg sm:text-xl text-on-surface line-clamp-1 font-body group-hover:text-primary transition-colors mb-1">
                           {p.name}
                         </h3>
-                        <span className="text-sm text-on-surface-variant">
-                          {categories.find((c) => c.id === p.categoryId)?.name || "—"}
+                        <span className="text-sm sm:text-base text-on-surface-variant">
+                          {categories.find((c) => c.id === p.categoryId)
+                            ?.name || "—"}
                         </span>
                       </div>
-                      <span className="text-primary font-bold text-lg font-headline shrink-0">
+                      <span className="text-primary font-bold text-xl sm:text-2xl font-headline shrink-0">
                         {formatVND(p.price)}
                       </span>
                     </Link>

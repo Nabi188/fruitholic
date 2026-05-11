@@ -16,7 +16,7 @@ export default async function ThankYouPage({
   if (!code) {
     return (
       <div className="container mx-auto px-4 py-32 text-center">
-        <h1 className="text-3xl font-bold">Order not found</h1>
+        <h1 className="text-3xl font-bold">Không tìm thấy đơn hàng</h1>
         <Link
           href="/"
           className="text-primary mt-4 inline-block hover:underline"
@@ -36,16 +36,16 @@ export default async function ThankYouPage({
       </div>
 
       <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-4 tracking-tighter font-headline">
-        Thank you for your order!
+        Cám ơn bạn đã đặt hàng!
       </h1>
       <p className="text-on-surface-variant font-body mb-8 max-w-sm mx-auto text-lg leading-relaxed">
-        Your order has been successfully placed. We are preparing your order
-        with care.
+        Đơn hàng của bạn đã được ghi nhận thành công. Chúng tôi sẽ xử lý đơn
+        hàng của bạn sớm nhất có thể.
       </p>
 
       <div className="bg-white p-8 rounded-[2rem] border border-surface-container shadow-sm flex flex-col gap-4 text-center mx-auto max-w-sm relative z-10">
         <span className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
-          Order code
+          Mã đơn hàng
         </span>
         <div className="flex items-center justify-center gap-3">
           <span className="text-3xl font-mono font-extrabold text-primary tracking-wider">
@@ -54,7 +54,7 @@ export default async function ThankYouPage({
           <CopyButton text={code} />
         </div>
         <p className="text-xs text-outline italic mt-2">
-          (Save this code to track your order)
+          Lưu mã này để theo dõi đơn hàng.
         </p>
       </div>
 
@@ -64,14 +64,14 @@ export default async function ThankYouPage({
           className="w-full sm:w-auto flex justify-center items-center gap-2 rounded-full border border-primary text-primary px-8 py-3.5 text-sm font-bold hover:bg-primary/5 transition-colors font-headline"
         >
           <Search className="w-4 h-4" />
-          Track order
+          Theo dõi đơn hàng
         </Link>
         <Link
           href="/"
           className="w-full sm:w-auto flex justify-center items-center gap-2 rounded-full bg-primary text-white px-8 py-3.5 text-sm font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:brightness-110 font-headline"
         >
           <Home className="w-4 h-4" />
-          Continue shopping
+          Tiếp tục mua sắm
         </Link>
       </div>
     </div>

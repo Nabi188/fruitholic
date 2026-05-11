@@ -12,10 +12,7 @@ export function FlashSaleSection({ products }: Props) {
     <section>
       <div className="flex justify-between items-end mb-6 border-b border-outline-variant/20 pb-4">
         <h2 className="font-headline text-3xl font-bold text-on-surface flex items-center gap-2 tracking-tight">
-          <Zap
-            className="w-8 h-8 text-error fill-error"
-            strokeWidth={2}
-          />
+          <Zap className="w-8 h-8 text-error fill-error" strokeWidth={2} />
           Flash Sale Hôm Nay
         </h2>
         <Link
@@ -26,7 +23,7 @@ export function FlashSaleSection({ products }: Props) {
         </Link>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-        {products.slice(0, 8).map((p, i) => (
+        {products.slice(0, 4).map((p, i) => (
           <ProductCard
             key={`flash-${p.id}`}
             id={p.id}

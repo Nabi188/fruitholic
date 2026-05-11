@@ -124,7 +124,7 @@ export function ProductDrawer({
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel>Hủy</AlertDialogCancel>
                         <AlertDialogAction
                           onClick={actions.handleDelete}
                           className="bg-error text-on-error hover:bg-error/90"
@@ -194,7 +194,7 @@ export function ProductDrawer({
                         onChange={(e) => actions.setCategoryId(e.target.value)}
                         className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                       >
-                        <option value="">No Category</option>
+                        <option value="">Không có danh mục</option>
                         {categories.map((c) => (
                           <option key={c.id} value={c.id}>
                             {c.name}

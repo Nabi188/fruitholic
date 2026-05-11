@@ -80,7 +80,7 @@ export function AdminSidebar() {
               Fruitholic
             </span>
             <span className="text-[9px] uppercase tracking-[0.2em] text-on-surface-variant opacity-60 font-bold">
-              Portal
+              Admin
             </span>
           </div>
         </div>
@@ -89,7 +89,7 @@ export function AdminSidebar() {
       <SidebarContent className="px-3 pt-6 group-data-[state=collapsed]:px-1 transition-all duration-300">
         <SidebarGroup>
           <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.25em] font-black text-on-surface-variant opacity-40 px-4 mb-4 group-data-[state=collapsed]:hidden">
-            Navigation
+            Menu
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="gap-2">
@@ -133,7 +133,7 @@ export function AdminSidebar() {
         {userEmail && (
           <div className="px-5 mb-2 group-data-[state=collapsed]:hidden animate-in fade-in slide-in-from-bottom-1 duration-500">
             <p className="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-50 font-bold mb-0.5">
-              Welcome,
+              Xin chào,
             </p>
             <p className="text-xs font-semibold text-primary truncate">
               {userEmail}

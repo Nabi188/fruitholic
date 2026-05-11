@@ -84,7 +84,7 @@ export function CategoryManager({ categories }: Props) {
   };
 
   const handleDelete = (id: string) => {
-    if (!confirm("Are you sure you want to delete this category?")) return;
+    if (!confirm("Bạn có chắc chắn muốn xóa danh mục này?")) return;
     startTransition(async () => {
       await deleteCategory(id);
     });
@@ -101,11 +101,11 @@ export function CategoryManager({ categories }: Props) {
       <div className="flex items-end justify-between mb-8">
         <div>
           <h2 className="font-headline text-3xl font-extrabold text-on-surface tracking-tight">
-            Product Categories
+            Danh mục sản phẩm
           </h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="text-xs font-medium text-primary bg-primary-container px-3 py-1 rounded-full">
-              Total: {categories.length} categories
+              Tổng cộng: {categories.length} danh mục
             </span>
           </div>
         </div>
@@ -114,7 +114,7 @@ export function CategoryManager({ categories }: Props) {
           className="bg-primary text-on-primary font-headline font-bold px-6 py-3 rounded-full flex items-center gap-2 transition-all shadow-lg shadow-primary/20 hover:brightness-105 active:scale-95"
         >
           <Plus className="w-5 h-5" />
-          Add Category
+          Thêm danh mục
         </button>
       </div>
 
@@ -123,19 +123,19 @@ export function CategoryManager({ categories }: Props) {
           <thead>
             <tr className="bg-surface-container-low border-b border-outline-variant/10">
               <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                Category Name
+                Tên danh mục
               </th>
               <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
                 Slug
               </th>
               <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                Sort Order
+                Thứ tự sắp xếp
               </th>
               <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                Status
+                Trạng thái
               </th>
               <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">
-                Actions
+                Hành động
               </th>
             </tr>
           </thead>
@@ -146,7 +146,7 @@ export function CategoryManager({ categories }: Props) {
                   colSpan={5}
                   className="px-8 py-12 text-center text-on-surface-variant"
                 >
-                  No categories found. Let&apos;s create your first one!
+                  Chưa có danh mục. Hãy tạo danh mục đầu tiên!
                 </td>
               </tr>
             )}
@@ -179,7 +179,7 @@ export function CategoryManager({ categories }: Props) {
                     <span
                       className={`w-2 h-2 rounded-full ${cat.is_active ? "bg-primary animate-pulse" : "bg-outline-variant"}`}
                     />
-                    {cat.is_active ? "Visible" : "Hidden"}
+                    {cat.is_active ? "Hiển thị" : "Ẩn"}
                   </button>
                 </td>
                 <td className="px-6 py-4 text-right">
@@ -209,7 +209,7 @@ export function CategoryManager({ categories }: Props) {
           <div className="bg-surface-container-lowest rounded-[2rem] p-8 w-full max-w-lg shadow-[0_40px_80px_rgba(0,0,0,0.15)]">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-extrabold font-headline text-on-surface">
-                {editing ? "Edit Category" : "Add New Category"}
+                {editing ? "Chỉnh sửa danh mục" : "Thêm danh mục"}
               </h3>
               <button
                 onClick={() => setShowModal(false)}
@@ -228,7 +228,7 @@ export function CategoryManager({ categories }: Props) {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                  Category Name *
+                  Tên danh mục *
                 </label>
                 <input
                   type="text"
@@ -265,7 +265,7 @@ export function CategoryManager({ categories }: Props) {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                    Sort Order
+                    Thứ tự sắp xếp
                   </label>
                   <input
                     type="number"
@@ -282,7 +282,7 @@ export function CategoryManager({ categories }: Props) {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                    Status
+                    Trạng thái
                   </label>
                   <select
                     value={String(formData.is_active)}
@@ -294,15 +294,15 @@ export function CategoryManager({ categories }: Props) {
                     }
                     className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                   >
-                    <option value="true">Visible</option>
-                    <option value="false">Hidden</option>
+                    <option value="true">Hiển thị</option>
+                    <option value="false">Đã ẩn</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                  Parent Category (optional)
+                  Danh mục cha (tùy chọn)
                 </label>
                 <select
                   value={formData.parent_id}
@@ -314,7 +314,7 @@ export function CategoryManager({ categories }: Props) {
                   }
                   className="w-full px-4 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                 >
-                  <option value="">— None —</option>
+                  <option value="">— Trống —</option>
                   {categories
                     .filter((c) => !c.parent_id && c.id !== editing?.id)
                     .map((c) => (
@@ -331,14 +331,14 @@ export function CategoryManager({ categories }: Props) {
                   onClick={() => setShowModal(false)}
                   className="flex-1 py-3 bg-surface-container border border-outline-variant/20 text-on-surface-variant font-semibold rounded-full hover:bg-surface-container-high transition-all"
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
                   disabled={isPending}
                   className="flex-1 py-3 bg-primary text-on-primary font-bold rounded-full shadow-lg shadow-primary/20 hover:brightness-105 transition-all disabled:opacity-60"
                 >
-                  {isPending ? "Saving..." : editing ? "Update" : "Create New"}
+                  {isPending ? "Đang lưu..." : editing ? "Lưu" : "Thêm mới"}
                 </button>
               </div>
             </form>

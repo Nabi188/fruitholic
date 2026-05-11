@@ -53,11 +53,11 @@ export function ImageManager({
     <section className="space-y-4">
       <div>
         <h3 className="text-lg font-bold font-headline text-on-surface">
-          Images
+          Hình ảnh sản phẩm
         </h3>
-        <p className="text-xs text-on-surface-variant mt-0.5">
-          First image is the main display. Drag to reorder. Supports
-          multi-upload.
+        <p className="text-xs text-muted-foreground mt-0.5">
+          Ảnh đầu tiên là ảnh hiển thị chính. Kéo để sắp xếp lại. Hỗ trợ tải lên
+          nhiều ảnh.
         </p>
       </div>
 
@@ -73,7 +73,6 @@ export function ImageManager({
         >
           {images.length > 0 && (
             <div className="flex gap-3 items-start">
-              {/* Main image — larger */}
               {mainImage && (
                 <div className="w-[40%] shrink-0">
                   <SortableImageItem
@@ -83,7 +82,6 @@ export function ImageManager({
                   />
                 </div>
               )}
-              {/* Side images — 3-col grid */}
               {sideImages.length > 0 && (
                 <div className="grid grid-cols-3 gap-2 flex-1">
                   {sideImages.map((im, idx) => {
@@ -118,12 +116,12 @@ export function ImageManager({
           {uploading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Uploading...
+              Đang tải lên...
             </>
           ) : (
             <>
               <ImagePlus className="w-4 h-4" />
-              Upload Images
+              Tải ảnh lên
             </>
           )}
           <input
@@ -136,7 +134,6 @@ export function ImageManager({
               const files = Array.from(e.target.files ?? []);
               if (files.length) {
                 onFileUpload(files);
-                // Reset input so same files can be re-selected
                 if (fileInputRef.current) fileInputRef.current.value = "";
               }
             }}
@@ -153,7 +150,7 @@ export function ImageManager({
                 onUrlAdd();
               }
             }}
-            placeholder="Paste image URL..."
+            placeholder="Dán liên kết URL của ảnh..."
             className="flex-1 px-5 py-2 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
           />
           <Button
@@ -162,7 +159,7 @@ export function ImageManager({
             onClick={onUrlAdd}
             className="rounded-full px-6"
           >
-            Add
+            Thêm ảnh
           </Button>
         </div>
       </div>

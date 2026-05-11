@@ -84,12 +84,12 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
             </Button>
             <div>
               <h1 className="text-xl font-extrabold font-headline text-on-surface leading-none">
-                {product ? "Edit product" : "New product"}
+                {product ? "Chỉnh sửa sản phẩm" : "Sản phẩm mới"}
               </h1>
               <p className="text-xs text-on-surface-variant mt-0.5">
                 {product
-                  ? `Updating "${product.name}"`
-                  : "Fill in the details below"}
+                  ? `Cập nhật "${product.name}"`
+                  : "Điền thông tin chi tiết dưới đây"}
               </p>
             </div>
           </div>
@@ -104,26 +104,26 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                       className="rounded-full"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      Xoá sản phẩm
                     </Button>
                   }
                 />
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogTitle>Bạn có chắc?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This will permanently delete{" "}
-                      <strong>{product.name}</strong>. This action cannot be
-                      undone.
+                      Sản phẩm này sẽ bị xoá vĩnh viễn. Hành động này không thể
+                      hoàn tác
+                      <strong>{product.name}</strong>.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>Hủy</AlertDialogCancel>
                     <AlertDialogAction
                       onClick={actions.handleDelete}
                       className="bg-error text-on-error hover:bg-error/90"
                     >
-                      Delete
+                      Xoá sản phẩm
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
@@ -163,12 +163,12 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
             {/* Basic Info */}
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
               <h2 className="text-base font-bold font-headline text-on-surface">
-                Basic Info
+                Thông tin cơ bản
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="col-span-2">
                   <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
-                    Product Name *
+                    Tên sản phẩm *
                   </label>
                   <input
                     type="text"
@@ -196,14 +196,14 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
-                    Category
+                    Danh mục
                   </label>
                   <select
                     value={categoryId ?? ""}
                     onChange={(e) => actions.setCategoryId(e.target.value)}
                     className="w-full px-5 py-3 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
                   >
-                    <option value="">No Category</option>
+                    <option value="">Không có danh mục</option>
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>
                         {c.name}
@@ -214,24 +214,24 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
-                  Short Description
+                  Mô tả ngắn
                 </label>
                 <textarea
                   value={shortDesc ?? ""}
                   onChange={(e) => actions.setShortDesc(e.target.value)}
                   rows={2}
                   className="w-full px-5 py-3 bg-surface-container-low border-none rounded-2xl text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none"
-                  placeholder="Brief tagline shown in product listings..."
+                  placeholder="Mô tả ngắn..."
                 />
               </div>
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
-                  Detailed Description
+                  Mô tả chi tiết
                 </label>
                 <TipTapEditor
                   value={desc ?? ""}
                   onChange={(html) => actions.setDesc(html)}
-                  placeholder="Full product description..."
+                  placeholder="Mô tả chi tiết..."
                 />
               </div>
             </div>
@@ -240,7 +240,7 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <h2 className="text-base font-bold font-headline text-on-surface">
-                  Variants
+                  Các biến thể
                 </h2>
                 <Button
                   type="button"
@@ -249,7 +249,7 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                   onClick={actions.addVariant}
                   className="text-primary"
                 >
-                  <Plus className="w-4 h-4 mr-1" /> Add Variant
+                  <Plus className="w-4 h-4 mr-1" /> Thêm biến thể
                 </Button>
               </div>
               <DndContext
@@ -299,11 +299,11 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
             {/* Settings card */}
             <div className="bg-surface-container-lowest rounded-[1.5rem] p-6 space-y-4 shadow-sm">
               <h2 className="text-base font-bold font-headline text-on-surface">
-                Settings
+                Cài đặt
               </h2>
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-1.5">
-                  Sort Order
+                  Thứ tự hiển thị
                 </label>
                 <input
                   type="number"
@@ -314,7 +314,7 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
               </div>
               <div>
                 <label className="block text-sm font-semibold text-on-surface-variant mb-2">
-                  Status
+                  Trạng thái
                 </label>
                 <div className="flex gap-2">
                   <button
@@ -322,14 +322,14 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                     onClick={() => actions.setIsActive(true)}
                     className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${isActive ? "bg-primary text-on-primary" : "bg-surface-container-low text-on-surface-variant"}`}
                   >
-                    Active
+                    Hiển thị
                   </button>
                   <button
                     type="button"
                     onClick={() => actions.setIsActive(false)}
                     className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${!isActive ? "bg-error/10 text-error" : "bg-surface-container-low text-on-surface-variant"}`}
                   >
-                    Inactive
+                    Ẩn
                   </button>
                 </div>
               </div>
@@ -340,10 +340,10 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-base font-bold font-headline text-on-surface">
-                    Option Groups
+                    Nhóm tuỳ chọn
                   </h2>
                   <p className="text-xs text-on-surface-variant mt-0.5">
-                    Let customers customise.
+                    Để khách hàng tuỳ chọn.
                   </p>
                 </div>
                 <QuickCreateOptionGroup
@@ -371,7 +371,7 @@ export function ProductForm({ categories, optionGroups, product }: Props) {
                 })}
                 {localGroups.length === 0 && (
                   <p className="text-xs text-on-surface-variant opacity-50">
-                    No option groups yet.
+                    Chưa có nhóm tuỳ chọn.
                   </p>
                 )}
               </div>

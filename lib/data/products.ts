@@ -93,7 +93,7 @@ export async function getProducts(): Promise<ProductListItem[]> {
 
   if (error) {
     console.error("getProducts error:", error);
-    return [];
+    throw new Error(`Failed to fetch products: ${error.message}`);
   }
 
   return (data || []).map(transformRawProduct);
@@ -120,7 +120,7 @@ export async function getProductsByCategory(
 
   if (error) {
     console.error("getProductsByCategory error:", error);
-    return [];
+    throw new Error(`Failed to fetch products for category ${categoryId}: ${error.message}`);
   }
 
   return (data || []).map(transformRawProduct);
@@ -139,7 +139,7 @@ export async function getProductsGroupedByCategory(): Promise<
 
   const supabase = createSupabasePublicClient();
 
-  const [{ data: rawCategories }, { data: rawProducts }] = await Promise.all([
+  const [categoriesResult, productsResult] = await Promise.all([
     supabase
       .from("categories")
       .select("id, name, slug")
@@ -150,6 +150,16 @@ export async function getProductsGroupedByCategory(): Promise<
       .select(PRODUCT_LIST_SELECT)
       .eq("is_active", true),
   ]);
+
+  if (categoriesResult.error) {
+    throw new Error(`Failed to fetch categories: ${categoriesResult.error.message}`);
+  }
+  if (productsResult.error) {
+    throw new Error(`Failed to fetch products: ${productsResult.error.message}`);
+  }
+
+  const rawCategories = categoriesResult.data;
+  const rawProducts = productsResult.data;
 
   const categories = (rawCategories || []) as {
     id: string;
@@ -201,7 +211,12 @@ export async function getProductDetail(
     .eq("is_active", true)
     .single();
 
-  if (error || !product) return null;
+  if (error) {
+    console.error("getProductDetail error:", error);
+    throw new Error(`Failed to fetch product detail for slug ${slug}: ${error.message}`);
+  }
+  
+  if (!product) return null;
 
   const p = product as any;
 

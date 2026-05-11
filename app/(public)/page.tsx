@@ -7,8 +7,8 @@ import { ProductCategorySection } from "@/components/public/ProductCategorySecti
 import { NewsletterSection } from "@/components/public/NewsletterSection";
 
 export const metadata = {
-  title: "The Organic Editorial - Trái Cây Tươi & Nước Ép",
-  description: "Năng lượng Thuần Khiết Từ Thiên Nhiên",
+  title: "Fruitholic - Trái Cây Tươi Cắt Sẵn & Nước Ép Nguyên Chất",
+  description: "Dairy Fresh",
 };
 
 export default async function HomePage() {

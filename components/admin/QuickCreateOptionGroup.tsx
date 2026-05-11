@@ -86,7 +86,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
         onClick={() => setOpen(true)}
       >
         <Plus className="w-3.5 h-3.5" />
-        Quick create group
+        Tạo nhóm tùy chọn nhanh
       </Button>
     );
   }
@@ -96,7 +96,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
       <div className="bg-surface-container-lowest rounded-[2rem] p-6 w-full max-w-lg shadow-[0_40px_80px_rgba(0,0,0,0.15)] flex flex-col max-h-[85vh]">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-extrabold font-headline text-on-surface">
-            Quick Create Option Group
+            Tạo nhóm tùy chọn nhanh
           </h3>
           <button
             type="button"
@@ -111,7 +111,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
           <div className="grid grid-cols-1 gap-4">
             <div>
               <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
-                Group Name
+                Tên nhóm tùy chọn
               </label>
               <input
                 type="text"
@@ -126,7 +126,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
-                Min selection
+                Lựa chọn tối thiểu
               </label>
               <input
                 type="number"
@@ -138,7 +138,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
             </div>
             <div>
               <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
-                Max selection
+                Lựa chọn tối đa
               </label>
               <input
                 type="number"
@@ -153,7 +153,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
           <div className="space-y-2">
             <div className="flex items-center justify-between ml-1">
               <label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
-                Option Values
+                Giá trị tùy chọn
               </label>
               <Button
                 type="button"
@@ -162,7 +162,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
                 className="h-7 text-primary"
                 onClick={addValue}
               >
-                <Plus className="w-3.5 h-3.5 mr-1" /> Add value
+                <Plus className="w-3.5 h-3.5 mr-1" /> Thêm giá trị
               </Button>
             </div>
             <div className="space-y-2">
@@ -173,7 +173,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
                     value={v.name}
                     onChange={(e) => updateValue(i, "name", e.target.value)}
                     className="flex-1 px-4 py-2 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-                    placeholder="Value name"
+                    placeholder="Tên giá trị"
                   />
                   <input
                     type="number"
@@ -182,7 +182,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
                       updateValue(i, "price", Number(e.target.value))
                     }
                     className="w-24 px-4 py-2 bg-surface-container-low border-none rounded-full text-sm outline-none focus:ring-2 focus:ring-primary/30"
-                    placeholder="Price"
+                    placeholder="Giá"
                   />
                   {values.length > 1 && (
                     <button
@@ -206,7 +206,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
             onClick={() => setOpen(false)}
             className="flex-1 rounded-full h-11"
           >
-            Cancel
+            Hủy
           </Button>
           <Button
             type="button"
@@ -214,7 +214,7 @@ export function QuickCreateOptionGroup({ onCreated }: Props) {
             disabled={isPending}
             className="flex-1 rounded-full h-11"
           >
-            {isPending ? "Creating..." : "Create Group"}
+            {isPending ? "Đang tạo..." : "Tạo nhóm"}
           </Button>
         </div>
       </div>

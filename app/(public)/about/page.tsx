@@ -2,15 +2,14 @@ import Link from "next/link";
 import { ArrowRight, Leaf, Droplets, Package } from "lucide-react";
 
 export const metadata = {
-  title: "Về chúng tôi | Fruitholic",
+  title: "Về Fruitholic",
   description:
-    "Câu chuyện đằng sau Fruitholic — sứ mệnh mang năng lượng thuần khiết từ thiên nhiên đến mỗi gia đình Việt.",
+    "Câu chuyện Fruitholic — sứ mệnh mang năng lượng thuần khiết từ thiên nhiên đến mỗi người dân Việt Nam.",
 };
 
 export default function AboutPage() {
   return (
     <main className="overflow-x-hidden">
-      {/* ── Hero Section: Editorial Asymmetry ── */}
       <section className="px-6 lg:px-12 pt-8 lg:pt-16 pb-16 max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
           <div>
@@ -19,9 +18,9 @@ export default function AboutPage() {
               <span className="text-primary italic">Thuần Khiết.</span>
             </h1>
             <p className="text-on-surface-variant leading-relaxed text-lg md:text-xl max-w-lg font-body">
-              Chúng tôi tin rằng sức khỏe không nên là gánh nặng. Nó phải là
-              một cuộc tôn vinh sống động, rực rỡ nhất của những mùa quả tốt
-              nhất từ thiên nhiên.
+              Chúng tôi tin rằng sức khỏe không nên là gánh nặng. Nó phải là một
+              cuộc tôn vinh sống động, rực rỡ nhất của những mùa quả tốt nhất từ
+              thiên nhiên.
             </p>
             <p className="mt-6 text-on-surface-variant/70 leading-relaxed font-body">
               Sứ mệnh của Fruitholic rất đơn giản: Đóng chai năng lượng thô sơ
@@ -76,8 +75,8 @@ export default function AboutPage() {
               Nguồn Gốc Thuần Khiết
             </h3>
             <p className="text-on-surface-variant font-body leading-relaxed">
-              Chúng tôi hợp tác trực tiếp với các nông trại hữu cơ, nơi đất
-              được chăm sóc với sự tôn trọng như chăm sóc chính cơ thể mình.
+              Chúng tôi hợp tác trực tiếp với các nông trại hữu cơ, nơi đất được
+              chăm sóc với sự tôn trọng như chăm sóc chính cơ thể mình.
             </p>
           </div>
 
@@ -118,8 +117,8 @@ export default function AboutPage() {
               Đóng Chai Thủy Tinh
             </h3>
             <p className="text-on-surface-variant font-body leading-relaxed">
-              Không nhựa, vì hành tinh xanh. Chúng tôi đóng chai trong thủy
-              tinh cao cấp để giữ trọn hương vị thuần khiết nhất.
+              Không nhựa, vì hành tinh xanh. Chúng tôi đóng chai trong thủy tinh
+              cao cấp để giữ trọn hương vị thuần khiết nhất.
             </p>
           </div>
         </div>

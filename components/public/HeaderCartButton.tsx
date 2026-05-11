@@ -60,7 +60,7 @@ export function HeaderCartButton() {
         <PopoverTrigger render={trigger} />
         <PopoverContent
           align="end"
-          className="w-[360px] p-0 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-surface-container-highest overflow-hidden bg-surface-container-lowest"
+          className="w-[500px] p-0 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-surface-container-highest overflow-hidden bg-surface-container-lowest"
         >
           <CartQuickView close={() => setOpen(false)} />
         </PopoverContent>

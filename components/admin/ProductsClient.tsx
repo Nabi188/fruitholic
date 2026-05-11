@@ -35,7 +35,7 @@ function CopyLinkButton({ slug, siteUrl }: { slug: string; siteUrl: string }) {
     e.stopPropagation();
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
-      toast.success("Link copied!");
+      toast.success("Đã sao chép link!");
       setTimeout(() => setCopied(false), 2000);
     });
   };
@@ -63,11 +63,9 @@ function ActiveSwitch({ product }: { product: AdminProduct }) {
       const result = await toggleProductActive(product.id, next);
       if (result.error) {
         setOptimistic(!next);
-        toast.error("Failed to update status");
+        toast.error("Không thể thay đổi trạng thái");
       } else {
-        toast.success(
-          next ? "Product is now visible" : "Product is now hidden",
-        );
+        toast.success(next ? "Sản phẩm đã hiển thị" : "Sản phẩm đã ẩn");
       }
     });
   };
@@ -102,7 +100,7 @@ function VariantActiveSwitch({
       const result = await toggleVariantActive(variantId, next);
       if (result.error) {
         setOptimistic(!next);
-        toast.error("Failed to update variant");
+        toast.error("Thay đổi trạng thái thất bại");
       }
     });
   };
@@ -133,11 +131,11 @@ export function ProductsClient({ products, siteUrl }: Props) {
       <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 sm:mb-8 gap-4">
         <div>
           <h2 className="font-headline text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight">
-            Products
+            Sản phẩm
           </h2>
           <div className="mt-2 flex items-center gap-2">
             <span className="text-xs font-medium text-primary bg-primary-container px-3 py-1 rounded-full">
-              Total: {products.length} products
+              Tổng cộng: {products.length} sản phẩm
             </span>
           </div>
         </div>
@@ -146,7 +144,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
           className="font-headline font-bold px-5 sm:px-6 h-10 sm:h-11 rounded-full shadow-lg shadow-primary/20 text-sm"
         >
           <Plus className="w-5 h-5" />
-          Add product
+          Thêm sản phẩm
         </Button>
       </div>
 
@@ -157,19 +155,21 @@ export function ProductsClient({ products, siteUrl }: Props) {
               <tr className="bg-surface-container-low border-b border-outline-variant/10">
                 {[
                   "",
-                  "Image",
-                  "Product",
-                  "Category",
-                  "Variants",
-                  "Price from",
-                  "Active",
-                  "Actions",
+                  "Hình ảnh",
+                  "Sản phẩm",
+                  "Danh mục",
+                  "Biến thể",
+                  "Giá",
+                  "Trạng thái",
+                  "Thao tác",
                 ].map((h) => (
                   <th
                     key={h}
                     className={`px-2 sm:px-4 py-3 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-on-surface-variant whitespace-nowrap ${
-                      h === "Category" || h === "Variants" ? "hidden md:table-cell" : ""
-                    } ${h === "Actions" ? "hidden sm:table-cell" : ""}`}
+                      h === "Danh mục" || h === "Biến thể"
+                        ? "hidden md:table-cell"
+                        : ""
+                    } ${h === "Thao tác" ? "hidden sm:table-cell" : ""}`}
                   >
                     {h}
                   </th>
@@ -183,12 +183,12 @@ export function ProductsClient({ products, siteUrl }: Props) {
                     colSpan={8}
                     className="px-8 py-12 text-center text-on-surface-variant"
                   >
-                    No products yet.{" "}
+                    Chưa có sản phẩm.{" "}
                     <button
                       onClick={() => router.push("/admin/products/new")}
                       className="text-primary font-semibold underline"
                     >
-                      Add one now
+                      Thêm sản phẩm ngay
                     </button>
                   </td>
                 </tr>
@@ -269,7 +269,7 @@ export function ProductsClient({ products, siteUrl }: Props) {
 
                       <td className="px-2 sm:px-4 py-3 hidden md:table-cell">
                         <span className="bg-surface-container px-2.5 py-1 rounded-full text-xs font-semibold text-on-surface-variant">
-                          {product.product_variants?.length ?? 0} variants
+                          {product.product_variants?.length ?? 0} biến thể
                         </span>
                       </td>
 
@@ -308,9 +308,9 @@ export function ProductsClient({ products, siteUrl }: Props) {
                         <td colSpan={8} className="px-6 py-4">
                           <div className="ml-8 space-y-0">
                             <div className="grid grid-cols-[1fr_auto_auto] gap-4 mb-2 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/60 px-3">
-                              <span>Variant name</span>
-                              <span className="w-24 text-right">Price</span>
-                              <span className="w-16 text-center">Active</span>
+                              <span>Tên biến thể</span>
+                              <span className="w-24 text-right">Giá</span>
+                              <span className="w-16 text-center">Bật</span>
                             </div>
                             {product.product_variants
                               ?.sort((a, b) => a.sort_order - b.sort_order)

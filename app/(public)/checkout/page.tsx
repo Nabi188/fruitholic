@@ -663,24 +663,24 @@ function BankTransferModal({
               <CheckCircle2 className="w-10 h-10 text-emerald-600" />
             </div>
             <h3 className="text-2xl font-bold text-slate-800 mb-2">
-              Payment Confirmed!
+              Thanh toán thành công!
             </h3>
             <p className="text-slate-500 mb-4">
-              Your transfer has been received successfully.
+              Giao dịch của bạn đã được ghi nhận thành công.
             </p>
-            <p className="text-sm text-slate-400">Redirecting...</p>
+            <p className="text-sm text-slate-400">Đang chuyển hướng...</p>
           </div>
         ) : (
           <>
             <div className="bg-gradient-to-b from-emerald-50 to-white p-6 sm:p-8 text-center border-b border-emerald-100">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold mb-4">
                 <QrCode className="w-3.5 h-3.5" />
-                BANK TRANSFER
+                THANH TOÁN CHUYỂN KHOẢN
               </div>
               <h3 className="text-xl font-bold text-slate-800 mb-1">
-                Scan to Pay
+                Quét mã để thanh toán
               </h3>
-              <p className="text-sm text-slate-500">Order #{orderCode}</p>
+              <p className="text-sm text-slate-500">Mã đơn hàng #{orderCode}</p>
             </div>
 
             <div className="p-6 sm:p-8">
@@ -696,11 +696,11 @@ function BankTransferModal({
               {/* Bank details */}
               <div className="space-y-3 text-sm mb-6">
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-500">Bank</span>
+                  <span className="text-slate-500">Ngân hàng</span>
                   <strong className="text-slate-800">{BANK_ID}</strong>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-500">Account</span>
+                  <span className="text-slate-500">Số tài khoản</span>
                   <button
                     onClick={() => onCopy(BANK_ACCOUNT, "account")}
                     className="font-bold text-slate-800 flex items-center gap-1.5 hover:text-emerald-600 transition-colors"
@@ -714,7 +714,7 @@ function BankTransferModal({
                   </button>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-500">Name</span>
+                  <span className="text-slate-500">Tên tài khoản</span>
                   <strong className="text-slate-800">{BANK_NAME}</strong>
                 </div>
                 <div className="flex justify-between items-center bg-emerald-50 -mx-2 px-2 py-2 rounded-xl">
@@ -734,7 +734,7 @@ function BankTransferModal({
                   </button>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t border-slate-100">
-                  <span className="font-semibold text-slate-700">Amount</span>
+                  <span className="font-semibold text-slate-700">Số tiền</span>
                   <strong className="text-emerald-600 text-lg">
                     {formatVND(amount)}
                   </strong>
@@ -744,7 +744,7 @@ function BankTransferModal({
               {/* Waiting indicator */}
               <div className="flex items-center justify-center gap-2 text-sm text-slate-400 mb-5">
                 <Loader2 className="w-4 h-4 animate-spin text-emerald-500" />
-                Waiting for payment...
+                Chờ thanh toán...
               </div>
 
               {/* Action button */}
@@ -752,7 +752,7 @@ function BankTransferModal({
                 onClick={onClose}
                 className="w-full py-3.5 rounded-2xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-colors text-sm"
               >
-                Track My Order
+                Theo dõi đơn hàng
               </button>
             </div>
           </>
