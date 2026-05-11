@@ -26,7 +26,8 @@ export async function POST(req: Request) {
       });
     }
 
-    const orderCode = `FH${match[1]}`.toUpperCase();
+    const orderCode = match[1].toUpperCase();
+
     const supabase = await createSupabaseServerClient();
 
     const { data: orders, error: findError } = await (supabase as any)
