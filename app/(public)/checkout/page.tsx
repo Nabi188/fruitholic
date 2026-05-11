@@ -120,7 +120,6 @@ export default function CheckoutPage() {
 
       if (result.success && result.orderId) {
         isOrderPlaced.current = true;
-        // Capture total BEFORE clearing cart (clearCart empties store → totalAmount() would return 0)
         const capturedTotal = totalAmount();
         clearCart();
 
